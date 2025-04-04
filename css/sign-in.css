@@ -154,13 +154,13 @@ html, body {
   color: red;
 }
 
-.boton-login{
+.botoncuentas {
+  font-size: small;
   background-color: #FFC107;
+  color: black;
   width: 120px;
   height: 40px;
   margin: 12px;
-  border-radius: 20%;
-  border-color: #FFC107;
 }
 
 
@@ -205,3 +205,5 @@ footer {
 .footer-column a:hover {
   text-decoration: underline;
 }
+
+
