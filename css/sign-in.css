@@ -154,6 +154,14 @@ html, body {
   color: red;
 }
 
+.boton-login{
+  background-color: #FFC107;
+  width: 120px;
+  height: 40px;
+  margin: 12px;
+  border-radius: 20%;
+  border-color: #FFC107;
+}
 
 
 
