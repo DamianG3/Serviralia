@@ -92,7 +92,7 @@ CREATE FUNCTION CountWorkerReviewsBySkill(
 	worker BIGINT,
     skill INT
     ) 
-    
+
 RETURNS INT
 DETERMINISTIC
 

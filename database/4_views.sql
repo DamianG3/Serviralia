@@ -10,7 +10,7 @@ CREATE VIEW AllWorkers AS
 		CONCAT(Users.first_name, ' ', Users.last_name) AS Full_Name, -- Worker's full name
 		Users.pfp_file_name, 
 		(SELECT
-			JSON_ARRAYAGG(Skills.name_category) 
+			JSON_ARRAYAGG(Skills.skill_name) 
 		 FROM
 			Skills 
 		 JOIN
@@ -44,7 +44,7 @@ CREATE VIEW AllReviews AS
 		CONCAT(Users.first_name, ' ', Users.last_name) AS Username, -- Just first name to protect user privacy
 		Users.pfp_file_name, 
 		Reviews.date_created AS Date, 
-		Skills.name_category AS Skill, 
+		Skills.skill_name AS Skill, 
 		Reviews.rating, 
 		Reviews.review_txt AS Review,
         -- Subquery of the images attached in the review in JSON
@@ -81,7 +81,7 @@ CREATE VIEW WorkersInfoBySkill AS
 		RatingAverage(Workers.id_worker, WorkerSkills.id_skill) AS Rating, 
 		CountWorkerReviewsBySkill(Workers.id_worker, WorkerSkills.id_skill) AS Total_Reviews,
         (SELECT
-			JSON_ARRAYAGG(Skills.name_category) 
+			JSON_ARRAYAGG(Skills.skill_name) 
 		 FROM
 			Skills 
 		 JOIN
@@ -123,7 +123,7 @@ CREATE VIEW WorkersRatingSummary AS
 	SELECT 
 		WorkerSkills.id_worker, 
 		RatingAverage(WorkerSkills.id_worker, WorkerSkills.id_skill) AS Rating_Average, 
-		Skills.name_category AS Skill
+		Skills.skill_name AS Skill
 	FROM
 		WorkerSkills
 	JOIN

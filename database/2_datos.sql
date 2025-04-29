@@ -1,24 +1,24 @@
-INSERT INTO Users(email, phone, password_hash, first_name, last_name, date_created, pfp_file_name, date_of_birth) VALUES
-    ("user1@mail.com", "9988776651", "iv2X6EqNo2PQo32QKyjs", "Benjamín", "Barona", now(), "pfp1.jpg", "1970-12-12"),
-    ("user2@mail.com", "9988776652", "EV7vdbb4fps2gyJXiE35", "Roberto", "Castillo", now(), "pfp2.jpg", "1984-08-25"),
-    ("user3@mail.com", "9988776653", "9vxwgg78inUCE6vKFsaB", "Iván", "Chan", now(), "pfp3.jpg", "1977-05-21"),
-    ("user4@mail.com", "9988776654", "Y9e4Gdu2N3GuZTn6VS4d", "Andrés", "Chávez", now(), "pfp4.jpg", "1974-08-11"),
-    ("user5@mail.com", "9988776655", "o77bmv8AK87GyAxC94yz", "Emiliano", "De Luna", now(), "pfp5.jpg", "1999-02-14"),
-    ("user6@mail.com", "9988776656", "6ZZEd6YLv5riB5tXvmNH", "Jerónimo", "Gálvez", now(), "pfp6.jpg", "1995-10-15"),
-    ("user7@mail.com", "9988776657", "2wVhV8g2JsCazNfcJhfW", "Francisco", "García", now(), "pfp7.jpg", "1969-03-01"),
-    ("user8@mail.com", "9988776658", "jG64D5d4Z5GqM4S5yxEE", "Julián", "González", now(), "pfp8.jpg", "1978-12-04"),
-    ("user9@mail.com", "9988776659", "2k6PR3BrcwUTgs4n5G54", "Saúl", "Hernández", now(), "pfp9.jpg", "1986-01-22"),
-    ("user10@mail.com", "9988776641", "c9jdTH6N5hk2cApAtBx3", "Luis", "Lagos", now(), "pfp10.jpg", "1989-06-07"),
-    ("user11@mail.com", "9988776642", "FmA8a62VefrdcYV7sTei", "Swietenia", "Medina", now(), "pfp11.jpg", "1991-08-27"),
-    ("user12@mail.com", "9988776643", "xdoyd8m7tFW6Kr825GVZ", "Joel", "Jara", now(), "pfp12.jpg", "1970-02-20"),
-    ("user13@mail.com", "9988776644", "qRPC69uuMpPWkZT85PQc", "Karla", "Trejo", now(), "pfp13.jpg", "1998-03-30"),
-    ("user14@mail.com", "9988776645", "EJ4aevJW68n3NE9zJWpM", "Irving", "Tolosa", now(), "pfp14.jpg", "1995-07-18"),
-    ("user15@mail.com", "9988776646", "y75vAxKi4856JSS5N9tf", "Lilia", "Melchor", now(), "pfp15.jpg", "1981-12-30"),
-    ("user16@mail.com", "9988776647", "m68t56jQeriF966nwKe2", "Juan", "Sandoval", now(), "pfp16.jpg", "1983-04-04"),
-    ("user17@mail.com", "9988776648", "Sz75p9D6S4xdPvd5Ur3S", "Luz", "Velasco", now(), "pfp17.jpg", "1978-05-08"),
-    ("user18@mail.com", "9988776649", "G67T2F5teNZ4zMF2WBvQ", "Damian", "García", now(), "pfp18.jpg", "1974-01-29"),
-    ("user19@mail.com", "9988776631", "NZ4zMF2WBvQePvd5Ur3S", "Jennifer", "Chávez", now(), "pfp19.jpg", "1977-12-06"),
-    ("user20@mail.com", "9988776632", "W6Kr825GVZZ4zMF2WBvQ", "Antonio", "Menendez", now(), "pfp20.jpg", "1988-06-27");
+INSERT INTO Users(email, phone, password_hash, first_name, last_name, pfp_file_name, date_of_birth) VALUES
+    ("user1@mail.com", "9988776651", "iv2X6EqNo2PQo32QKyjs", "Benjamín", "Barona", "pfp1.jpg", "1970-12-12"),
+    ("user2@mail.com", "9988776652", "EV7vdbb4fps2gyJXiE35", "Roberto", "Castillo", "pfp2.jpg", "1984-08-25"),
+    ("user3@mail.com", "9988776653", "9vxwgg78inUCE6vKFsaB", "Iván", "Chan", "pfp3.jpg", "1977-05-21"),
+    ("user4@mail.com", "9988776654", "Y9e4Gdu2N3GuZTn6VS4d", "Andrés", "Chávez", "pfp4.jpg", "1974-08-11"),
+    ("user5@mail.com", "9988776655", "o77bmv8AK87GyAxC94yz", "Emiliano", "De Luna", "pfp5.jpg", "1999-02-14"),
+    ("user6@mail.com", "9988776656", "6ZZEd6YLv5riB5tXvmNH", "Jerónimo", "Gálvez", "pfp6.jpg", "1995-10-15"),
+    ("user7@mail.com", "9988776657", "2wVhV8g2JsCazNfcJhfW", "Francisco", "García", "pfp7.jpg", "1969-03-01"),
+    ("user8@mail.com", "9988776658", "jG64D5d4Z5GqM4S5yxEE", "Julián", "González", "pfp8.jpg", "1978-12-04"),
+    ("user9@mail.com", "9988776659", "2k6PR3BrcwUTgs4n5G54", "Saúl", "Hernández", "pfp9.jpg", "1986-01-22"),
+    ("user10@mail.com", "9988776641", "c9jdTH6N5hk2cApAtBx3", "Luis", "Lagos", "pfp10.jpg", "1989-06-07"),
+    ("user11@mail.com", "9988776642", "FmA8a62VefrdcYV7sTei", "Swietenia", "Medina", "pfp11.jpg", "1991-08-27"),
+    ("user12@mail.com", "9988776643", "xdoyd8m7tFW6Kr825GVZ", "Joel", "Jara", "pfp12.jpg", "1970-02-20"),
+    ("user13@mail.com", "9988776644", "qRPC69uuMpPWkZT85PQc", "Karla", "Trejo", "pfp13.jpg", "1998-03-30"),
+    ("user14@mail.com", "9988776645", "EJ4aevJW68n3NE9zJWpM", "Irving", "Tolosa", "pfp14.jpg", "1995-07-18"),
+    ("user15@mail.com", "9988776646", "y75vAxKi4856JSS5N9tf", "Lilia", "Melchor", "pfp15.jpg", "1981-12-30"),
+    ("user16@mail.com", "9988776647", "m68t56jQeriF966nwKe2", "Juan", "Sandoval", "pfp16.jpg", "1983-04-04"),
+    ("user17@mail.com", "9988776648", "Sz75p9D6S4xdPvd5Ur3S", "Luz", "Velasco", "pfp17.jpg", "1978-05-08"),
+    ("user18@mail.com", "9988776649", "G67T2F5teNZ4zMF2WBvQ", "Damian", "García", "pfp18.jpg", "1974-01-29"),
+    ("user19@mail.com", "9988776631", "NZ4zMF2WBvQePvd5Ur3S", "Jennifer", "Chávez", "pfp19.jpg", "1977-12-06"),
+    ("user20@mail.com", "9988776632", "W6Kr825GVZZ4zMF2WBvQ", "Antonio", "Menendez", "pfp20.jpg", "1988-06-27");
 
 INSERT INTO Workers(id_user, bio) VALUES
     (1, "Soy especialista en soluciones rápidas y preventivas para hogares. Con 8 años de experiencia, me formé en el Instituto Tecnológico de Cancún y me apasiona evitar futuras fugas con instalaciones de calidad. Ofrezco:
@@ -97,7 +97,7 @@ Especialidades:
 - Pintura de muebles y detalles arquitectónicos"),
     (18, "¡Hola! Soy cerrajero certificado con más de 8 años resolviendo emergencias en Cancún. Mi trabajo va más allá de abrir puertas: ofrezco soluciones de seguridad rápidas, discretas y sin daños para hogares, autos y negocios.");
 
-INSERT INTO Skills(name_category) VALUES
+INSERT INTO Skills(skill_name) VALUES
     ("Plomería"),
     ("Electricidad"),
     ("Limpieza"),
@@ -128,22 +128,22 @@ INSERT INTO WorkerSkills(id_worker, id_skill) VALUES
     (17, 6),
     (18, 6);
 
-INSERT INTO Reviews(id_worker, id_user, rating, review_txt, id_skill, date_created) VALUES
-    (16, 20, 4, "Buen trabajo pero llegó tarde.", 6, now()),
-    (13, 19, 1, "Terrible trabajo, arruinó mi casa.", 5, now()),
-    (5, 20, 4, "Solucionó todos los problemas.", 2, now()),
-    (12, 19, 2, "Trabajo mediocre.", 4, now()),
-    (2, 20, 5, "Excelente trabajo, arregló todo.", 1, now()),
-    (9, 19, 3, "La casa quedó limpia pero se le olvidó lavar el patio", 3, now()),
-    (2, 19, 3, "La limpieza fue buena pero dejó las cosas en desorden.", 3, now()),
-    (13, 20, 4, "Buen trabajo, puntual y excelente atención al cliente.", 6, now()),
-    (9, 19, 4, "Arregló todo lo que pedí a buen precio.", 6, now());
+INSERT INTO Reviews(id_worker, id_user, rating, review_txt, id_skill) VALUES
+    (16, 20, 4, "Buen trabajo pero llegó tarde.", 6),
+    (13, 19, 1, "Terrible trabajo, arruinó mi casa.", 5),
+    (5, 20, 4, "Solucionó todos los problemas.", 2),
+    (12, 19, 2, "Trabajo mediocre.", 4),
+    (2, 20, 5, "Excelente trabajo, arregló todo.", 1),
+    (9, 19, 3, "La casa quedó limpia pero se le olvidó lavar el patio", 3),
+    (2, 19, 3, "La limpieza fue buena pero dejó las cosas en desorden.", 3),
+    (13, 20, 4, "Buen trabajo, puntual y excelente atención al cliente.", 6),
+    (9, 19, 4, "Arregló todo lo que pedí a buen precio.", 6);
 
-INSERT INTO Leads(id_worker, id_user, title, details, date_created, is_archived) VALUES
-    (1, 19, "Contacto", "Requiero servicio de plomería", now(), 0),
-    (4, 19, "Cita", "Quiero agendar una cita la siguente semana", now(), 0),
-    (8, 20, "Contacto", "Quiero volver a contratarlo", now(), 1),
-    (10, 20, "Pregunta de horarios", "¿Qué horarios tiene libre esta semana?", now(), 1);
+INSERT INTO Leads(id_worker, id_user, title, details, is_archived) VALUES
+    (1, 19, "Contacto", "Requiero servicio de plomería", 0),
+    (4, 19, "Cita", "Quiero agendar una cita la siguente semana", 0),
+    (8, 20, "Contacto", "Quiero volver a contratarlo", 1),
+    (10, 20, "Pregunta de horarios", "¿Qué horarios tiene libre esta semana?", 1);
 
 INSERT INTO ReviewGallery(id_review, file_name) VALUES
     (1, "fotoTrabajo1.jpg"),
