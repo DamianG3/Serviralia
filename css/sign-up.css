@@ -83,11 +83,6 @@ html, body {
   height: 100%;
 }
 
-.p {
-  size: 40px;
-  background-color: aqua;
-}
-
 img {
   width: 75px;
   margin-bottom: 15px;
@@ -116,6 +111,12 @@ img {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .bd-placeholder-img {
@@ -178,9 +179,9 @@ img {
   font-size: small;
   background-color: #FFC107;
   color: black;
-  width: 120px;
+  width: 140px;
   height: 40px;
-  margin: 12px;
+  /* margin: 12px; */
 }
 
 
