@@ -98,10 +98,8 @@
                         <img src="img/icon.jpg" alt="Icon">
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="inputGroupFile02">
-                            <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                            <label class="input-group-text" for="inputGroupFile02">Subir</label>
                         </div>
-
-
 
                     </div>
                     <div class="col-md">
@@ -120,29 +118,60 @@
                                 required>
                             <label for="floatingPassword">Contraseña</label>
                         </div>
+
+                        <br>
+                        <p>Selecciona tus habilidades</p>
                         <div class="input-group">
                             <select class="form-select" id="inputGroupSelect04"
                                 aria-label="Example select with button addon">
-                                <option selected>Choose...</option>
+                                <option selected>Habilidades</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
                             </select>
-                            <button class="btn btn-outline-secondary" type="button">Button</button>
+                            <button class="btn btn-outline-secondary w-50" type="button">Seleccionar</button>
                         </div>
                     </div>
-
-                    <p>Biografía</p>
-                    <div class="form-floating">
-                        <input type="text" class="name form-control" id="floatingInput" placeholder="Biografia" required>
-                        <label for="floatingInput">Biografía etc etc</label>
+                </div>
+                <br>
+                <p>Biografía</p>
+                <div class="form-floating">
+                    <input type="text" class="name form-control" id="floatingInput"
+                        placeholder="Biografía del trabajador" required>
+                    <label for="floatingInput">Biografía del trabajador</label>
+                </div>
+                <br>
+                <p>Fotos para tu galería</p>
+                <div class="row g-3">
+                    <div class="col-md">
+                        <label for="file-upload" class="btn botoncuentas mt-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-paperclip" viewBox="0 0 16 16">
+                                <path
+                                    d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z" />
+                            </svg>Adjuntar foto
+                        </label>
+                        <input type="file" id="file-upload" style="display: none;">
                     </div>
-                    <p>Fotos para tu galería</p>
-                    <a href="#"><button class="btn botoncuentas mt-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
-                        <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
-                      </svg>Adjuntar foto</button></a>
+                    <div class="col-md">
+                        <div class="galeria">
+                            <div class="contenedor-imagen">
+                                <img src="img/image.png">
+                            </div>
+                            <div class="contenedor-imagen">
+                                <img src="img/image.png">
+                            </div>
+                            <div class="contenedor-imagen">
+                                <img src="img/image.png">
+                            </div>
+                            <div class="contenedor-imagen">
+                                <img src="img/image.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
-
+            <br>
             <div class="centro">
                 <button class="btn" type="submit">Registrar</button>
             </div>
