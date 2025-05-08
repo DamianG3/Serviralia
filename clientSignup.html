@@ -70,45 +70,58 @@
 
 
 
-    <!--REGISTRAR USUARIO-->
+    <!--REGISTRAR USUARIO CLIENTE-->
     <section class="d-flex justify-content-center align-items-center py-5">
         <main class="form-signin w-100 m-auto">
             <form id="login">
                 <h1 class="h3 mb-3 fw-normal">Crear cuenta de cliente</h1>
 
+                <div class="row g-3">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="name" class="correo_electronico form-control" id="floatingInput"
+                                placeholder="Nombre(s) completos" required>
+                            <label for="floatingInput">Nombre(s)</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="name" class="name form-control" id="floatingInput"
+                                placeholder="Apellidos Completo" required>
+                            <label for="floatingInput">Apellidos</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="date" class="form-control" id="floatingDate" placeholder="dd/mm/aaaa" required>
+                            <label for="floatingDate">Fecha de nacimiento</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="email" class="correo_electronico form-control" id="floatingInput"
+                                placeholder="name@example.com" required>
+                            <label for="floatingInput">Correo electrónico</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="name" class="form-control" id="floatingInput" placeholder="Number" required>
+                            <label for="floatingInput">Número de teléfono</label>
+                        </div>
 
-                <div class="form-floating">
-                    <input type="name" class="correo_electronico form-control" id="floatingInput"
-                        placeholder="Nombre(s) completos" required>
-                    <label for="floatingInput">Nombre(s)</label>
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                                required>
+                            <label for="floatingPassword">Contraseña</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-floating">
-                    <input type="name" class="name form-control" id="floatingInput" placeholder="Apellidos Completo"
-                        required>
-                    <label for="floatingInput">Apellidos</label>
-                </div>
-                <div class="form-floating">
-                    <input type="date" class="form-control" id="floatingDate" placeholder="dd/mm/aaaa" required>
-                    <label for="floatingDate">Fecha de nacimiento</label>
-                </div>
-                <div class="form-floating">
-                    <input type="email" class="correo_electronico form-control" id="floatingInput"
-                        placeholder="name@example.com" required>
-                    <label for="floatingInput">Correo electrónico</label>
-                </div>
-                <div class="form-floating">
-                    <input type="name" class="form-control" id="floatingInput" placeholder="Number" required>
-                    <label for="floatingInput">Número de teléfono</label>
-                </div>
-
-                <div class="form-floating">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
-                    <label for="floatingPassword">Contraseña</label>
-                </div>
-
-                <button class="btn w-100 py-2" type="submit">Registrar</button>
+                <br>
+                <h5>Foto de perfil</h5>
             </form>
-
+            <img src="img/icon.jpg" alt="Icon">
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="inputGroupFile02">
+                <label class="input-group-text" for="inputGroupFile02">Upload</label>
+              </div>
+            <div class="centro">
+                <button class="btn" type="submit">Registrar</button>
+            </div>
             <div id="error"></div>
         </main>
     </section>
