@@ -154,6 +154,19 @@
   color: white;
 }
 
+/* Contacto */
+.seccion-contacto {
+  background-color: #2A5C8C;
+  padding: 50px;
+  width: 100%;
+  color: white;
+}
+
+.form-group {
+  width: 40%;
+  margin-bottom: 10px;
+  margin-left: 30%;
+}
 
 
 /* FOOTER */
