@@ -1,9 +1,52 @@
 USE Serviralia;
 
--- ------------------------------------- ADD A BRAND NEW USER ------------------------------------------
+-- ------------------------------------- SEARCH FOR WORKERS WITH A SPECIFIC SKILL ------------------------------------------
+# This procedure searches for all workers who have a specific skill
+# Orders the results by relevance, considering their average rating and number of reviews.
+
+DROP PROCEDURE IF EXISTS SearchSkill;
+
+DELIMITER $$
+
+CREATE PROCEDURE SearchSkill(
+    IN in_skill_id INT
+)
+BEGIN
+
+	SELECT 
+		*, 
+        -- Relevance calculation
+        AVG(totalReviews) * AVG(rating) + (totalReviews * rating) / AVG(totalReviews) + totalReviews AS score 
+	FROM (SELECT -- Sub-querry to find the workers with the given skill
+        id_worker,
+		CONCAT(Users.first_name, ' ', Users.last_name) AS fullName, 
+		Users.pfp_file_name AS pfpFileName, 
+		get2WorkerImages(id_worker) AS gallery, -- Just shows two images
+		RatingAverage(id_worker, id_skill) AS rating, 
+		CountWorkerReviewsBySkill(id_worker, id_skill) AS totalReviews,
+		wokerSkillsJson(id_worker) AS skills
+		FROM
+			WorkerSkills
+		JOIN
+			Workers USING(id_worker)
+		JOIN
+			Users USING(id_user) 
+            WHERE 
+		id_skill = in_skill_id) as workerList
+    GROUP BY 
+		id_worker , fullName, pfpFileName, gallery, rating, totalReviews , skills
+    ORDER BY 
+		score DESC; -- To see highest rated first
+
+END $$
+DELIMITER ;
+
+-- CALL SearchSkill(6);
+
+
+-- ----------------------------------- ADD A BRAND NEW USER ------------------------------------------
 # Transaction that registers a brand new user into the Users table.
 # The input parameters request the user's account information.
-# The procedure uses the now() function to register the date of creation.
 
 DROP PROCEDURE IF EXISTS AddNewUser;
 
@@ -19,10 +62,14 @@ CREATE PROCEDURE AddNewUser(
     IN user_date_of_birth DATE
 )
 BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			ROLLBACK;
+			RESIGNAL;
+		END;
     START TRANSACTION;
     
     -- Inserts new user's information into the Users table
-
     INSERT INTO Users (
         email,
         phone,
@@ -30,7 +77,6 @@ BEGIN
         first_name,
         last_name,
         pfp_file_name,
-        date_created,
         date_of_birth
     )
     VALUES (
@@ -40,193 +86,372 @@ BEGIN
         user_first_name,
         user_last_name,
         user_pfp_file_name,
-        now(),
         user_date_of_birth
     );
     
     COMMIT;
 END $$
+DELIMITER ;
+
 
 -- Example
-CALL AddNewUser(
-	'nuevo',
-    'usuario',
-    'nuevo@mial.com',
-    'password',
-    'icon.jpg',
-    '12345678',
-    '2000-10-10')
+-- CALL AddNewUser(
+-- 	'nuevo',
+--     'usuario',
+--     'nuevo@mial.com',
+--     'password',
+--     'icon.jpg',
+--     '12345678',
+--     '2000-10-10');
 
--- ------------------------------------- ADD A NEW WORKER FROM EXISTING USER ------------------------------------------
-# Transaction that adds a new worker to the Workers table using an existing user's ID.
-# The input parameters request the worker's account information, including the ID of an existing skill.
-# All existing IDs in input parameters are verified, the transaction rolls back if if the parameter is not valid.
+-- ------------------------------------- ADD A NEW WORKER ------------------------------------------
+# Transaction that adds a new worker to the Workers table and a brand new user into the Users table.
+# The input parameters request the user's account information and the worker's account information.
+# All input parameters are verified, the transaction rolls back if the parameter is not valid.
 
 DROP PROCEDURE IF EXISTS AddNewWorker;
 
 DELIMITER $$
 
 CREATE PROCEDURE AddNewWorker(
-    IN existing_user_id BIGINT, 
+    IN user_first_name VARCHAR(100), 
+    IN user_last_name VARCHAR(100), 
+    IN user_email VARCHAR(254), 
+    IN user_password VARCHAR(72), 
+    IN user_pfp_file_name VARCHAR(100),
+    IN user_phone BIGINT,
+    IN user_date_of_birth DATE,
+
     IN worker_bio TEXT,
-    IN skill_id INT,
+    IN skill_ids JSON,
     IN worker_images JSON
 )
 BEGIN
     DECLARE new_worker_id BIGINT;
+    DECLARE new_user_id BIGINT;
+    
+    DECLARE length INT;
+    DECLARE i INT;
+    
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			ROLLBACK;
+			RESIGNAL;
+		END;
     START TRANSACTION;
     
-    -- Rollback if the user ID does not exist
-    
-    IF NOT EXISTS (
-        SELECT
-            1
-        FROM
-            Users
-        WHERE
-            id_user = existing_user_id)
-        THEN
-        ROLLBACK;
-			SIGNAL SQLSTATE '45000'
-			SET MESSAGE_TEXT = 'User ID does not exist';
-    END IF;
-    
+	-- Inserts new user's information into the Users table
+    INSERT INTO Users (
+        email,
+        phone,
+        password_hash,
+        first_name,
+        last_name,
+        pfp_file_name,
+        date_of_birth
+    )
+    VALUES (
+        user_email,
+        user_phone,
+        user_password,
+        user_first_name,
+        user_last_name,
+        user_pfp_file_name,
+        user_date_of_birth
+    );
+
+	-- Gets the new user ID
+    SET new_user_id = LAST_INSERT_ID();    
+
+    -- Inserts new worker's information into the Workers table
     INSERT INTO Workers (
         id_user,
         bio
     )
     VALUES (
-        existing_user_id, 
+        new_user_id, 
         worker_bio
     );
     
+	######## SKILL INSERT ########
+
+	-- Gets the new worker ID
     SET new_worker_id = LAST_INSERT_ID();
-    
-    -- Rollback if the skill ID does not exist
-    
-    IF NOT EXISTS (
-        SELECT
-            1
-        FROM
-            Skills
-        WHERE
-            id_skill = skill_id)
-        THEN
-        ROLLBACK;
+
+	SET length = JSON_LENGTH(skill_ids);
+    SET i = 0;
+        
+    add_skills: LOOP    
+		-- Rollback if the skill ID does not exist
+		IF NOT EXISTS (
+			SELECT
+				1
+			FROM
+				Skills
+			WHERE
+				id_skill = JSON_EXTRACT(skill_ids, CONCAT('$[', i, ']')))
+		THEN
 			SIGNAL SQLSTATE '45000'
 			SET MESSAGE_TEXT = 'Skill ID does not exist';
-    END IF;
+		END IF;
+        
+        -- Insert ID number `i` into WorkerSkills table
+		INSERT INTO WorkerSkills (
+			id_worker,
+			id_skill)
+		VALUES (
+			new_worker_id,
+			JSON_EXTRACT(skill_ids, CONCAT('$[', i, ']'))
+		);
+		
+		-- terminate the loop
+        SET i = i+1;
+		IF i = length THEN
+			LEAVE add_skills;
+		END IF;
+	END LOOP;
+	
     
-    -- Inserts worker's skill into the WorkerSkills table
-
-    INSERT INTO WorkerSkills (
-        id_worker,
-        id_skill
-    )
-    VALUES (
-        new_worker_id,
-        skill_id
-    );
+    ######## IMAGES INSERT ########
     
-    -- Inserts images in input parameters to the ReviewGallery table
-
-    INSERT INTO WorkerGallery (
-        id_worker,
-        file_name)
-
-    SELECT
-        new_worker_id,
-        JSON_UNQUOTE(
-            JSON_EXTRACT(
-                worker_images,
-                CONCAT(
-                    '$[', numbers.n, ']'
-                )
-            )
-        )
-
-    -- Index subquery to extract the right amount of elements in the JSON array (max. 5 images)
-
-    FROM
-    (SELECT 0 AS n UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4) numbers
-    
-    -- Filters out invalid elements in the JSON array
-
-    WHERE
-        JSON_LENGTH(worker_images) > numbers.n;
+	SET length = JSON_LENGTH(worker_images);
+    SET i = 0;
+        
+    add_images: LOOP
+		INSERT INTO WorkerGallery (
+			id_worker,
+			file_name)
+		VALUES (
+			new_worker_id,
+			JSON_EXTRACT(worker_images, CONCAT('$[', i, ']'))
+		);
+		
+		-- terminate the loop
+		SET i = i+1;
+		IF i = length THEN
+			LEAVE add_images;
+		END IF;
+	END LOOP;
 
     COMMIT;
 END $$
+DELIMITER ;
+
 
 -- Example
-CALL AddNewWorker(
-	21,
-    'new bio',
-    6,
-    '["fototrabajador21.jpg"]');
+-- CALL AddNewWorker(
+-- 	   'nameTest',
+--     'lastnameTest',
+--     'new9@mail.com',
+--     'password',
+--     null,
+--     '100009',
+--     '2000-10-10',
+--     
+--     'new bio',
+--     "[1,2,3,4,5,6]",
+-- 		'["1testPhoto3.jpg", "2testPhoto2.jpg", "3testPhoto2.jpg"]');
 
--- ------------------------------------- ADD A NEW SKILL TO EXISTING WORKER ------------------------------------------
-# Transaction that adds a new worker's skill to the WorkerSkills table using an existing worker's and skill's ID.
-# The input parameters request the worker's ID and the ID of an existing skill.
-# All existing IDs in input parameters are verified, the transaction rolls back if if the parameter is not valid.
+-- ------------------------------------- EDIT EXISTING USER ------------------------------------------
+# Transaction that updates all the columns in the User table, except the id_user column
+# The transaction rolls back if the parameter is not valid.
 
-DROP PROCEDURE IF EXISTS AddNewWorkerSkill;
+DROP PROCEDURE IF EXISTS EditUser;
 
 DELIMITER $$
 
-CREATE PROCEDURE AddNewWorkerSkill(
-    IN existing_worker_id BIGINT, 
-    IN skill_id INT
+CREATE PROCEDURE EditUser(
+    IN in_user_id VARCHAR(100),
+    IN user_first_name VARCHAR(100), 
+    IN user_last_name VARCHAR(100), 
+    IN user_email VARCHAR(254), 
+    IN user_password VARCHAR(72), 
+    IN user_pfp_file_name VARCHAR(100),
+    IN user_phone BIGINT,
+    IN user_date_of_birth DATE
 )
 BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			ROLLBACK;
+			RESIGNAL;
+		END;
     START TRANSACTION;
     
-    -- Rollback if the worker ID does not exist
-    
-    IF NOT EXISTS (
-        SELECT
-            1
-        FROM
-            Workers
-        WHERE
-            id_worker = existing_worker_id)
-        THEN
-        ROLLBACK;
-			SIGNAL SQLSTATE '45000'
-			SET MESSAGE_TEXT = 'Worker ID does not exist';
-    END IF;
-    
-    -- Rollback if the skill ID does not exist
-    
-    IF NOT EXISTS (
-        SELECT
-            1
-        FROM
-            Skills
-        WHERE
-            id_skill = skill_id)
-        THEN
-        ROLLBACK;
-			SIGNAL SQLSTATE '45000'
-			SET MESSAGE_TEXT = 'Skill ID does not exist';
-    END IF;
-    
-    -- Inserts worker's new skill into the WorkerSkills table
-
-    INSERT INTO WorkerSkills (
-        id_worker,
-        id_skill
-    )
-    VALUES (
-        existing_worker_id,
-        skill_id
-    );
+    -- Inserts the new user information
+	UPDATE Users 
+	SET 
+        first_name = user_first_name,
+        last_name = user_last_name,
+        email = user_email,
+        password_hash = user_password,
+        pfp_file_name = user_pfp_file_name,
+        phone = user_phone,
+        date_of_birth = user_date_of_birth
+	WHERE
+		id_user = in_user_id;
     
     COMMIT;
 END $$
+DELIMITER ;
 
 -- Example
-CALL AddNewWorkerSkill(19, 5);
+-- CALL EditUser(
+-- 	21,
+-- 	'nameTest',
+--     'lastnameTest',
+--     'new9@mail.com',
+--     'password',
+--     null,
+--     '100009',
+--     '2000-10-10');
+
+
+-- ------------------------------------- EDIT EXISTING WORKER ------------------------------------------
+# Transaction that updates all the columns in the Worker and User tables, 
+# Except the id_woker and id_user columns
+# Deletes all the records from the tables WorkerSkills and WorkerGallery
+# The transaction rolls back if the parameter is not valid.
+
+DROP PROCEDURE IF EXISTS EditWorker;
+
+DELIMITER $$
+
+CREATE PROCEDURE EditWorker(
+    IN in_user_id VARCHAR(100),
+    IN user_first_name VARCHAR(100), 
+    IN user_last_name VARCHAR(100), 
+    IN user_email VARCHAR(254), 
+    IN user_password VARCHAR(72), 
+    IN user_pfp_file_name VARCHAR(100),
+    IN user_phone BIGINT,
+    IN user_date_of_birth DATE,
+    
+	IN worker_bio TEXT,
+    IN skill_ids JSON,
+    IN worker_images JSON
+)
+BEGIN
+    DECLARE in_worker_id BIGINT;
+	DECLARE length INT;
+    DECLARE i INT;
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			ROLLBACK;
+			RESIGNAL;
+		END;
+    START TRANSACTION;
+    
+	-- Inserts the new user information
+	UPDATE Users 
+	SET 
+        first_name = user_first_name,
+        last_name = user_last_name,
+        email = user_email,
+        password_hash = user_password,
+        pfp_file_name = user_pfp_file_name,
+        phone = user_phone,
+        date_of_birth = user_date_of_birth
+	WHERE
+		id_user = in_user_id;
+    
+	-- Inserts the new worker information
+    UPDATE Workers
+    SET
+		bio = worker_bio
+	WHERE
+		id_user = in_user_id;
+        
+	-- Gets the corresponding worker_id
+	SELECT 
+		id_worker INTO in_worker_id
+    FROM 
+		Workers
+	WHERE
+		id_user = in_user_id;
+    
+    -- Deletes old data from the tables workerSkills and workerGallery
+    DELETE FROM workerSkills
+	WHERE id_worker = in_worker_id;
+    
+	DELETE FROM workerGallery
+	WHERE id_worker = in_worker_id;    
+	
+    ######## NEW SKILL INSERT ########
+
+	SET length = JSON_LENGTH(skill_ids);
+    SET i = 0;
+        
+    add_skills: LOOP    
+		-- Rollback if the skill ID does not exist
+		IF NOT EXISTS (
+			SELECT
+				1
+			FROM
+				Skills
+			WHERE
+				id_skill = JSON_EXTRACT(skill_ids, CONCAT('$[', i, ']')))
+		THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'Skill ID does not exist';
+		END IF;
+        
+        -- Insert ID number `i` into WorkerSkills table
+		INSERT INTO WorkerSkills (
+			id_worker,
+			id_skill)
+		VALUES (
+			in_worker_id,
+			JSON_EXTRACT(skill_ids, CONCAT('$[', i, ']'))
+		);
+		
+		-- terminate the loop
+        SET i = i+1;
+		IF i = length THEN
+			LEAVE add_skills;
+		END IF;
+	END LOOP;
+	
+    ######## NEW IMAGES INSERT ########
+    
+	SET length = JSON_LENGTH(worker_images);
+    SET i = 0;
+        
+    add_images: LOOP
+		INSERT INTO WorkerGallery (
+			id_worker,
+			file_name)
+		VALUES (
+			in_worker_id,
+			JSON_EXTRACT(worker_images, CONCAT('$[', i, ']'))
+		);
+		
+		-- terminate the loop
+		SET i = i+1;
+		IF i = length THEN
+			LEAVE add_images;
+		END IF;
+	END LOOP;
+    
+    COMMIT;
+END $$
+DELIMITER ;
+
+-- Example
+-- CALL EditWorker(
+-- 	21,
+-- 	'nombreEDIT2',
+--     'lastname EDIT2',
+--     'new1@EDIT2.com',
+--     'passwordEDIT2',
+--     null,
+--     '100001',
+--     '2000-10-10',
+--     
+--     'new bio EDIT2 EDIT2',
+--     "[4,5,6,7]",
+--     '["1testPhoto3.jpg", "2testPhoto2.jpg", "3testPhoto2.jpg"]');
 
 -- ------------------------------------- MAKE A REVIEW ------------------------------------------
 # Transaction that adds a new review to the Reviews table using an existing worker's and user's ID.
@@ -248,10 +473,17 @@ CREATE PROCEDURE AddReview(
 )
 BEGIN
     DECLARE new_review_id BIGINT;
+	DECLARE length INT;
+    DECLARE i INT;
+    
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			ROLLBACK;
+			RESIGNAL;
+		END;
     START TRANSACTION;
     
     -- Rollback if the worker ID does not exist
-
     IF NOT EXISTS (
         SELECT
             1
@@ -260,13 +492,11 @@ BEGIN
         WHERE
             id_worker = review_worker_id)
         THEN
-        ROLLBACK;
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Worker ID does not exist';
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'Worker ID does not exist';
     END IF;
     
     -- Rollback if the user ID does not exist
-
     IF NOT EXISTS (
         SELECT
             1
@@ -275,13 +505,11 @@ BEGIN
         WHERE
             id_user = review_user_id)
         THEN
-        ROLLBACK;
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'User ID does not exist';
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'User ID does not exist';
     END IF;
     
     -- Rollback if the skill ID does not exist
-
     IF NOT EXISTS (
         SELECT
             1
@@ -290,69 +518,63 @@ BEGIN
         WHERE
             id_skill = review_skill_id)
         THEN
-        ROLLBACK;
             SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Skill ID does not exist';
     END IF;
+    
     
     INSERT INTO Reviews (
         id_worker,
         id_user,
         rating,
         review_txt,
-        id_skill,
-        date_created
+        id_skill
     )
     VALUES (
         review_worker_id,
         review_user_id,
         review_rating,
         review_text,
-        review_skill_id,
-        NOW()
+        review_skill_id
     );
     
     SET new_review_id = LAST_INSERT_ID();
     
-    -- Inserts images in input parameters to the ReviewGallery table
+    -- Inserts images into the ReviewGallery table
 
-    INSERT INTO ReviewGallery (
-        id_review,
-        file_name
-    )
-    SELECT
-        new_review_id,
-        JSON_UNQUOTE(
-            JSON_EXTRACT(
-                review_images,
-                CONCAT(
-                    '$[', numbers.n, ']'
-                )
-            )
-        )
+	SET length = JSON_LENGTH(review_images);
+    SET i = 0;
+        
+    add_images: LOOP
+		INSERT INTO ReviewGallery (
+			id_review,
+			file_name)
+		VALUES (
+			new_review_id,
+			JSON_EXTRACT(review_images, CONCAT('$[', i, ']'))
+		);
+		
+		-- terminate the loop
+		SET i = i+1;
+		IF i = length THEN
+			LEAVE add_images;
+		END IF;
+	END LOOP;
 
-    -- Index subquery to extract the right amount of elements in the JSON array (max. 5 images)
-
-    FROM
-        (SELECT 0 AS n UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4) AS numbers
-    
-    -- Filters out invalid elements in the JSON array
-
-    WHERE
-        JSON_LENGTH(review_images) > numbers.n;
     
     COMMIT;
 END $$
+DELIMITER ;
 
 -- Example
-CALL AddReview(
-    1, 
-    20, 
-    3, 
-    'servicio medio', 
-    1,
-    '[]'
-)
+-- CALL AddReview(
+--     1,  -- worker
+--     20,  -- user
+--     3,  -- rating
+--     'Review Test',  -- text
+--     1, -- skill
+--     '["img1.png", "img2.png"]' -- images
+-- );
 
 -- ------------------------------------- MAKE A LEAD ------------------------------------------
 # Transaction that adds a new lead to the Leads table using an existing worker's and user's ID.
@@ -371,10 +593,14 @@ CREATE PROCEDURE AddLead(
     IN lead_details TEXT
 )
 BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			ROLLBACK;
+			RESIGNAL;
+		END;
     START TRANSACTION;
     
     -- Rollback if the worker ID does not exist
-
     IF NOT EXISTS (
         SELECT
             1
@@ -383,13 +609,11 @@ BEGIN
         WHERE
             id_worker = lead_worker_id)
         THEN
-        ROLLBACK;
             SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Worker ID does not exist';
     END IF;
     
     -- Rollback if the user ID does not exist
-
     IF NOT EXISTS (
         SELECT
             1
@@ -398,7 +622,6 @@ BEGIN
         WHERE
             id_user = lead_user_id)
         THEN
-        ROLLBACK;
             SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'User ID does not exist';
     END IF;
@@ -407,23 +630,23 @@ BEGIN
         id_worker,
         id_user,
         title,
-        details,
-        date_created
+        details
     )
     VALUES (
         lead_worker_id,
         lead_user_id,
         lead_title,
-        lead_details,
-        NOW()
+        lead_details
     );
     
     COMMIT;
 END $$
+DELIMITER ;
 
-CALL AddLead(
-    IN lead_worker_id BIGINT, 
-    IN lead_user_id BIGINT, 
-    IN lead_title VARCHAR(100), 
-    IN lead_details TEXT
-)
+-- Example
+-- CALL AddLead(
+--     1, -- worker_id
+--     20, -- user_id
+--     "title TEST",-- title
+--     "message TEST"-- details
+-- );

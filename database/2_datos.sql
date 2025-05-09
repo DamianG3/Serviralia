@@ -160,4 +160,5 @@ INSERT INTO WorkerGallery(id_worker, file_name) VALUES
     (2, "fotoTrabajador3"),
     (2, "fotoTrabajador4"),
     (3, "fotoTrabajador5"),
-    (3, "fotoTrabajador6");
+    (3, "fotoTrabajador6"),
+    (1, "fotoTrabajador7");

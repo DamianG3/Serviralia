@@ -6,32 +6,19 @@ USE Serviralia;
 DROP VIEW IF EXISTS AllWorkers;
 CREATE VIEW AllWorkers AS
 	SELECT 
-		Workers.id_worker, -- Worker's ID
-		CONCAT(Users.first_name, ' ', Users.last_name) AS Full_Name, -- Worker's full name
-		Users.pfp_file_name, 
-		(SELECT
-			JSON_ARRAYAGG(Skills.skill_name) 
-		 FROM
-			Skills 
-		 JOIN
-			WorkerSkills
-			ON Skills.id_skill = WorkerSkills.id_skill 
-		 WHERE
-			WorkerSkills.id_worker = Workers.id_worker) AS Skills,
-			GlobalRatingAverage(Workers.id_worker) AS Rating_Average,
-			CountWorkerReviews(Workers.id_worker) AS Total_Reviews,
-			Workers.bio AS Biography,
-		(SELECT
-			JSON_ARRAYAGG(file_name) 
-		 FROM
-			WorkerGallery 
-		 WHERE
-			id_worker = Workers.id_worker) AS Gallery
+		id_worker as id, -- Worker's ID
+		CONCAT(Users.first_name, ' ', Users.last_name) AS fullName, -- Worker's full name
+		Users.pfp_file_name as pfpFileName, 
+		Workers.bio AS biography,
+        
+		wokerSkillsJson(id_worker) AS skills,		
+		GlobalRatingAverage(id_worker) AS reviewAverage,
+		CountWorkerReviews(id_worker) AS totalReviews,
+        GetAllWorkerImages(id_worker) AS gallery
 	FROM
 		Workers
 	JOIN
-		Users
-		ON Workers.id_user = Users.id_user;
+		Users USING(id_user);
 
 -- ------------------------------------- VIEW OF ALL REVIEWS WRITTEN ------------------------------------------
 # Use: worker's profile in website. At the bottom of the profile is the review section, with all reviews and
@@ -40,66 +27,29 @@ CREATE VIEW AllWorkers AS
 DROP VIEW IF EXISTS AllReviews;
 CREATE VIEW AllReviews AS
 	SELECT 
-		Reviews.id_worker, 
-		CONCAT(Users.first_name, ' ', Users.last_name) AS Username, -- Just first name to protect user privacy
-		Users.pfp_file_name, 
-		Reviews.date_created AS Date, 
-		Skills.skill_name AS Skill, 
+		Reviews.id_worker AS id, 
+		Users.first_name AS username, -- Just first name to protect user privacy
+		Users.pfp_file_name AS pfpFileName, 
+		Reviews.date_created AS date, 
+		Skills.skill_name AS skill, 
 		Reviews.rating, 
-		Reviews.review_txt AS Review,
+		Reviews.review_txt AS review,
         -- Subquery of the images attached in the review in JSON
 		(SELECT
 			JSON_ARRAYAGG(file_name) 
 		 FROM
 			ReviewGallery 
 		 WHERE
-         id_review = Reviews.id_review) AS Gallery
+         id_review = Reviews.id_review) AS gallery
 	FROM
 		Reviews
 	JOIN
-		Users
-        ON Reviews.id_user = Users.id_user
+		Users USING(id_user)
 	JOIN
-		Skills
-        ON Reviews.id_skill = Skills.id_skill
+		Skills USING(id_skill)
 	ORDER BY
 		id_worker,
         Reviews.date_created DESC; -- To see recent reviews first
-
--- ------------------------------------- VIEW OF ALL WORKERS' INFORMATION SEPARATED BY SKILL ------------------------------------------
-
-# Use: website search page. The website's search page displays the worker's name, profile picture, 2 images of their work,
-# their rating average (of the skill searched), the amount of reviews they have gotten and a list of their skills.
-
-DROP VIEW IF EXISTS WorkersInfoBySkill;
-CREATE VIEW WorkersInfoBySkill AS
-	SELECT 
-		WorkerSkills.id_skill, 
-		CONCAT(Users.first_name, ' ', Users.last_name) AS Name, 
-		Users.pfp_file_name, 
-		get2WorkerImages(Workers.id_worker) AS Gallery, -- Just shows two images
-		RatingAverage(Workers.id_worker, WorkerSkills.id_skill) AS Rating, 
-		CountWorkerReviewsBySkill(Workers.id_worker, WorkerSkills.id_skill) AS Total_Reviews,
-        (SELECT
-			JSON_ARRAYAGG(Skills.skill_name) 
-		 FROM
-			Skills 
-		 JOIN
-			WorkerSkills
-			ON Skills.id_skill = WorkerSkills.id_skill 
-		 WHERE
-			WorkerSkills.id_worker = Workers.id_worker) AS All_Skills
-	FROM
-		WorkerSkills
-	JOIN
-		Workers
-        ON WorkerSkills.id_worker = Workers.id_worker
-	JOIN
-		Users
-        ON Workers.id_user = Users.id_user
-	ORDER BY
-		id_skill,
-        Rating DESC; -- To see highest rated first
 
 -- ------------------------------------- VIEW OF ALL WORKERS' RATING SUMMARY ------------------------------------------
 # Use: worker's profile in website. At the bottom of the profile is the review section, which starts with
@@ -111,9 +61,9 @@ CREATE VIEW WorkersRatingSummary AS
 	
     -- Selects global ratings of all workers
 	SELECT 
-		Workers.id_worker, 
-		GlobalRatingAverage(Workers.id_worker) AS Rating_Average, 
-		'General' AS Skill
+		Workers.id_worker AS id, 
+		GlobalRatingAverage(Workers.id_worker) AS rating, 
+		'General' AS skill
 	FROM
 		Workers
 	
@@ -121,14 +71,38 @@ CREATE VIEW WorkersRatingSummary AS
 	UNION ALL 
     
 	SELECT 
-		WorkerSkills.id_worker, 
-		RatingAverage(WorkerSkills.id_worker, WorkerSkills.id_skill) AS Rating_Average, 
-		Skills.skill_name AS Skill
+		WorkerSkills.id_worker AS ID, 
+		RatingAverage(WorkerSkills.id_worker, WorkerSkills.id_skill) AS rating, 
+		Skills.skill_name AS skill
 	FROM
 		WorkerSkills
 	JOIN
-		Skills
-        ON WorkerSkills.id_skill = Skills.id_skill;
+		Skills USING (id_skill);
+        
+-- ------------------------------------- VIEW OF ALL WORKERS' INFORMATION SEPARATED BY SKILL ------------------------------------------
+#DEPRECATED: This view does not order results by relevance. Use the SearchSkill() procedure instead.
+# Use: website search page. The website's search page displays the worker's name, profile picture, 2 images of their work,
+# their rating average (of the skill searched), the amount of reviews they have gotten and a list of their skills.
+
+DROP VIEW IF EXISTS WorkersInfoBySkill;
+CREATE VIEW WorkersInfoBySkill AS
+	SELECT 
+		WorkerSkills.id_skill, 
+		CONCAT(Users.first_name, ' ', Users.last_name) AS fullName, 
+		Users.pfp_file_name AS pfpFileName, 
+		get2WorkerImages(id_worker) AS gallery, -- Just shows two images
+		RatingAverage(id_worker, id_skill) AS rating, 
+		CountWorkerReviewsBySkill(id_worker, id_skill) AS totalReviews,
+		wokerSkillsJson(id_worker) AS skills
+	FROM
+		WorkerSkills
+	JOIN
+		Workers USING(id_worker)
+	JOIN
+		Users USING(id_user)
+	ORDER BY
+		id_skill,
+        Rating DESC; -- To see highest rated first
 
 -- ------------------------------------- VIEW OF ALL WORKERS' LEADS ------------------------------------------
 # Use: worker's lead history in website. Workers can access a page that displays all leads they have gotten
@@ -137,16 +111,58 @@ CREATE VIEW WorkersRatingSummary AS
 DROP VIEW IF EXISTS AllLeads;
 CREATE VIEW AllLeads AS
 	SELECT 
-		Leads.id_worker, 
-		CONCAT(Users.first_name, ' ', Users.last_name) AS Username, 
-		Users.pfp_file_name, 
-		Leads.date_created AS Date, 
-		Leads.title, 
-		Leads.details
+		id_worker, 
+		first_name AS username, -- Just first name to protect user privacy
+        email,
+        phone,
+		pfp_file_name AS pfpFileName, 
+		Leads.date_created AS date, 
+		title, 
+		details,
+        is_archived
 	FROM
 		Leads
 	JOIN
-		Users
-        ON Leads.id_user = Users.id_user
+		Users USING(id_user)
 	ORDER BY
-		id_worker;
+		id_worker,
+		Leads.date_created DESC; -- To see recent leads first
+
+-- ------------------------------------- VIEW OF ALL USER'S DATA  ------------------------------------------
+# Use: User's Edit Page. To see their current information an update it if necessary
+
+
+DROP VIEW IF EXISTS userData;
+CREATE VIEW userData AS
+	SELECT 
+		first_name AS firstName,
+		last_name AS lastName,
+		email,
+		phone,
+		date_of_birth AS birthDate,
+		pfp_file_name AS pfpFileName
+	FROM
+		Users;
+
+-- ------------------------------------- VIEW OF ALL WORKERS' DATA  ------------------------------------------
+# Use: Worker's Edit Page. To see their current information an update it if necessary
+
+DROP VIEW IF EXISTS workerData;
+CREATE VIEW workerData AS
+	SELECT 
+		first_name AS firstName,
+		last_name AS lastName,
+		email,
+		phone,
+		date_of_birth AS birthDate,
+		pfp_file_name AS pfpFileName,
+		
+		bio,
+		wokerSkillsJson(id_worker),
+		GetAllWorkerImages(id_worker)
+	FROM
+		Users
+	JOIN 
+		Workers USING(id_user);
+
+

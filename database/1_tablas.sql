@@ -17,7 +17,7 @@ CREATE TABLE Users(
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
   date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  pfp_file_name CHAR(100) NOT NULL,
+  pfp_file_name CHAR(100),
   date_of_birth DATE NOT NULL,
   is_active BOOLEAN NOT NULL DEFAULT '1', 
       -- deactivated accounts won't be removed from the table, is_active will be set to 0
