@@ -119,7 +119,7 @@ CREATE VIEW AllLeads AS
 		Leads.date_created AS date, 
 		title, 
 		details,
-        is_archived
+        is_archived as isArchived
 	FROM
 		Leads
 	JOIN
@@ -158,8 +158,8 @@ CREATE VIEW workerData AS
 		pfp_file_name AS pfpFileName,
 		
 		bio,
-		wokerSkillsJson(id_worker),
-		GetAllWorkerImages(id_worker)
+		wokerSkillsJson(id_worker) as skills,
+		GetAllWorkerImages(id_worker) as gallery
 	FROM
 		Users
 	JOIN 

@@ -223,7 +223,8 @@ BEGIN
 			file_name)
 		VALUES (
 			new_worker_id,
-			JSON_EXTRACT(worker_images, CONCAT('$[', i, ']'))
+            TRIM('"' FROM 
+			JSON_EXTRACT(worker_images, CONCAT('$[', i, ']')))
 		);
 		
 		-- terminate the loop
@@ -239,18 +240,18 @@ DELIMITER ;
 
 
 -- Example
--- CALL AddNewWorker(
--- 	   'nameTest',
---     'lastnameTest',
---     'new9@mail.com',
---     'password',
---     null,
---     '100009',
---     '2000-10-10',
---     
---     'new bio',
---     "[1,2,3,4,5,6]",
--- 		'["1testPhoto3.jpg", "2testPhoto2.jpg", "3testPhoto2.jpg"]');
+CALL AddNewWorker(
+	   'nameTest',
+    'lastnameTest',
+    'new1@mail.com',
+    'password',
+    null,
+    '100001',
+    '2000-10-10',
+    
+    'new bio',
+    "[1,2,3,4,5,6]",
+		'["1testPhoto1.jpg", "2testPhoto1.jpg", "3testPhoto1.jpg"]');
 
 -- ------------------------------------- EDIT EXISTING USER ------------------------------------------
 # Transaction that updates all the columns in the User table, except the id_user column
@@ -424,7 +425,8 @@ BEGIN
 			file_name)
 		VALUES (
 			in_worker_id,
-			JSON_EXTRACT(worker_images, CONCAT('$[', i, ']'))
+            TRIM('"' FROM 
+			JSON_EXTRACT(worker_images, CONCAT('$[', i, ']')))
 		);
 		
 		-- terminate the loop
@@ -551,7 +553,8 @@ BEGIN
 			file_name)
 		VALUES (
 			new_review_id,
-			JSON_EXTRACT(review_images, CONCAT('$[', i, ']'))
+            TRIM('"' FROM 
+			JSON_EXTRACT(review_images, CONCAT('$[', i, ']')))
 		);
 		
 		-- terminate the loop
