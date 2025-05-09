@@ -1,14 +1,14 @@
 import Footer from "../layout/Footer";
 import Header from "../layout/Header";
 
-function WorkerSignUp() {
+function WorkerEditProfile() {
     return (
         <>
         <Header/>
         <section className="d-flex justify-content-center align-items-center py-5">
-            <main className="form-signup w-100 m-auto">
+            <main className="form-signin w-100 m-auto">
                 <form id="login">
-                    <h1 className="h3 mb-3 fw-normal">Crear cuenta de trabajador</h1>
+                    <h1 className="h3 mb-3 fw-normal">Editar perfil</h1>
                     <div className="row g-3">
                         <div className="col-md">
                             <div className="form-floating">
@@ -117,7 +117,7 @@ function WorkerSignUp() {
                     <p>Fotos para tu galería</p>
                     <div className="row g-3">
                         <div className="col-md">
-                            <label htmlFor="file-upload" className="btn botonsubirfoto mt-2">
+                            <label htmlFor="file-upload" className="btn botoncuentas mt-2">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width={16}
@@ -152,7 +152,7 @@ function WorkerSignUp() {
                 </form>
                 <br />
                 <div className="centro">
-                    <button className="btn botonregistro" type="submit">
+                    <button className="btn" type="submit">
                         Registrar
                     </button>
                 </div>
@@ -164,4 +164,4 @@ function WorkerSignUp() {
     )
 }
 
-export default WorkerSignUp;
+export default WorkerEditProfile;

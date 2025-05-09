@@ -59,6 +59,12 @@
     background-color:#2A5C8C;
 }
 
+.centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .form-control{
     color:#2A5C8C;
 }
@@ -73,6 +79,12 @@
 html, body {
   height: 100%;
 }
+
+img {
+  width: 75px;
+  margin-bottom: 15px;
+}
+
 .d-flex{
   background-color: white;
 }
@@ -163,7 +175,61 @@ html, body {
   margin: 12px;
 }
 
+.botonsubirfoto {
+  font-size: small;
+  background-color: #FFC107;
+  color: black;
+  width: 140px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.botonregistro{
+    height: 40px;
+    width: 75%;
+    text-align: center;
+    color: white;
+    background-color:#2A5C8C;
+}
+
+.form-signup {
+  max-width: 630px;
+  padding: 1rem;
+}
+
+.galeria {
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 8px;
+  /* max-width: 400px; */
+}
+
+.contenedor-imagen {
+  /* position: relative; */
+  /* left: 0; */
+  width: 80px;
+  /* border-radius: 5px; */
+  height: 80px;
+  border-radius: 10px;
+  /* overflow: hidden; */
+  /* background-color: #efefef; */
+  /* transition: 0.4s ease-in-out; */
+  box-shadow: 0 5px 5px 0 rgb(0, 0, 0, 0.5);
+  /* flex: 0.25; */
+}
+
+.contenedor-imagen img {
+  height: 80px;
+  width: 80px;
+  border-radius: 10px;
+  /* object-fit: cover; */
+}
+
+.contenedor-imagen:hover {
+  border: 1px solid #777;
+}
 
                                 /* FOOTER */
 html, body {

@@ -1,14 +1,14 @@
 import Footer from "../layout/Footer"
 import Header from "../layout/Header"
 
-function ClientSignUp() {
+function ClientEditProfile() {
     return (
         <>
             <Header />
             <section className="d-flex justify-content-center align-items-center py-5">
-                <main className="form-signup w-100 m-auto">
+                <main className="form-signin w-100 m-auto">
                     <form id="login">
-                        <h1 className="h3 mb-3 fw-normal">Crear cuenta de cliente</h1>
+                        <h1 className="h3 mb-3 fw-normal">Editar perfil</h1>
                         <div className="row g-3">
                             <div className="col-md">
                                 <div className="form-floating">
@@ -86,7 +86,7 @@ function ClientSignUp() {
                         </label>
                     </div>
                     <div className="centro">
-                        <button className="btn botonregistro" type="submit">
+                        <button className="btn" type="submit">
                             Registrar
                         </button>
                     </div>
@@ -98,4 +98,4 @@ function ClientSignUp() {
     )
 }
 
-export default ClientSignUp
+export default ClientEditProfile
