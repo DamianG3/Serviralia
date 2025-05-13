@@ -8,7 +8,7 @@ function ClientEditProfile() {
         <>
             <Header />
             <section className="d-flex justify-content-center align-items-center py-5">
-                <main className="form-signin w-100 m-auto">
+                <main className="form-signup w-100 m-auto">
                     <form id="login">
                         <h1 className="h3 mb-3 fw-normal">Editar perfil</h1>
                         <div className="row g-3">
@@ -88,8 +88,8 @@ function ClientEditProfile() {
                         </label>
                     </div>
                     <div className="centro">
-                        <button className="btn" type="submit">
-                            Registrar
+                        <button className="btn botonregistro" type="submit">
+                            Actualizar perfil
                         </button>
                     </div>
                     <div id="error" />

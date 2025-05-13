@@ -54,3 +54,21 @@
   background-position: center;
   border-radius: 8px;
 }
+
+html, body {
+  height: 100%;
+}
+
+img {
+  width: 75px;
+  margin-bottom: 15px;
+}
+
+.d-flex{
+  background-color: white;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}

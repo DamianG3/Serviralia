@@ -64,17 +64,17 @@ function HeaderLogIn() {
                                     aria-labelledby="profileDropdown"
                                 >
                                     <li>
-                                        <a className="dropdown-item" href="perfiltrab.html">
+                                        <a className="dropdown-item" href="/WorkerProfile">
                                             Mi perfil
                                         </a>
                                     </li>
                                     <li>
-                                        <a className="dropdown-item" href="#">
+                                        <a className="dropdown-item" href="/WorkerEditProfile">
                                             Editar perfil
                                         </a>
                                     </li>
                                     <li>
-                                        <a className="dropdown-item" href="#">
+                                        <a className="dropdown-item" href="/Leads">
                                             Solicitudes (1)
                                         </a>
                                     </li>
@@ -82,7 +82,7 @@ function HeaderLogIn() {
                                         <hr className="dropdown-divider" />
                                     </li>
                                     <li>
-                                        <a className="dropdown-item text-danger" href="#">
+                                        <a className="dropdown-item text-danger" href="/">
                                             Cerrar sesión
                                         </a>
                                     </li>

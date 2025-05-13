@@ -7,8 +7,6 @@ import './css/Home.css'
 
 import './css/bootstrap.min.css'
 import './css/style.css'
-import './css/electricidad.css'
-import './css/perfiltrab.css'
 
 import Home from './pages/Home'
 import SignIn from './pages/SignIn'

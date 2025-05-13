@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import '../css/perfiltrab.css';
 import ReviewModal from "../components/ReviewModal";
+import HeaderLogIn from "../layout/HeaderLogIn";
 
 function WorkerProfile() {
 
@@ -32,7 +33,7 @@ function WorkerProfile() {
 
     return (
         <>
-            <Header />
+            <HeaderLogIn />
             <>
                 {/* MAIN*/}
                 {/* FOTOS Y PERFIL */}
