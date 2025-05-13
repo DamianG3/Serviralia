@@ -1,5 +1,7 @@
+import '../css/headerLogIn.css'
+
 function HeaderLogIn() {
-    
+
     return (
         <header>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
