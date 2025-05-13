@@ -6,7 +6,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './css/Home.css'
 
 import './css/bootstrap.min.css'
-import './css/style.css'
 
 import Home from './pages/Home'
 import SignIn from './pages/SignIn'

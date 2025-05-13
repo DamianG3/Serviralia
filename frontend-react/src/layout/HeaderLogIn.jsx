@@ -7,7 +7,7 @@ function HeaderLogIn() {
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
                     <img src="img/logo.png" width={50} />
-                    <a className="navbar-brand" href="index.html">
+                    <a className="navbar-brand" href="/">
                         Serviralia Cancún
                     </a>
                     <button
@@ -53,9 +53,7 @@ function HeaderLogIn() {
                                 >
                                     <img
                                         src="img/pers1.jpg"
-                                        width={32}
-                                        height={32}
-                                        className="rounded-circle me-2"
+                                        className="icon-image"
                                     />
                                     <span>Alejandro M.</span>
                                 </a>

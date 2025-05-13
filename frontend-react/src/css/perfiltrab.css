@@ -42,6 +42,8 @@
 }
 
 .service-image {
+  width: 100%;
+  height: auto;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
@@ -60,8 +62,8 @@
   color: white;
   border: none;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 42px;
+  /* height: px; */
   margin: 0 5px;
   cursor: pointer;
 }
@@ -113,6 +115,7 @@
   color: white;
   border: none;
   padding: 5px 15px;
+  margin-right: 10px;
   border-radius: 5px;
 }
 
