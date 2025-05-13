@@ -1,164 +1,265 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/perfiltrab.css">
-  <title>Perfil del trabajador</title>
-</head>
-<body>
-  <!-- NAVBAR -->
-  <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <img src="img/logo.png" width="50">
-        <a class="navbar-brand" href="index.html">Serviralia Cancún</a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="Singin.html">Iniciar Sesión</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
-                  viewBox="0 0 16 16">
-                  <path fill-rule="evenodd"
-                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
-                </svg>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end horizontal-dropdown" aria-labelledby="searchDropdown">
-                <li><a href="electricidad.html"><button class="dropdown-item"
-                      style="background-image: url('img/electricista-DD.jpg');">Electricidad</button></a></li>
-                <li><a href="plomeria.html"><button class="dropdown-item"
-                      style="background-image: url('img/plomeria-DD.jpeg');">Plomería</button></a></li>
-                <li><a href="mecanica.html"><button class="dropdown-item"
-                      style="background-image: url('img/mecanica-DD.jpg');">Mecánica</button></a></li>
-                <li><a href="construccion.html"><button class="dropdown-item"
-                      style="background-image: url('img/Construccion-DD.jpg');">Construcción</button></a></li>
-                <li><a href="jardineria.html"><button class="dropdown-item"
-                      style="background-image: url('img/jardin-DD.jpg');">Jardinería</button></a></li>
-                <li><a href="#"><button class="dropdown-item"
-                      style="background-image: url('img/otros.png');">Otros</button></a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  
-  <main>  
-  <div class="profile-container">
-   <!--imagen-->
-    <div class="image-section">
-      <div class="image-wrapper">
-        <img src="img/plom1.jpg" class="service-image" id="serviceImage" alt="Trabajo de Alejandro Mendoza">
-        <div class="nav-buttons">
-          <button class="nav-btn" onclick="changeImage(-1)">←</button>
-          <button class="nav-btn" onclick="changeImage(1)">→</button>
-        </div>
-      </div>
-    </div>
-    <!--el contenido-->
-    <div class="col-md-4 mb-4 p-4">
-      <div class="trabajador-fondo p-3">
-        <div class="row align-items-center mb-4">
-          <div class="col-auto">
-            <a href="perfiltrab.html"><img src="img/pers1.jpg" class="rounded-circle foto-trab" alt="Foto del trabajador"></a>
-          </div>
-          <div class="col">
-            <h5 class="mb-1">Alejandro Mendoza</h5>
-            <div class="d-flex align-items-center">
-              <div class="rating-stars">
-                <span class="text-warning">★</span>
-                <span class="text-warning">★</span>
-                <span class="text-warning">★</span>
-                <span class="text-warning">★</span>
-                <span class="text-warning">★</span>
-              </div>
-              <span class="ms-2 text-muted">4.7</span>
-            </div>
-            <span class="ms-2 text-muted">(85 reseñas)</span>
-          </div>
-          <div class="col-12 mt-2">
-            <button class="btn botonplom">Plomería</button>
-          </div>
-        </div>
-      
-      <p>Soy especialista en soluciones rápidas y preventivas para hogares. Con 8 años de experiencia, me formé en el Instituto Tecnológico de Cancún y me apasiona evitar futuras fugas con instalaciones de calidad. Ofrezco:</p>
-      
-      <ul class="servicios-lista">
-        <li>Servicios urgentes (24/7 para fugas y taponamientos)</li>
-        <li>Instalación de tinacos y sistemas de agua con materiales anticorrosivos</li>
-        <li>Mantenimiento preventivo para condominios</li>
-      </ul>
-      
-      <div class="precios">
-        <strong>Precios claros:</strong><br>
-        300 por visita diagnóstica, 500 por destapado estándar, y presupuestos personalizados sin costo.
-      </div>
-      
-      <p class="frase">¡Trabajo con factura y garantía por escrito!</p>
-    </div>
-  </div>
-</main>
+/* ESTILOS GENERALES */
+* {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 
+/* PERFIL DEL TRABAJADOR */
+.profile-container {
+  max-width: 90%;
+  margin: 30px auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-container">
-      <div class="footer-column">
-        <p><strong>Serviralia Cancún</strong></p>
-        <p><a href="mailto:serviralia.mx@gmail.com">serviralia.mx@gmail.com</a></p>
-      </div>
-      <div class="footer-column">
-        <p><a href="#">Quiero publicarme</a> | <a href="#">Términos y condiciones</a></p>
-        <p>Copyright © 2025 Serviralia. All Rights Reserved.</p>
-      </div>
-      <div class="footer-column">
-        <p><strong>Síguenos</strong></p>
-        <a href="#">Facebook</a>
-        <a href="#">Instagram</a>
-        <a href="#">Tik Tok</a>
-      </div>
-    </div>
-  </footer>
+/* Sección de imágenes */
+.image-section {
+  width: 50%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-wrapper {
+  width: 80%;
+  aspect-ratio: 1/1;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.service-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.nav-buttons {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.nav-btn {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+/* Información del trabajador */
+.content-section {
+  width: 50%;
+  padding: 30px;
+}
+
+.foto-trab {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.perfil-nombre {
+  margin: 0;
+  font-size: 24px;
+  color: #222;
+}
+
+.servicios-lista {
+  padding-left: 20px;
+  margin: 15px 0;
+}
+
+.servicios-lista li {
+  margin-bottom: 8px;
+}
+
+.precios {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 15px;
+}
+
+.frase {
+  font-style: italic;
+  color: #555;
+}
+
+.botonplom {
+  font-size: small;
+  background-color: #464B4E;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
 
 
-<!--USANDO JAVASCRIPT PARA EL CAMBIO DE LAS IMAGENESSS-->
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script>
-    
-    const serviceImages = [
-      'img/plom1.jpg',
-      'img/plom2.jpg',
-      'img/elec1.jpg'
-    ];
-    
-    let currentImageIndex = 0;
-    const serviceImageElement = document.getElementById('serviceImage');
-    
-    function changeImage(direction) {
-      currentImageIndex += direction;
-      
-      if (currentImageIndex >= serviceImages.length) {
-        currentImageIndex = 0;
-      } else if (currentImageIndex < 0) {
-        currentImageIndex = serviceImages.length - 1;
-      }
-      
-      serviceImageElement.src = serviceImages[currentImageIndex];
-    }
-  </script>
-</body>
-</html>
+
+/* SECCIÓN DE CONTACTO */
+.seccion-contacto {
+  background-color: #2A5C8C;
+  padding: 50px;
+  width: 100%;
+  color: white;
+}
+
+.form-group {
+  width: 40%;
+  margin-bottom: 10px;
+  margin-left: 30%;
+}
+
+.Contactar {
+  color: white;
+}
+
+
+
+/* SECCIÓN DE RESEÑAS */
+.reseñas-section {
+  background-color: #ffffff;
+  width: 100%;
+}
+
+.reseñas-section h2 {
+  color: #020101;
+  text-align: center;
+}
+
+/* Tarjetas de reseñas */
+.review-card {
+  background-color: #f8f9fa;
+  border-radius: 30px;
+  padding: 25px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.review-content p {
+  color: #555;
+  line-height: 1.6;
+}
+
+.rating-stars {
+  color: #FFC107;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  margin: 8px 0;
+}
+
+/* Resumen de calificaciones */
+.rating-summary-card {
+  background-color: white;
+  border-radius: 30px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.category-rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+}
+
+
+
+/* MODAL DE RESEÑAS */
+.modal-content {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.rating-stars-input {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.rating-stars-input input {
+  display: none;
+}
+
+.rating-stars-input label {
+  font-size: 2rem;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.rating-stars-input input:checked ~ label,
+.rating-stars-input input:hover ~ label,
+.rating-stars-input label:hover,
+.rating-stars-input label:hover ~ label {
+  color: #FFC107;
+}
+
+.btn-primary {
+  background-color: #2A5C8C;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #1e4a7b;
+}
+
+
+/* NEW */
+.star-rating {
+          font-size: 0;
+        }
+        .star-rating button {
+          background: none;
+          border: none;
+          padding: 0;
+          margin-right: 5px;
+          cursor: pointer;
+        }
+        .star-rating .star {
+          font-size: 30px;
+        }
+        .star-rating .on .star {
+          color: #FFC107;
+        }
+        .star-rating .off .star {
+          color: #ccc;
+        }

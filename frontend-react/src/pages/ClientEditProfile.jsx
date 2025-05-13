@@ -1,6 +1,8 @@
 import Footer from "../layout/Footer"
 import Header from "../layout/Header"
 
+import '../css/sign-in.css'
+
 function ClientEditProfile() {
     return (
         <>

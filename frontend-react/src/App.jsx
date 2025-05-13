@@ -7,9 +7,8 @@ import './css/Home.css'
 
 import './css/bootstrap.min.css'
 import './css/style.css'
-import './css/sign-in.css'
-// import './css/sign-up.css'
 import './css/electricidad.css'
+import './css/perfiltrab.css'
 
 import Home from './pages/Home'
 import SignIn from './pages/SignIn'
@@ -18,6 +17,7 @@ import ClientSignUp from './pages/ClientSignUp'
 import WorkerEditProfile from './pages/WorkerEditProfile'
 import ClientEditProfile from './pages/ClientEditProfile'
 import SkillSearch from './pages/SkillSearch'
+import WorkerProfile from './pages/WorkerProfile'
 
 function App() {
   return (
@@ -31,6 +31,7 @@ function App() {
           <Route path='/WorkerEditProfile' element = {<WorkerEditProfile />} />
           <Route path='/ClientEditProfile' element = {<ClientEditProfile />} />
           <Route path='/SkillSearch' element = {<SkillSearch />} />
+          <Route path='/WorkerProfile' element = {<WorkerProfile />} />
         </Routes>
       </BrowserRouter>
     </>
