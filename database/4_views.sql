@@ -111,7 +111,8 @@ CREATE VIEW WorkersInfoBySkill AS
 DROP VIEW IF EXISTS AllLeads;
 CREATE VIEW AllLeads AS
 	SELECT 
-		id_worker, 
+		id_worker AS id, 
+        id_lead AS idLead, 
 		first_name AS username, -- Just first name to protect user privacy
         email,
         phone,

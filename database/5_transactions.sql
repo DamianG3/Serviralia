@@ -214,25 +214,27 @@ BEGIN
     
     ######## IMAGES INSERT ########
     
-	SET length = JSON_LENGTH(worker_images);
-    SET i = 0;
-        
-    add_images: LOOP
-		INSERT INTO WorkerGallery (
-			id_worker,
-			file_name)
-		VALUES (
-			new_worker_id,
-            TRIM('"' FROM 
-			JSON_EXTRACT(worker_images, CONCAT('$[', i, ']')))
-		);
-		
-		-- terminate the loop
-		SET i = i+1;
-		IF i = length THEN
-			LEAVE add_images;
-		END IF;
-	END LOOP;
+	IF (worker_images IS NOT NULL) THEN -- Checks if there are any images to be added		    
+		SET length = JSON_LENGTH(worker_images);
+		SET i = 0;
+			
+		add_images: LOOP
+			INSERT INTO WorkerGallery (
+				id_worker,
+				file_name)
+			VALUES (
+				new_worker_id,
+				TRIM('"' FROM 
+				JSON_EXTRACT(worker_images, CONCAT('$[', i, ']')))
+			);
+			
+			-- terminate the loop
+			SET i = i+1;
+			IF i = length THEN
+				LEAVE add_images;
+			END IF;
+		END LOOP;
+	END IF;
 
     COMMIT;
 END $$
@@ -543,27 +545,29 @@ BEGIN
     SET new_review_id = LAST_INSERT_ID();
     
     -- Inserts images into the ReviewGallery table
-
-	SET length = JSON_LENGTH(review_images);
-    SET i = 0;
-        
-    add_images: LOOP
-		INSERT INTO ReviewGallery (
-			id_review,
-			file_name)
-		VALUES (
-			new_review_id,
-            TRIM('"' FROM 
-			JSON_EXTRACT(review_images, CONCAT('$[', i, ']')))
-		);
-		
-		-- terminate the loop
-		SET i = i+1;
-		IF i = length THEN
-			LEAVE add_images;
-		END IF;
-	END LOOP;
-
+	
+    
+    IF (review_images IS NOT NULL) THEN -- Checks if there are any images to be added		
+		SET length = JSON_LENGTH(review_images);
+		SET i = 0;
+			
+		add_images: LOOP
+			INSERT INTO ReviewGallery (
+				id_review,
+				file_name)
+			VALUES (
+				new_review_id,
+				TRIM('"' FROM 
+				JSON_EXTRACT(review_images, CONCAT('$[', i, ']')))
+			);
+			
+			-- terminate the loop
+			SET i = i+1;
+			IF i = length THEN
+				LEAVE add_images;
+			END IF;
+		END LOOP;
+    END IF;
     
     COMMIT;
 END $$
@@ -652,4 +656,56 @@ DELIMITER ;
 --     20, -- user_id
 --     "title TEST",-- title
 --     "message TEST"-- details
+-- );
+
+-- ------------------------------------- UPDATE ARCHIVE LEAD ------------------------------------------
+# This transaction updates the is_archived status of a lead based on the provided input.
+# The existing lead ID in the input parameters is verified; the transaction rolls back if it is not valid.
+
+DROP PROCEDURE IF EXISTS updateArchivedLead;
+
+DELIMITER $$
+
+CREATE PROCEDURE updateArchivedLead(
+    IN lead_id BIGINT, 
+    IN archive_flag BOOLEAN
+)
+BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			ROLLBACK;
+			RESIGNAL;
+		END;
+    START TRANSACTION;
+    
+    -- Rollback if the lead ID does not exist
+    IF NOT EXISTS (
+        SELECT
+            1
+        FROM
+            Leads
+        WHERE
+            id_lead = lead_id)
+        THEN
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Lead ID does not exist';
+    END IF;
+    
+    -- Updates the state of the lead
+	UPDATE Leads
+	SET is_archived = archive_flag
+	WHERE id_lead = lead_id;
+    
+    -- Returns all the leads from the corresponding worker
+    SELECT * FROM AllLeads WHERE id = (
+		SELECT id_worker FROM Leads WHERE id_lead = lead_id);
+    
+    COMMIT;
+END $$
+DELIMITER ;
+
+-- Example
+-- CALL updateArchivedLead(
+--     1, -- lead_id
+--     0 -- archive_flag
 -- );
