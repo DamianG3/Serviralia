@@ -1,8 +1,8 @@
 import Footer from "../layout/Footer";
-import Header from "../layout/Header";
+import HeaderClient from "../layout/HeaderClient";import Header from "../layout/Header";
 
 import '../css/electricidad.css'
-import HeaderClient from "../layout/HeaderClient";
+
 
 function SkillSearch() {
     return (

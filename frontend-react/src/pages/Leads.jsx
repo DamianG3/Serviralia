@@ -14,7 +14,7 @@ function Leads() {
             nombre: "Maria",
             email: "maria.gonzales@gmail.com",
             telefono: "9981234567",
-            fecha: "6 de Mayo",
+            date_created: "6 de Mayo",
             pfp: "img/pers11.jpg",
             title: "Reparación de fuga de tubería bajo lavabo",
             details: "Hola, tengo una fuga de agua en la tubería del lavabo de mi baño principal. El agua gotea constantemente y ya intenté ajustar las conexiones, pero persiste. Necesito que un plomero revise y repare la tubería. Preferiría que el servicio fuera este viernes por la mañana (10 am a 2 pm). El lavabo es de porcelana y las tuberías son de PVC. ¡Gracias!"
@@ -25,7 +25,7 @@ function Leads() {
             nombre: "Sergio",
             email: "sergio@gmail.com",
             telefono: "9987654321",
-            fecha: "10 de Abril",
+            date_created: "10 de Abril",
             pfp: "img/pers12.jpg",
             title: "Destapar drenaje de la cocina con obstrucción grave",
             details: "Buen día, el drenaje de mi cocina está completamente tapado desde ayer. Ya intenté usar desatascador y soda cáustica, pero no funcionó. El agua ya no baja y hay mal olor. Necesito un plomero con herramienta profesional (como hidrojet o serpentina) para destaparlo. La tubería es de PVC y tiene aproximadamente 3 años de instalación. Preferiría el servicio hoy o mañana en la tarde (después de 4 pm). ¡Agradezco su ayuda!"
@@ -36,7 +36,7 @@ function Leads() {
             nombre: "Ana",
             email: "ana.banana@gmail.com",
             telefono: "9988765432",
-            fecha: "15 de Enero",
+            date_created: "15 de Enero",
             pfp: "img/pers10.jpg",
             title: "Cambio de válvula del paso de agua general (está goteando)",
             details: "Hola, tengo una fuga de agua en la tubería del lavabo de mi baño principal. El agua gotea constantemente y ya intenté ajustar las conexiones, pero persiste. Necesito que un plomero revise y repare la tubería. Preferiría que el servicio fuera este viernes por la mañana (10 am a 2 pm). El lavabo es de porcelana y las tuberías son de PVC. ¡Gracias!"
@@ -94,7 +94,7 @@ function Leads() {
                                                         <span className="d-block text-muted">{solicitud.email}</span>
                                                         <span className="d-block text-muted">{solicitud.telefono}</span>
                                                         <br />
-                                                        <span className="d-block text-muted">{solicitud.fecha}</span>
+                                                        <span className="d-block text-muted">{solicitud.date_created}</span>
                                                         <button
                                                             className="btn btn-archivar mt-2"
                                                             onClick={() => toggleArchivada(solicitud.id)}
@@ -138,7 +138,7 @@ function Leads() {
                                                         <span className="d-block text-muted">{solicitud.email}</span>
                                                         <span className="d-block text-muted">{solicitud.telefono}</span>
                                                         <br />
-                                                        <span className="d-block text-muted">{solicitud.fecha}</span>
+                                                        <span className="d-block text-muted">{solicitud.date_created}</span>
                                                         <button
                                                             className="btn btn-desarchivar mt-2"
                                                             onClick={() => toggleArchivada(solicitud.id)}
