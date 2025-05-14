@@ -115,7 +115,7 @@ function HeaderLogIn() {
                                     aria-labelledby="searchDropdown"
                                 >
                                     <li>
-                                        <a href="electricidad.html">
+                                        <a href="/SkillSearch">
                                             <button
                                                 className="dropdown-item"
                                                 style={{
@@ -127,7 +127,7 @@ function HeaderLogIn() {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="plomeria.html">
+                                        <a href="/SkillSearch">
                                             <button
                                                 className="dropdown-item"
                                                 style={{ backgroundImage: 'url("img/plomeria-DD.jpeg")' }}
@@ -137,7 +137,7 @@ function HeaderLogIn() {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="mecanica.html">
+                                        <a href="/SkillSearch">
                                             <button
                                                 className="dropdown-item"
                                                 style={{ backgroundImage: 'url("img/mecanica-DD.jpg")' }}
@@ -147,7 +147,7 @@ function HeaderLogIn() {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="construccion.html">
+                                        <a href="/SkillSearch">
                                             <button
                                                 className="dropdown-item"
                                                 style={{
@@ -159,7 +159,7 @@ function HeaderLogIn() {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="jardineria.html">
+                                        <a href="/SkillSearch">
                                             <button
                                                 className="dropdown-item"
                                                 style={{ backgroundImage: 'url("img/jardin-DD.jpg")' }}

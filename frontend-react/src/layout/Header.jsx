@@ -65,7 +65,7 @@ function Header() {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="plomeria.html">
+                                        <a href="/SkillSearch">
                                             <button
                                                 className="dropdown-item"
                                                 style={{ backgroundImage: 'url("/img/plomeria-DD.jpeg")' }}

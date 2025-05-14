@@ -43,12 +43,7 @@ function HeaderClient() {
                                     aria-labelledby="profileDropdown"
                                 >
                                     <li>
-                                        <a className="dropdown-item" href="perfiltrab.html">
-                                            Mi perfil
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="dropdown-item" href="#">
+                                        <a className="dropdown-item" href="/ClientEditProfile">
                                             Editar perfil
                                         </a>
                                     </li>
@@ -56,7 +51,7 @@ function HeaderClient() {
                                         <hr className="dropdown-divider" />
                                     </li>
                                     <li>
-                                        <a className="dropdown-item text-danger" href="#">
+                                        <a className="dropdown-item text-danger" href="/">
                                             Cerrar sesión
                                         </a>
                                     </li>
@@ -91,7 +86,7 @@ function HeaderClient() {
                                     aria-labelledby="searchDropdown"
                                 >
                                     <li>
-                                        <a href="electricidad.html">
+                                        <a href="/SkillSearch">
                                             <button
                                                 className="dropdown-item"
                                                 style={{
@@ -103,7 +98,7 @@ function HeaderClient() {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="plomeria.html">
+                                        <a href="/SkillSearch">
                                             <button
                                                 className="dropdown-item"
                                                 style={{ backgroundImage: 'url("img/plomeria-DD.jpeg")' }}
@@ -113,7 +108,7 @@ function HeaderClient() {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="mecanica.html">
+                                        <a href="/SkillSearch">
                                             <button
                                                 className="dropdown-item"
                                                 style={{ backgroundImage: 'url("img/mecanica-DD.jpg")' }}
@@ -123,7 +118,7 @@ function HeaderClient() {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="construccion.html">
+                                        <a href="/SkillSearch">
                                             <button
                                                 className="dropdown-item"
                                                 style={{
@@ -135,7 +130,7 @@ function HeaderClient() {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="jardineria.html">
+                                        <a href="/SkillSearch">
                                             <button
                                                 className="dropdown-item"
                                                 style={{ backgroundImage: 'url("img/jardin-DD.jpg")' }}
