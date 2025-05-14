@@ -15,6 +15,7 @@ import WorkerEditProfile from './pages/WorkerEditProfile'
 import ClientEditProfile from './pages/ClientEditProfile'
 import SkillSearch from './pages/SkillSearch'
 import WorkerProfile from './pages/WorkerProfile'
+import Leads from './pages/Leads'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path='/ClientEditProfile' element = {<ClientEditProfile />} />
           <Route path='/SkillSearch' element = {<SkillSearch />} />
           <Route path='/WorkerProfile' element = {<WorkerProfile />} />
+          <Route path='/Leads' element = {<Leads />} />
         </Routes>
       </BrowserRouter>
     </>

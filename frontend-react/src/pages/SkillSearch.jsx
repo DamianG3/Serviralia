@@ -2,11 +2,12 @@ import Footer from "../layout/Footer";
 import Header from "../layout/Header";
 
 import '../css/electricidad.css'
+import HeaderClient from "../layout/HeaderClient";
 
 function SkillSearch() {
     return (
         <>
-            <Header />
+            <HeaderClient />
             <main>
                 <div className="container-fluid1 px-0">
                     <div className="image-container">
