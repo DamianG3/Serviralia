@@ -1,6 +1,9 @@
 import Footer from "../layout/Footer";
 import Header from "../layout/Header";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
 
 import '../css/perfiltrab.css';
 import ReviewModal from "../components/ReviewModal";
@@ -33,6 +36,24 @@ function WorkerProfile() {
             return newIndex;
         })
     }
+
+    // ID DEL TRABAJADOR
+    const { id: idWorker } = useParams();
+    // LISTA DE TRABAJADORES
+    const [workerInfo, setWorkerInfo] = useState(null);
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/profileinfo/' + idWorker)
+            .then(res => {
+                setWorkerInfo(res.data)
+            })
+            .catch(error => {
+                console.error("Ha ocurrido un error");
+
+            })
+    }, [])
+
+    console.log(workerInfo);
 
     return (
         <>
