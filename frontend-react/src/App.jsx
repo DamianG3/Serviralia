@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react'
 import Axios from 'axios';
 
 import HeaderGuest from './layout/HeaderGuest'
+import Header from './layout/Header'
 
 
 
@@ -50,14 +51,14 @@ function App() {
 
   return (
     <>
-      
+      {/* <Header user={user} /> */}
       <HeaderGuest />
 
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
 
-          <Route path='/SignIn' element={<SignIn />} />
+          <Route path='/SignIn' element={<SignIn setUser={setUser} />} />
 
           <Route path='/WorkerSignUp' element={<WorkerSignUp />} />
           <Route path='/ClientSignUp' element={<ClientSignUp />} />
