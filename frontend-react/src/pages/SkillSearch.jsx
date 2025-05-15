@@ -89,6 +89,9 @@ function SkillSearch() {
                                                 <div key={index} className="col-6">
                                                     <img
                                                         src={`http://localhost:3000/images/${image}`}
+                                                        onError={(e) => {
+                                                                e.currentTarget.src = 'http://localhost:3000/images/image.png';
+                                                            }}
                                                         className="img-fluid rounded reparacion-img"
                                                         alt={`Reparación ${index + 1}` + ` ${image}`}
                                                     />
