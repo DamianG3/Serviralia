@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import Footer from "../layout/Footer";
-import HeaderClient from "../layout/HeaderClient";import Header from "../layout/Header";
+import HeaderClient from "../layout/HeaderClient"; import Header from "../layout/Header";
 
 import '../css/electricidad.css'
 import axios from 'axios';
@@ -15,16 +15,16 @@ function SkillSearch() {
     // LISTA DE TRABAJADORES
     const [workerList, setworkerList] = useState(null);
 
-    useEffect(()=>{
+    useEffect(() => {
         axios.get('http://localhost:3000/SearchSkill/' + idSkill)
-        .then(res=>{
-            setworkerList(res.data)
-        })
-        .catch(error=>{
-            console.error("Ha ocurrido un error");
-            
-        })
-    },[])
+            .then(res => {
+                setworkerList(res.data)
+            })
+            .catch(error => {
+                console.error("Ha ocurrido un error");
+
+            })
+    }, [])
 
     console.log(workerList);
 
@@ -34,7 +34,8 @@ function SkillSearch() {
             <main>
                 <div className="container-fluid1 px-0">
                     <div className="image-container">
-                        <img src={`http://localhost:3000/images/${idSkill}.png`} alt={idSkill} />
+                        <img src={`http://localhost:3000/images/${idSkill}.png`}
+                            alt={idSkill} />
                         {/* <div className="text-overlay">{idSkill}</div> */}
                     </div>
                 </div>
@@ -51,6 +52,9 @@ function SkillSearch() {
                                                     <div className="d-flex align-items-start mb-3">
                                                         <img
                                                             src={`http://localhost:3000/images/${worker.pfpFileName}`}
+                                                            onError={(e) => {
+                                                                e.currentTarget.src = 'http://localhost:3000/images/icon.jpg';
+                                                            }}
                                                             className="rounded-circle foto-trab me-3"
                                                             alt="Foto del trabajador"
                                                             style={{ width: 80, height: 80 }}
@@ -84,9 +88,9 @@ function SkillSearch() {
                                             {worker.gallery?.map((image, index) => (
                                                 <div key={index} className="col-6">
                                                     <img
-                                                        src={image}
+                                                        src={`http://localhost:3000/images/${image}`}
                                                         className="img-fluid rounded reparacion-img"
-                                                        alt={`Reparación ${index + 1}`}
+                                                        alt={`Reparación ${index + 1}` + ` ${image}`}
                                                     />
                                                 </div>
                                             ))}
@@ -97,8 +101,8 @@ function SkillSearch() {
 
                         ))
                     }
-                
-                {/*TRAB 1*/}
+
+                    {/*TRAB 1*/}
                     <div className="card p-4 shadow-sm">
                         <div className="row g-4">
                             <div className="col-md-8">
