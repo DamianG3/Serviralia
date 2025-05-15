@@ -135,6 +135,9 @@ app.get('/searchskill/:id', (req,res) => {
     db.query("CALL SearchSkill(?)", [idSkill], 
         (err, resQuery) => {
             if (err) {
+
+                console.log(err.stack);
+
                 res.status(400).json({
                     error: "Hubo un error al buscar a los trabajadores"
                 })
