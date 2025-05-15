@@ -147,7 +147,7 @@ INSERT INTO Reviews(id_worker, id_user, rating, review_txt, id_skill) VALUES
     (9, 19, 3, "La casa quedó limpia pero se le olvidó lavar el patio", 3),
     (2, 19, 3, "La limpieza fue buena pero dejó las cosas en desorden.", 3),
     (13, 20, 4, "Buen trabajo, puntual y excelente atención al cliente.", 6),
-    (9, 19, 4, "Arregló todo lo que pedí a buen precio.", 6)
+    (9, 19, 4, "Arregló todo lo que pedí a buen precio.", 6),
 
     -- NEW REVIEWS
     (1, 21, 5, "Excelente trabajo y muy rápido.", 1),

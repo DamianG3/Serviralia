@@ -1,12 +1,11 @@
 import Footer from "../layout/Footer";
-import Header from "../layout/Header";
+import Header from "../layout/HeaderGuest";
 
 import '../css/style.css'
 
 function Home() {
     return (
         <>
-            <Header />
             <>
                 <main className="container">
                     <div className="row align-items-center g-1">

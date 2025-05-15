@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 import Footer from "../layout/Footer"
-import Header from "../layout/Header"
+import Header from "../layout/HeaderGuest"
 import '../css/sign-in.css'
 import '../css/AvatarUpload.css'
 import ImageUploader from '../components/ImageUploader';
@@ -154,7 +154,6 @@ function WorkerSignUp() {
 
     return (
         <>
-            <Header />
             <section className="d-flex justify-content-center align-items-center py-5">
                 <main className="form-signup w-100 m-auto">
                     <form id="login">

@@ -1,10 +1,10 @@
 import Footer from "../layout/Footer";
-import Header from "../layout/Header";
+import Header from "../layout/HeaderGuest";
 import { useState } from 'react';
 
 import '../css/perfiltrab.css';
 import ReviewModal from "../components/ReviewModal";
-import HeaderLogIn from "../layout/HeaderLogIn";
+import HeaderLogIn from "../layout/HeaderWorker";
 import PrettySkills from "../components/PrettySkills";
 import PrettyStars from "../components/PrettyStars";
 
@@ -36,7 +36,6 @@ function WorkerProfile() {
 
     return (
         <>
-            <HeaderLogIn />
             <>
                 {/* MAIN*/}
                 {/* FOTOS Y PERFIL */}

@@ -1,9 +1,12 @@
 import Footer from "../layout/Footer"
-import Header from "../layout/Header"
+import Header from "../layout/HeaderGuest"
 
 import '../css/sign-in.css'
 import { useState } from "react"
+import { useNavigate } from 'react-router-dom';
 import Axios from "axios"
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function SignIn() {
     const [userLogin, setUserLogin] = useState({
@@ -11,6 +14,7 @@ function SignIn() {
         "password": ""
     })
     const [errorMessage, seterrorMessage] = useState(' ')
+    const navigate = useNavigate();
 
 
     const handleInputChange = (e) => {
@@ -24,22 +28,31 @@ function SignIn() {
 
         Axios.post("http://localhost:3000/login", userLogin)
             .then((response) => {
-                console.log("response", response);
+                console.log("response", response.data);
+                submissionSuccessful("Inicio de sesión correcto!")
+
 
             }).catch((error) => {
                 console.log("error login", error);
                 seterrorMessage(error.response.data.error)
-
-
-
             })
     }
 
-    console.log(userLogin);
+    const submissionSuccessful = (message) => {
+            withReactContent(Swal).fire({
+                title: message,
+                icon: "success"
+            }).then(() => {
+                console.log("redirecting...");
+                navigate('/');
     
+            })
+        }
+
+    console.log(userLogin);
+
     return (
         <>
-            <Header />
             <section className="d-flex justify-content-center align-items-center py-5">
                 <main className="form-signin w-100 m-auto">
                     <form id="login">
@@ -87,7 +100,7 @@ function SignIn() {
                         </button>
 
                     </form>
-                                                <div className="float-end" id="error">{errorMessage}</div>
+                    <div className="float-end" id="error">{errorMessage}</div>
                     <p className="mt-5 mb-3 text-body-secondary">
                         {" "}
                         ---------------------- Crear Cuenta ----------------------{" "}

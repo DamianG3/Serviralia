@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import Footer from "../layout/Footer"
-import HeaderLogIn from "../layout/HeaderLogIn"
+import HeaderLogIn from "../layout/HeaderWorker"
 
 import '../css/solicitudes.css';
 
@@ -57,7 +57,6 @@ function Leads() {
 
     return (
         <>
-            <HeaderLogIn />
             <main>
                 <div className="container-fluid1 px-0">
                     <div className="image-container">
