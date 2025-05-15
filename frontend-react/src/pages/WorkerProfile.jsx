@@ -1,6 +1,8 @@
 import Footer from "../layout/Footer";
-import Header from "../layout/Header";
-import { useState } from 'react';
+// import Header from "../layout/Header";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 import '../css/perfiltrab.css';
 import ReviewModal from "../components/ReviewModal";
@@ -56,9 +58,48 @@ function WorkerProfile() {
         <>
             <>
                 {/* MAIN*/}
+
                 {/* FOTOS Y PERFIL */}
                 <main>
                     <div className="profile-container">
+
+                        {/* PERFIL DE BD */}
+
+                        {
+                            workerInfo?.map((worker) => (
+                                <div className="col-md-6 mb-4 p-4" key={worker.id}>
+                                    <div className="trabajador-fondo p-3">
+                                        <div className="row align-items-center mb-4">
+                                            <div className="col-auto">
+                                                <a href="perfiltrab.html">
+                                                    <img
+                                                        src={`http://localhost:3000/images/${worker.pfpFileName}`}
+                                                        onError={(e) => {
+                                                            e.currentTarget.src = 'http://localhost:3000/images/icon.jpg';
+                                                        }}
+                                                        className="rounded-circle foto-trab me-3"
+                                                        alt="Foto del trabajador"
+                                                    />
+                                                </a>
+                                            </div>
+                                            <div className="col">
+                                                <h5 className="mb-1">{worker.fullName}</h5>
+                                                <div className="d-flex align-items-center">
+                                                    <PrettyStars rating={worker.rating} />
+                                                    <span className="ms-2 text-muted">{worker.reviewAverage}</span>
+                                                </div>
+                                                <span className="ms-2 text-muted">({worker.totalReviews} reseñas)</span>
+                                            </div>
+                                            <PrettySkills skills={worker.habilidades} />
+                                        </div>
+                                        <p style={{ whiteSpace: 'pre-line' }} >
+                                            {worker.biography}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))
+                        }
+
                         {/*imagen*/}
                         <div className="image-section">
                             <div className="image-wrapper">
@@ -94,14 +135,14 @@ function WorkerProfile() {
                                     <div className="col">
                                         <h5 className="mb-1">Alejandro Mendoza</h5>
                                         <div className="d-flex align-items-center">
-                                            <PrettyStars rating={3.8}/>
+                                            <PrettyStars rating={3.8} />
                                             <span className="ms-2 text-muted">3.8</span>
                                         </div>
                                         <span className="ms-2 text-muted">(85 reseñas)</span>
                                     </div>
-                                    <PrettySkills skills={["Plomería", "Electricidad"]}/>
+                                    <PrettySkills skills={["Plomería", "Electricidad"]} />
                                 </div>
-                                <p style={{whiteSpace: 'pre-line'}} > 
+                                <p style={{ whiteSpace: 'pre-line' }} >
                                     {bio}
                                 </p>
                             </div>
