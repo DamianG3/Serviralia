@@ -5,9 +5,12 @@ import { useState } from 'react';
 import '../css/perfiltrab.css';
 import ReviewModal from "../components/ReviewModal";
 import HeaderLogIn from "../layout/HeaderLogIn";
+import PrettySkills from "../components/PrettySkills";
+import PrettyStars from "../components/PrettyStars";
 
 function WorkerProfile() {
 
+    let bio = "Como técnico en plomería ecológica, ayudo a familias a reducir su consumo de agua. Me certifiqué en Plomería Verde México y uso técnicas como:\n- Instalación de regaderas y WC ahorradores\n- Sistemas de captación de agua pluvial\n- Reparaciones sin químicos contaminantes\nMis precios incluyen asesoría gratuita: \n400 por hora de trabajo, kits de ahorro desde 1,200 MXN, y descuentos en proyectos completos. ¡Juntos cuidamos el planeta y tu bolsillo!"
     // CAMBIO DE LAS IMAGENES
     const serviceImages = [
         'img/plom1.jpg',
@@ -74,43 +77,16 @@ function WorkerProfile() {
                                     <div className="col">
                                         <h5 className="mb-1">Alejandro Mendoza</h5>
                                         <div className="d-flex align-items-center">
-                                            <div className="rating-stars">
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                            </div>
-                                            <span className="ms-2 text-muted">4.7</span>
+                                            <PrettyStars rating={3.8}/>
+                                            <span className="ms-2 text-muted">3.8</span>
                                         </div>
                                         <span className="ms-2 text-muted">(85 reseñas)</span>
                                     </div>
-                                    <div className="col-12 mt-2">
-                                        <button className="btn botonplom">Plomería</button>
-                                        <button className="btn botonplom">Electricidad</button>
-                                    </div>
+                                    <PrettySkills skills={["Plomería", "Electricidad"]}/>
                                 </div>
-                                <p>
-                                    Soy especialista en soluciones rápidas y preventivas para hogares.
-                                    Con 8 años de experiencia, me formé en el Instituto Tecnológico de
-                                    Cancún y me apasiona evitar futuras fugas con instalaciones de
-                                    calidad. Ofrezco:
+                                <p style={{whiteSpace: 'pre-line'}} > 
+                                    {bio}
                                 </p>
-                                <ul className="servicios-lista">
-                                    <li>Servicios urgentes (24/7 para fugas y taponamientos)</li>
-                                    <li>
-                                        Instalación de tinacos y sistemas de agua con materiales
-                                        anticorrosivos
-                                    </li>
-                                    <li>Mantenimiento preventivo para condominios</li>
-                                </ul>
-                                <div className="precios">
-                                    <strong>Precios claros:</strong>
-                                    <br />
-                                    300 por visita diagnóstica, 500 por destapado estándar, y
-                                    presupuestos personalizados sin costo.
-                                </div>
-                                <p className="frase">¡Trabajo con factura y garantía por escrito!</p>
                             </div>
                         </div>
                     </div>

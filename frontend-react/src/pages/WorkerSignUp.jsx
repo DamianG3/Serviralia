@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Swal from 'sweetalert2'
@@ -9,6 +9,8 @@ import Header from "../layout/Header"
 import '../css/sign-in.css'
 import '../css/AvatarUpload.css'
 import ImageUploader from '../components/ImageUploader';
+import MultiselectSkills from '../components/multiselectSkills';
+
 
 function WorkerSignUp() {
     const [newWorker, setNewWorker] = useState({
@@ -19,17 +21,36 @@ function WorkerSignUp() {
         "phone": "",
         "birthDate": "",
 
-        "biography": "",
-        "skill": []
+        "biography": ""
 
     })
+
+    // upload logic
     const [errorMessage, seterrorMessage] = useState('')
     const navigate = useNavigate();
 
+    // pfp
     const size = 80;
     const [image, setImage] = useState(null);
     const [previewImage, setPreviewImage] = useState('img/icon.jpg');
     const fileInputRef = useRef(null);
+    
+    // gallery
+    const [imageContainers, setImageContainers] = useState([{
+        id: 1,
+        file: null,    // For the File object
+        preview: null  // For the base64 preview
+    }]);
+
+    // skill select
+    const [skillList, setSkillList] = useState([])
+    const [selectedSkills, setSelectedSkills] = useState([]);
+    const handleSkillChange = (selected) => {
+        setSelectedSkills(selected);
+    };
+    
+
+    // Functions
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -51,36 +72,54 @@ function WorkerSignUp() {
     };
 
 
-    // const saveNewUser = async (e) => {
-    //     seterrorMessage("")
-    //     e.preventDefault();
+    const saveNewUser = async (e) => {
+        seterrorMessage("")
+        e.preventDefault();
 
-    //     const formDataToSend = new FormData();
-    //     if (image) {
-    //         console.log(image);
+        const formDataToSend = new FormData();
 
-    //         formDataToSend.append('pfp', image);
-    //     }
-    //     formDataToSend.append('firstName', newClient.firstName);
-    //     formDataToSend.append('lastName', newClient.lastName);
-    //     formDataToSend.append('email', newClient.email);
-    //     formDataToSend.append('password', newClient.password);
-    //     formDataToSend.append('phone', newClient.phone);
-    //     formDataToSend.append('birthDate', newClient.birthDate);
+        if (image) {
+            console.log("pfp:", image);
+            formDataToSend.append('pfp', image);
+        }
 
-    //     try {
-    //         const response = await axios.post('http://localhost:3000/newclient', formDataToSend, {
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data'
-    //             }
-    //         });
-    //         console.log('Submission successful', response.data);
-    //         submissionSuccessful(response.data.message)
-    //     } catch (error) {
-    //         console.error('Error submitting form', error.response.data);
-    //         seterrorMessage(error.response.data.error)
-    //     }
-    // }
+        imageContainers.forEach((container) => {
+            // console.log("container:", container);
+            if (container.file) {
+                // console.log("file:", container.file);
+                formDataToSend.append(`gallery`, container.file);
+            }
+        });
+
+        formDataToSend.append('firstName', newWorker.firstName);
+        formDataToSend.append('lastName', newWorker.lastName);
+        formDataToSend.append('email', newWorker.email);
+        formDataToSend.append('password', newWorker.password);
+        formDataToSend.append('phone', newWorker.phone);
+        formDataToSend.append('biography', newWorker.biography);
+
+        if (selectedSkills) {
+            // console.log("skills:", selectedSkills.map(obj => obj.value));
+            formDataToSend.append('skill', selectedSkills.map(obj => obj.value));
+            
+        }
+
+        console.log("Form to send", formDataToSend);
+        
+        
+        // try {
+        //     const response = await axios.post('http://localhost:3000/newWorker', formDataToSend, {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data'
+        //         }
+        //     });
+        //     console.log('Submission successful', response.data);
+        //     submissionSuccessful(response.data.message)
+        // } catch (error) {
+        //     console.error('Error submitting form', error.response.data);
+        //     seterrorMessage(error.response.data.error)
+        // }
+    }
 
 
 
@@ -95,9 +134,24 @@ function WorkerSignUp() {
     //     })
     // }
 
+    useEffect(() => {
+        axios.get('http://localhost:3000/skills')
+            .then(res => {
+                setSkillList(res.data.map(item => ({
+                    value: item.id_skill,
+                    label: item.skill_name
+                })))
+            })
+            .catch(error => {
+                console.error("Ha ocurrido un error");
+
+            })
+    }, [])
 
 
-    console.log(newWorker);
+    // Testing
+    console.log("newWorker", newWorker);
+    console.log("selectedSkills", selectedSkills);
 
     return (
         <>
@@ -232,13 +286,17 @@ function WorkerSignUp() {
                                 </div>
                                 <br />
                                 <p>Selecciona tus habilidades</p>
-                                <div className="input-group">
+
+
+                                <MultiselectSkills options={skillList} selectedSkills={selectedSkills} onOptionChange={handleSkillChange}/>
+
+                                {/* <div className="input-group">
                                     <select
                                         className="form-select"
                                         id="inputGroupSelect04"
                                         aria-label="Example select with button addon"
                                     >
-                                        <option selected="">Habilidades</option>
+                                        <option defaultValue="">Habilidades</option>
                                         <option value={1}>One</option>
                                         <option value={2}>Two</option>
                                         <option value={3}>Three</option>
@@ -246,7 +304,9 @@ function WorkerSignUp() {
                                     <button className="btn btn-outline-secondary w-50" type="button">
                                         Seleccionar
                                     </button>
-                                </div>
+                                </div> */}
+
+
                             </div>
                         </div>
                         <br />
@@ -271,8 +331,11 @@ function WorkerSignUp() {
                         </div>
                         <br />
                         <p>Fotos para tu galería</p>
-                        
-                        <ImageUploader />
+
+                        <ImageUploader
+                            imageContainers={imageContainers}
+                            setImageContainers={setImageContainers}
+                        />
 
                         {/* <div className="row g-3">
                             <div className="col-md">
@@ -310,12 +373,12 @@ function WorkerSignUp() {
                         </div> */}
 
 
-                        
+
                     </form>
                     <br />
                     <div className="centro">
                         <button
-                            // onClick={saveNewUser}
+                            onClick={saveNewUser}
                             type="submit"
                             className="btn botonregistro"
                         >

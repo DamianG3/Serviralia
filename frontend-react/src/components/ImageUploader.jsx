@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import { FaPlus, FaTimes } from 'react-icons/fa';
 
 
-const ImageUploader = () => {
-  const [imageContainers, setImageContainers] = useState([{ id: 1, image: null }]);
+const ImageUploader = ({imageContainers, setImageContainers}) => {
+  // const [imageContainers, setImageContainers] = useState([{ id: 1, image: null }]);
 
   const handleAddImage = () => {
     setImageContainers(prev => [
       ...prev,
-      { id: Date.now(), image: null } // Using timestamp as unique ID
+      { id: Date.now(), file: null, preview: null } // Using timestamp as unique ID
     ]);
   };
 
+  
   const handleRemoveImage = (id) => {
     if (imageContainers.length > 1) {
       setImageContainers(prev => prev.filter(item => item.id !== id));
@@ -27,7 +28,11 @@ const ImageUploader = () => {
       reader.onloadend = () => {
         setImageContainers(prev =>
           prev.map(item =>
-            item.id === id ? { ...item, image: reader.result } : item
+            item.id === id ? { 
+              ...item, 
+              file,
+              preview: reader.result 
+            } : item
           )
         );
       };
@@ -46,14 +51,16 @@ const ImageUploader = () => {
             <div
               className="imagePreview"
               style={{
-                backgroundImage: item.image ? `url(${item.image})` : undefined
+                backgroundImage: item.preview ? `url(${item.preview})` : undefined
               }}
             ></div>
             <label className="btn btn-primary">
               Upload
               <input
                 type="file"
+                name='gallery'
                 className="uploadFile img"
+                accept=".png, .jpg, .jpeg"
                 style={{ width: 0, height: 0, overflow: 'hidden' }}
                 onChange={(e) => handleImageChange(e, item.id)}
               />

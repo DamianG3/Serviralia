@@ -149,6 +149,39 @@ app.get('/searchskill/:id', (req,res) => {
 })
 
 
+/**
+ * Utilitie
+ */
+
+/**
+ * @swagger
+ * /skills:
+ *  get:
+ *      summary: Searches for all skills
+ *      tags: [Search Page]
+ *      responses:
+ *          200:
+ *              description: OK
+ *          400:
+ *              description: Database error
+ *              
+ */
+app.get('/skills', (req,res) => {
+    db.query("SELECT * FROM serviralia.skills order by id_skill;", 
+        (err, resQuery) => {
+            if (err) {
+
+                console.log(err.stack);
+
+                res.status(400).json({
+                    error: "Hubo un error al buscar las skills"
+                })
+                return;
+            }
+
+            res.json(resQuery)
+        })
+})
 
 /**
  * Sign up - Register
