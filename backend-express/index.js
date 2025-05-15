@@ -287,7 +287,7 @@ app.post('/client', (req, res)=>{
  * @swagger
  * /newclient:
  *  post:
- *      summary: Registers a brand new user
+ *      summary: Registers a brand new user with multer
  *      tags: [Sign up]
  *      requestBody:
  *          required: true
@@ -311,13 +311,6 @@ app.post('/client', (req, res)=>{
  *                          pfp:
  *                              type: string
  *                              format: binary
- *                      example:
- *                          firstName: Juan
- *                          lastName: Perez
- *                          email: jperez@gmail.com
- *                          password: contraseña123
- *                          phone: 9981234567
- *                          birthDate: 2000-10-10
  *      responses:
  *          201: 
  *              description: Client registered correctly
@@ -327,6 +320,7 @@ app.post('/client', (req, res)=>{
 
 app.post('/newclient',  upload.single('pfp'), (req, res)=>{
     const {firstName, lastName, email, password, phone, birthDate} = req.body // desconstruccion
+    
     const imagePath = req.file ? req.file.filename : null;
     console.log("image path:", imagePath);
     
@@ -486,6 +480,137 @@ app.post('/worker', (req, res)=>{
         })
     })
     .catch((err) => {
+        if (err.message === "Email duplicated") {
+            res.status(400).json({ error: "El email ya existe" });
+        } else if (err.message === "Phone duplicated") {
+            res.status(400).json({ error: "El telefono ya existe" });
+        } else {
+            res.status(400).json({ error: "Error al registrar usuario" });
+            console.log(err.stack);
+        }
+    });
+
+
+})
+
+/**
+ * @swagger
+ * /newworker:
+ *  post:
+ *      summary: Registers a brand new worker with multer
+ *      tags: [Sign up]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              multipart/form-data:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          firstName:
+ *                              type: string
+ *                          lastName:
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                          password:
+ *                              type: string
+ *                          phone:
+ *                              type: string
+ *                          birthDate:
+ *                              type: string
+ *                          biography:
+ *                              type: string
+ *                          skill:
+ *                              type: string
+ *                          pfp:
+ *                              type: string
+ *                              format: binary
+ *                          gallery:
+ *                              type: array
+ *                              items:
+ *                                 type: string
+ *                                 format: binary
+ *      responses:
+ *          201: 
+ *              description: Worker registered correctly
+ *          400:
+ *              description: Incomplete data
+ */
+
+const uploadMiddleware = upload.fields([{ name: 'pfp'}, { name: 'gallery'}])
+app.post('/newworker', uploadMiddleware, (req, res)=>{
+    const {firstName, lastName, email, password, phone, birthDate, biography, skill} = req.body // desconstruccion
+  //  req.files['avatar'][0] -> File
+  //  req.files['gallery'] -> Array
+
+    const pfpPath = req.files['pfp'] ?  req.files['pfp'][0].filename : null;
+    console.log("pfpPath:", pfpPath);
+    
+    const galleryPath = req.files['gallery'] ?  req.files['gallery'].map((file) => {
+        return file.filename
+    }) : null;    
+
+    console.log("['gallery'] -> Array", req.files['gallery']);
+    
+    console.log("galleryPath", galleryPath);
+
+
+    if(!firstName || !lastName || !email || !password || !phone || !birthDate || !biography || !skill){
+        deleteCreatedImage(pfpPath);
+        galleryPath.forEach(deleteCreatedImage)
+
+        
+        return res.status(400).json({
+            
+            error:"Datos incompletos"
+        })
+    }
+
+    // Check if gallery is not null
+    // The MySQL procedure is inconsistent when 'gallery' is null
+    let galleryCheck = galleryPath;
+    if (galleryCheck === null) {
+        galleryCheck = undefined
+    }
+
+    
+    // Check if email already exist
+    db.promise().query("SELECT 1 FROM users WHERE email = ?;", [email])
+    .then(([isEmailDuplicate]) => {
+        if (isEmailDuplicate[0]) {
+            throw new Error("Email duplicated");
+        }
+        
+        // Check if phone already exist
+        return db.promise().query("SELECT 1 FROM users WHERE phone = ?;", [phone])
+    }) 
+    .then(([isPhoneDuplicate]) => {
+        if (isPhoneDuplicate[0]) {
+            throw new Error("Phone duplicated");
+        }
+
+        // Hashes the password
+        return bcrypt.hash(password, saltRounds)
+    })
+    .then((hash) => {
+        
+        // Creates the new user
+        return db.promise().query('CALL AddNewWorker(?,?,?,?,?,?,? ,?,?,?)', 
+            [firstName, lastName, email, hash, pfpPath, phone, birthDate, biography, 
+                // JSON.stringify(skill), 
+                // '[' + skill + ']', 
+                skill,
+                JSON.stringify(galleryCheck)])
+    })
+    .then(() => {
+        res.status(201).json({
+            message:"Usuario registrado exitosamente"
+        })
+    })
+    .catch((err) => {
+        deleteCreatedImage(pfpPath);
+        galleryPath.forEach(deleteCreatedImage)
+        
         if (err.message === "Email duplicated") {
             res.status(400).json({ error: "El email ya existe" });
         } else if (err.message === "Phone duplicated") {
