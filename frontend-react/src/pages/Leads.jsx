@@ -61,7 +61,7 @@ function Leads() {
             <main>
                 <div className="container-fluid1 px-0">
                     <div className="image-container">
-                        <img src="img/BG-gray.jpg" alt="Solicitudes" />
+                        <img src="img/fondo gris.jpg" alt="Solicitudes" />
                         <div className="text-overlay">Solicitudes</div>
                     </div>
                 </div>
