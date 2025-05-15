@@ -1,7 +1,9 @@
 
 
 function Header({ user }) {
-    if (user) {
+    const []
+
+    if (user.loggedIn) {
         
     }
 
