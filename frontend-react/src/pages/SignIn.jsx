@@ -2,21 +2,57 @@ import Footer from "../layout/Footer"
 import Header from "../layout/Header"
 
 import '../css/sign-in.css'
+import { useState } from "react"
+import Axios from "axios"
 
 function SignIn() {
+    const [userLogin, setUserLogin] = useState({
+        "email": "",
+        "password": ""
+    })
+    const [errorMessage, seterrorMessage] = useState(' ')
 
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setUserLogin({ ...userLogin, [name]: value })
+    }
+
+    const submitLogin = (e) => {
+        e.preventDefault();
+        seterrorMessage(" ")
+
+        Axios.post("http://localhost:3000/login", userLogin)
+            .then((response) => {
+                console.log("response", response);
+
+            }).catch((error) => {
+                console.log("error login", error);
+                seterrorMessage(error.response.data.error)
+
+
+
+            })
+    }
+
+    console.log(userLogin);
+    
     return (
         <>
-        <Header/>
+            <Header />
             <section className="d-flex justify-content-center align-items-center py-5">
                 <main className="form-signin w-100 m-auto">
                     <form id="login">
+
                         <h1 className="h3 mb-3 fw-normal">Inicia sesión</h1>
                         <div className="form-floating">
                             <input
                                 type="email"
                                 className="correo_electronico form-control"
                                 id="floatingInput"
+                                name="email"
+                                value={userLogin.email}
+                                onChange={handleInputChange}
                                 placeholder="name@example.com"
                                 required=""
                             />
@@ -24,25 +60,18 @@ function SignIn() {
                         </div>
                         <div className="form-floating">
                             <input
-                                type="name"
-                                className="name form-control"
-                                id="floatingInput"
-                                placeholder="Nombre Completo"
-                                required=""
-                            />
-                            <label htmlFor="floatingInput">Nombre</label>
-                        </div>
-                        <div className="form-floating">
-                            <input
                                 type="password"
+                                name="password"
+                                value={userLogin.password}
                                 className="form-control"
+                                onChange={handleInputChange}
                                 id="floatingPassword"
                                 placeholder="Password"
                                 required=""
                             />
                             <label htmlFor="floatingPassword">Contraseña</label>
                         </div>
-                        <div className="form-check text-start my-3">
+                        {/* <div className="form-check text-start my-3">
                             <input
                                 className="form-check-input accent-red"
                                 type="checkbox"
@@ -52,12 +81,13 @@ function SignIn() {
                             <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Recuérdame
                             </label>
-                        </div>
-                        <button className="btn w-100 py-2" type="submit">
+                        </div> */}
+                        <button onClick={submitLogin} className="btn w-100 py-2">
                             Acceder
                         </button>
-                        <div id="error" />
+
                     </form>
+                                                <div className="float-end" id="error">{errorMessage}</div>
                     <p className="mt-5 mb-3 text-body-secondary">
                         {" "}
                         ---------------------- Crear Cuenta ----------------------{" "}
@@ -71,7 +101,7 @@ function SignIn() {
                     <p className="mt-5 mb-3 text-body-secondary">© Serviralia 2025</p>
                 </main>
             </section>
-        <Footer/>
+            <Footer />
         </>
     )
 }
