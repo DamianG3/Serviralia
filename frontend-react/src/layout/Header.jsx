@@ -104,7 +104,7 @@ function Header() {
                                                 className="dropdown-item"
                                                 style={{ backgroundImage: 'url("http://localhost:3000/images/jardin-DD.jpg")' }}
                                             >
-                                                Jardinería
+                                                Limpieza
                                             </button>
                                         </a>
                                     </li>

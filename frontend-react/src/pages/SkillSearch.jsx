@@ -34,14 +34,14 @@ function SkillSearch() {
             <main>
                 <div className="container-fluid1 px-0">
                     <div className="image-container">
-                        <img src="../img/plomeria-DD.jpeg" alt="Plomeria" />
-                        <div className="text-overlay">{idSkill}</div>
+                        <img src={`http://localhost:3000/images/${idSkill}.png`} alt={idSkill} />
+                        {/* <div className="text-overlay">{idSkill}</div> */}
                     </div>
                 </div>
                 {/* PERFIL DESDE BD */}
                 <div className="container mt-4 mb-5">
                     {
-                        workerList.map((worker) => (
+                        workerList?.map((worker) => (
                             <div key={worker.id} className="card p-4 shadow-sm">
                                 <div className="row g-4">
                                     <div className="col-md-8">
@@ -50,7 +50,7 @@ function SkillSearch() {
                                                 <div className="col-md-5">
                                                     <div className="d-flex align-items-start mb-3">
                                                         <img
-                                                            src={worker.pfpFileName}
+                                                            src={`http://localhost:3000/images/${worker.pfpFileName}`}
                                                             className="rounded-circle foto-trab me-3"
                                                             alt="Foto del trabajador"
                                                             style={{ width: 80, height: 80 }}
@@ -81,7 +81,7 @@ function SkillSearch() {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="row g-2">
-                                            {worker.gallery.map((image, index) => (
+                                            {worker.gallery?.map((image, index) => (
                                                 <div key={index} className="col-6">
                                                     <img
                                                         src={image}

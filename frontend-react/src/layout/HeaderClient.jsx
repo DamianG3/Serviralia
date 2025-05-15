@@ -133,9 +133,9 @@ function HeaderClient() {
                                         <a href="/SkillSearch/3">
                                             <button
                                                 className="dropdown-item"
-                                                style={{ backgroundImage: 'url("http://localhost:3000/images/jardin-DD.jpg")' }}
+                                                style={{ backgroundImage: 'url("http://localhost:3000/images/limpieza.png")' }}
                                             >
-                                                Jardinería
+                                                Limpieza
                                             </button>
                                         </a>
                                     </li>
