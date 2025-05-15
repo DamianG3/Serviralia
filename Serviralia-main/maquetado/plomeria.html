@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plomería</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/electricidad.css">
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="css/speech-buttons.css">
+</head>
+
+<body>
+                            <!-- NAVBAR -->
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <img src="img/logo.png" width="50">
+        <a class="navbar-brand" href="index.html">Serviralia Cancún</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="Singin.html">Iniciar Sesión</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
+                  viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                </svg>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end horizontal-dropdown" aria-labelledby="searchDropdown">
+                <li><a href="electricidad.html"><button class="dropdown-item"
+                      style="background-image: url('img/electricista-DD.jpg');">Electricidad</button></a></li>
+                <li><a href="plomeria.html"><button class="dropdown-item"
+                      style="background-image: url('img/plomeria-DD.jpeg');">Plomería</button></a></li>
+                <li><a href="mecanica.html"><button class="dropdown-item"
+                      style="background-image: url('img/mecanica-DD.jpg');">Mecánica</button></a></li>
+                <li><a href="construccion.html"><button class="dropdown-item"
+                      style="background-image: url('img/Construccion-DD.jpg');">Construcción</button></a></li>
+                <li><a href="jardineria.html"><button class="dropdown-item"
+                      style="background-image: url('img/jardin-DD.jpg');">Jardinería</button></a></li>
+                <li><a href="#"><button class="dropdown-item"
+                      style="background-image: url('img/otros.png');">Otros</button></a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+
+
+
+                            <!-- MAIN-->
+  <main>
+    <div class="container-fluid1 px-0">
+      <div class="image-container">
+        <img src="img/plomeria-DD.jpeg" alt="Plomeria">
+        <div class="text-overlay">Plomería</div>
+      </div>
+    </div>
+
+    <!-- Busqueda por voz -->
+    <div class="container mt-4">
+      <form action="#" method="GET" class="form-busqueda">
+        <div class="input-group">
+          <input type="text" id="searchInput" name="q" placeholder="Buscar plomeros..." class="form-control">
+          <div class="input-group-append">
+            <button type="button" class="btn-voice btn-mic" onclick="startRecognition('searchInput', 'mensaje')" title="Buscar por voz">
+              🎤
+            </button>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+          </div>
+        </div>
+      </form>
+      <p id="mensaje" style="margin-top: 10px; font-size: 14px; color: #666;">Utiliza el micrófono para buscar por voz o escribe tu búsqueda.</p>
+    </div>
+
+    <!--TRAB 1-->
+    <div class="container mt-4 mb-5">
+      <div class="card p-4 shadow-sm">
+        <div class="row g-4">
+
+          <div class="col-md-8">
+            <div class="trabajador-fondo p-3">
+              <div class="row">
+
+                <div class="col-md-5">
+                  <div class="d-flex align-items-start mb-3">
+                    <img src="img/pers7.jpg" class="rounded-circle foto-trab me-3" alt="Foto del trabajador"
+                      style="width: 80px; height: 80px;">
+                    <div>
+                      <h5 class="mb-1">Francisco Hernández</h5>
+                      <div class="d-flex align-items-center">
+                        <div class="rating-stars">
+                          <span class="text-warning">★</span>
+                          <span class="text-warning">★</span>
+                          <span class="text-warning">★</span>
+                          <span class="text-warning">★</span>
+                        </div>
+                        <span class="ms-2 text-muted">3.7</span>
+                      </div>
+                      <span class="d-block text-muted">(35 reseñas)</span>
+                      <button class="btn botonplom mt-2">Plomería</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-7">
+                  <div class="trabajador-bio">
+                    <h6 class="border-bottom pb-2">
+                      Biografía
+                      <button class="btn-voice btn-speaker" onclick="leerDescripcion(this)" title="Escuchar descripción">
+                        🔊
+                      </button>
+                    </h6>
+                    <p class="mb-0">
+                      Desde que comencé mi carrera como plomero, he estado comprometido con ofrecer soluciones efectivas
+                      a problemas de fontanería.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="row g-2">
+              <div class="col-6">
+                <img src="img/plom1.jpg" class="img-fluid rounded reparacion-img" alt="Reparación 1">
+              </div>
+              <div class="col-6">
+                <img src="img/plom2.jpg" class="img-fluid rounded reparacion-img" alt="Reparación 2">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!--TRAB 2-->
+    <div class="container mt-4 mb-5">
+      <div class="card p-4 shadow-sm">
+        <div class="row g-4">
+
+          <div class="col-md-8">
+            <div class="trabajador-fondo p-3">
+              <div class="row">
+
+                <div class="col-md-5">
+                  <div class="d-flex align-items-start mb-3">
+                    <img src="img/pers8.jpg" class="rounded-circle foto-trab me-3" alt="Foto del trabajador"
+                      style="width: 80px; height: 80px;">
+                    <div>
+                      <h5 class="mb-1">Carlos López</h5>
+                      <div class="d-flex align-items-center">
+                        <div class="rating-stars">
+                          <span class="text-warning">★</span>
+                          <span class="text-warning">★</span>
+                          <span class="text-warning">★</span>
+                          <span class="text-warning">★</span>
+                          <span class="text-warning">★</span>
+                        </div>
+                        <span class="ms-2 text-muted">4.9</span>
+                      </div>
+                      <span class="d-block text-muted">(94 reseñas)</span>
+                      <button class="btn botonplom mt-2">Plomería</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-7">
+                  <div class="trabajador-bio">
+                    <h6 class="border-bottom pb-2">
+                      Biografía
+                      <button class="btn-voice btn-speaker" onclick="leerDescripcion(this)" title="Escuchar descripción">
+                        🔊
+                      </button>
+                    </h6>
+                    <p class="mb-0">
+                      Con más de 8 años de experiencia en plomería, me especializo en la instalación y mantenimiento de
+                      sistemas de agua y desagüe. Utilizo herramientas de última generación.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="row g-2">
+              <div class="col-6">
+                <img src="img/plom3.webp" class="img-fluid rounded reparacion-img" alt="Reparación 1">
+              </div>
+              <div class="col-6">
+                <img src="img/plom4.jpg" class="img-fluid rounded reparacion-img" alt="Reparación 2">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+    <!--TRAB 3-->
+    <div class="container mt-4 mb-5">
+      <div class="card p-4 shadow-sm">
+        <div class="row g-4">
+
+          <div class="col-md-8">
+            <div class="trabajador-fondo p-3">
+              <div class="row">
+
+                <div class="col-md-5">
+                  <div class="d-flex align-items-start mb-3">
+                    <img src="img/pers9.jpg" class="rounded-circle foto-trab me-3" alt="Foto del trabajador"
+                      style="width: 80px; height: 80px;">
+                    <div>
+                      <h5 class="mb-1">Juan Pérez</h5>
+                      <div class="d-flex align-items-center">
+                        <div class="rating-stars">
+                          <span class="text-warning">★</span>
+                          <span class="text-warning">★</span>
+                          <span class="text-warning">★</span>
+                          <span class="text-warning">★</span>
+                        </div>
+                        <span class="ms-2 text-muted">3.0</span>
+                      </div>
+                      <span class="d-block text-muted">(37 reseñas)</span>
+                      <button class="btn botonplom mt-2">Plomería</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-7">
+                  <div class="trabajador-bio">
+                    <h6 class="border-bottom pb-2">
+                      Biografía
+                      <button class="btn-voice btn-speaker" onclick="leerDescripcion(this)" title="Escuchar descripción">
+                        🔊
+                      </button>
+                    </h6>
+                    <p class="mb-0">
+                      Comprometido con la calidad y la atención al cliente, siempre buscando la mejor solución para cada
+                      situación. Especializado en instalación de grifos.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="row g-2">
+              <div class="col-6">
+                <img src="img/plom5.png" class="img-fluid rounded reparacion-img" alt="Reparación 1">
+              </div>
+              <div class="col-6">
+                <img src="img/plom6.jpg" class="img-fluid rounded reparacion-img" alt="Reparación 2">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+                            <!--FOOTER INICIO-->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <p><strong>Serviralia Cancún</strong></p>
+        <p><a href="mailto:serviralia.mx@gmail.com">serviralia.mx@gmail.com</a></p>
+
+      </div>
+      <div class="footer-column">
+        <p><a href="#">Quiero publicarme</a> | <a href="#">Términos y condiciones</a></p>
+        <p>Copyright © 2025 Serviralia. All Rights Reserved.</p>
+      </div>
+      <div class="footer-column">
+        <p><strong>Síguenos</strong></p>
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">Tik Tok</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
+<script src="js/speech-functions.js"></script>
+
+  
+</body>
+</html>
+
