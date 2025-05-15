@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/perfiltrab.css">
+  <title>Perfil del trabajador</title>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <img src="img/logo.png" width="50">
+        <a class="navbar-brand" href="index.html">Serviralia Cancún</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="Singin.html">Iniciar Sesión</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
+                  viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                </svg>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end horizontal-dropdown" aria-labelledby="searchDropdown">
+                <li><a href="electricidad.html"><button class="dropdown-item"
+                      style="background-image: url('img/electricista-DD.jpg');">Electricidad</button></a></li>
+                <li><a href="plomeria.html"><button class="dropdown-item"
+                      style="background-image: url('img/plomeria-DD.jpeg');">Plomería</button></a></li>
+                <li><a href="mecanica.html"><button class="dropdown-item"
+                      style="background-image: url('img/mecanica-DD.jpg');">Mecánica</button></a></li>
+                <li><a href="construccion.html"><button class="dropdown-item"
+                      style="background-image: url('img/Construccion-DD.jpg');">Construcción</button></a></li>
+                <li><a href="jardineria.html"><button class="dropdown-item"
+                      style="background-image: url('img/jardin-DD.jpg');">Jardinería</button></a></li>
+                <li><a href="#"><button class="dropdown-item"
+                      style="background-image: url('img/otros.png');">Otros</button></a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN-->
+  <!-- FOTOS Y PERFIL -->
+  <main>
+    <div class="profile-container">
+      <!--imagen-->
+      <div class="image-section">
+        <div class="image-wrapper">
+          <img src="img/plom1.jpg" class="service-image" id="serviceImage" alt="Trabajo de Alejandro Mendoza">
+          <div class="nav-buttons">
+            <button class="nav-btn" onclick="changeImage(-1)">←</button>
+            <button class="nav-btn" onclick="changeImage(1)">→</button>
+          </div>
+        </div>
+      </div>
+      <!--el contenido-->
+      <div class="col-md-6 mb-4 p-4">
+        <div class="trabajador-fondo p-3">
+          <div class="row align-items-center mb-4">
+            <div class="col-auto">
+              <a href="perfiltrab.html"><img src="img/pers1.jpg" class="rounded-circle foto-trab"
+                  alt="Foto del trabajador"></a>
+            </div>
+            <div class="col">
+              <h5 class="mb-1">Alejandro Mendoza</h5>
+              <div class="d-flex align-items-center">
+                <div class="rating-stars">
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                </div>
+                <span class="ms-2 text-muted">4.7</span>
+              </div>
+              <span class="ms-2 text-muted">(85 reseñas)</span>
+            </div>
+            <div class="col-12 mt-2">
+              <button class="btn botonplom">Plomería</button>
+              <button class="btn botonplom">Electricidad</button>
+            </div>
+          </div>
+
+          <p>Soy especialista en soluciones rápidas y preventivas para hogares. Con 8 años de experiencia, me formé en
+            el Instituto Tecnológico de Cancún y me apasiona evitar futuras fugas con instalaciones de calidad. Ofrezco:
+          </p>
+
+          <ul class="servicios-lista">
+            <li>Servicios urgentes (24/7 para fugas y taponamientos)</li>
+            <li>Instalación de tinacos y sistemas de agua con materiales anticorrosivos</li>
+            <li>Mantenimiento preventivo para condominios</li>
+          </ul>
+
+          <div class="precios">
+            <strong>Precios claros:</strong><br>
+            300 por visita diagnóstica, 500 por destapado estándar, y presupuestos personalizados sin costo.
+          </div>
+
+          <p class="frase">¡Trabajo con factura y garantía por escrito!</p>
+        </div>
+      </div>
+  </main>
+
+  <!--CONTACTO-->
+  <div class="contacto">
+    <div class="seccion-contacto col-md-4">
+      <form>
+        <div class="form-group">
+          <h2 class="Contactar">Contactar</h2>
+          <label for="subject">Asunto:</label>
+          <input type="text" id="subject" class="form-control" placeholder="Ej: 'Instalación de ventilador en sala'">
+        </div>
+        <div class="form-group">
+          <label for="details">Detalles:</label>
+          <textarea id="details" class="form-control" rows="4"
+            placeholder="Cuéntanos: ¿Qué pasa? ¿Cuándo lo necesitas? ¿Algo que deba saber el profesional?"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-warning send-button">Enviar</button>
+        </div>
+      </form>
+    </div>
+
+
+    <!--RESEÑAS-->
+    <div class="container2 reseñas-section py-4 mt-4">
+      <div class="container">
+        <h2 class="mb-4">Reseñas.</h2>
+
+        <div class="row">
+          <!-- Calificaciones por separado -->
+          <div class="col-md-4 mb-4">
+            <div class="trabajador-fondo p-3 h-100">
+              <div class="rating-summary text-center">
+                <h3 class="mb-3">Calificación General</h3>
+                <div class="rating-stars mb-2">
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">☆</span>
+                </div>
+                <h4 class="mb-4">4.5</h4>
+
+                <div class="category-rating mb-3">
+                  <span>Plomería</span>
+                  <div class="d-inline-block ms-2">
+                    <span class="text-warning">★</span>
+                    <span class="text-warning">★</span>
+                    <span class="text-warning">★</span>
+                    <span class="text-warning">★</span>
+                    <span class="text-warning">★</span>
+                    <span class="ms-1">4.8</span>
+                  </div>
+                </div>
+
+                <div class="category-rating">
+                  <span>Electricidad</span>
+                  <div class="d-inline-block ms-2">
+                    <span class="text-warning">★</span>
+                    <span class="text-warning">★</span>
+                    <span class="text-warning">★</span>
+                    <span class="text-warning">★</span>
+                    <span class="text-warning">☆</span>
+                    <span class="ms-1">4.2</span>
+                  </div>
+                </div>
+
+                <button class="btn mt-4" style="background-color: #2A5C8C; color: white;">
+                  Escribir reseña
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-8">
+            <!-- Reseña 1 -->
+            <div class="review-card mb-4">
+              <div class="review-header mb-3">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <img src="img/pers4.jpg" class="rounded-circle" width="50" alt="Foto cliente">
+                  </div>
+                  <div class="col">
+                    <h5 class="mb-0">David</h5>
+                    <small class="text-muted">Febrero 2025</small>
+                  </div>
+                </div>
+                <div class="rating-stars mt-2">
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                </div>
+                <div class="col-12 mt-2 d-flex align-items-center gap-2">
+                  <p class="mb-0">Categoria:</p>
+                  <button class="btn botonplom">Plomería</button>
+                </div>
+              </div>
+              <div class="review-content">
+                <p class="card-text">Contraté a Alejandro para reparar una fuga grave en mi baño y quedé impresionado
+                  con su profesionalismo. Llegó puntual, con todas las herramientas necesarias, y solucionó el problema
+                  en menos de una hora. Además me explicó claramente que problema había causado la fuga y me dió
+                  consejos para evitarla en el futuro.</p>
+              </div>
+            </div>
+
+            <!-- Reseña 2 -->
+            <div class="review-card">
+              <div class="review-header mb-3">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <img src="img/pers5.jpg" class="rounded-circle" width="50" alt="Foto cliente">
+                  </div>
+                  <div class="col">
+                    <h5 class="mb-0">Andrés</h5>
+                    <small class="text-muted">Enero 2025</small>
+                  </div>
+                </div>
+                <div class="rating-stars mt-2">
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">★</span>
+                  <span class="text-warning">☆</span>
+                </div>
+                <div class="col-12 mt-2 d-flex align-items-center gap-2">
+                  <p class="mb-0">Categoria:</p>
+                  <button class="btn botonplom">Electricidad</button>
+                </div>
+              </div>
+              <div class="review-content">
+                <p class="card-text">¡Servicio impecable! El electricista llegó puntual, solucionó mi problema de
+                  cortocircuito rápido y con profesionalismo. Explicó todo claramente, dejó todo limpio y el precio fue justo. 100% recomendado, lo contrataré nuevamente sin dudar.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</body>
+
+
+
+<!--MODAL PARA RESEÑAS-->
+<div class="modal fade" id="escribirResenaModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Escribe tu reseña</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formResena">
+          <!-- Calificacion con estrellas -->
+          <div class="mb-4">
+            <label class="form-label">Calificación:</label>
+            <div class="rating-stars-input">
+              <input type="radio" id="star5" name="rating" value="5">
+              <label for="star5">★</label>
+              <input type="radio" id="star4" name="rating" value="4">
+              <label for="star4">★</label>
+              <input type="radio" id="star3" name="rating" value="3">
+              <label for="star3">★</label>
+              <input type="radio" id="star2" name="rating" value="2">
+              <label for="star2">★</label>
+              <input type="radio" id="star1" name="rating" value="1">
+              <label for="star1">★</label>
+            </div>
+          </div>
+          
+          <!-- Comentario -->
+          <div class="mb-3">
+            <label for="comentario" class="form-label">Tu reseña:</label>
+            <textarea class="form-control" id="comentario" rows="4" required></textarea>
+          </div>
+          
+          <!-- Subir pics -->
+          <div class="mb-4">
+            <label for="fotoResena" class="form-label">Adjuntar foto (opcional):</label>
+            <input type="file" class="form-control" id="fotoResena" accept="image/*">
+            <small class="text-muted">Máx. 5MB</small>
+          </div>
+          
+          <!-- Categoria elegir -->
+          <div class="mb-4">
+            <label class="form-label">Categoría:</label>
+            <select class="form-select" required>
+              <option value="" selected disabled>Selecciona una categoría</option>
+              <option value="plomeria">Plomería</option>
+              <option value="electricidad">Electricidad</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" form="formResena" class="btn btn-primary">Enviar reseña</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-column">
+      <p><strong>Serviralia Cancún</strong></p>
+      <p><a href="mailto:serviralia.mx@gmail.com">serviralia.mx@gmail.com</a></p>
+    </div>
+    <div class="footer-column">
+      <p><a href="#">Quiero publicarme</a> | <a href="#">Términos y condiciones</a></p>
+      <p>Copyright © 2025 Serviralia. All Rights Reserved.</p>
+    </div>
+    <div class="footer-column">
+      <p><strong>Síguenos</strong></p>
+      <a href="#">Facebook</a>
+      <a href="#">Instagram</a>
+      <a href="#">Tik Tok</a>
+    </div>
+  </div>
+</footer>
+
+
+<!--USANDO JAVASCRIPT PARA EL CAMBIO DE LAS IMAGENES-->
+<script src="js/bootstrap.bundle.min.js"></script>
+<script>
+
+  const serviceImages = [
+    'img/plom1.jpg',
+    'img/plom2.jpg',
+    'img/elec1.jpg'
+  ];
+
+  let currentImageIndex = 0;
+  const serviceImageElement = document.getElementById('serviceImage');
+
+  function changeImage(direction) {
+    currentImageIndex += direction;
+
+    if (currentImageIndex >= serviceImages.length) {
+      currentImageIndex = 0;
+    } else if (currentImageIndex < 0) {
+      currentImageIndex = serviceImages.length - 1;
+    }
+
+    serviceImageElement.src = serviceImages[currentImageIndex];
+  }
+</script>
+
+
+
+<!--JAVASCRIPT PARA EL MODAL DE RESEÑA-->
+<script>
+// Para que al hacer click se active el modal
+document.querySelector('.btn[style*="background-color: #2A5C8C"]').addEventListener('click', function() {
+  var myModal = new bootstrap.Modal(document.getElementById('escribirResenaModal'));
+  myModal.show();
+});
+
+// Form
+document.getElementById('formResena').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  alert('¡Reseña enviada con éxito! Gracias por tu feedback.');
+  
+  // Cerrar el modal
+  var myModal = bootstrap.Modal.getInstance(document.getElementById('escribirResenaModal'));
+  myModal.hide();
+  
+  // Reset
+  this.reset();
+});
+</script>
+</body>
+
+</html>
