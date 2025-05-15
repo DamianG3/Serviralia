@@ -67,7 +67,7 @@ function App() {
 
           <Route path='/SkillSearch/:id' element={<SkillSearch />} />
 
-          <Route path='/WorkerProfile' element={<WorkerProfile />} />
+          <Route path='/WorkerProfile/:id' element={<WorkerProfile />} />
           <Route path='/Leads' element={<Leads />} />
         </Routes>
       </BrowserRouter>
