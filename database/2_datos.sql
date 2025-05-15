@@ -147,7 +147,21 @@ INSERT INTO Reviews(id_worker, id_user, rating, review_txt, id_skill) VALUES
     (9, 19, 3, "La casa quedó limpia pero se le olvidó lavar el patio", 3),
     (2, 19, 3, "La limpieza fue buena pero dejó las cosas en desorden.", 3),
     (13, 20, 4, "Buen trabajo, puntual y excelente atención al cliente.", 6),
-    (9, 19, 4, "Arregló todo lo que pedí a buen precio.", 6);
+    (9, 19, 4, "Arregló todo lo que pedí a buen precio.", 6)
+
+    -- NEW REVIEWS
+    (1, 21, 5, "Excelente trabajo y muy rápido.", 1),
+    (3, 22, 1, "Mal servicio, falta de puntualidad y el precio es caro.", 1),
+    (4, 23, 3, "El trabajo fue bueno pero tardó más de lo esperado.", 2),
+    (6, 24, 5, "Muy profesional y cumplió con todo lo prometido.", 2),
+    (7, 25, 2, "No cumplió con el tiempo acordado.", 3),
+    (8, 26, 5, "Excelente limpieza y muy detallista.", 3),
+    (10, 27, 4, "Buen servicio pero podría mejorar en atención al cliente.", 4),
+    (11, 21, 4, "Buen trabajo pero un poco caro.", 4),
+    (14, 22, 5, "Excelente trabajo y muy rápido.", 5),
+    (15, 23, 4, "Buen servicio pero un poco caro.", 5),
+    (17, 24, 3, "El trabajo fue bueno pero el servicio fue poco profesional y tardado.", 6),
+    (18, 15, 5, "Completamente satisfecho con el trabajo y buen servicio al cliente.", 6);
 
 INSERT INTO Leads(id_worker, id_user, title, details, is_archived) VALUES
     (1, 19, "Contacto", "Requiero servicio de plomería", 0),
