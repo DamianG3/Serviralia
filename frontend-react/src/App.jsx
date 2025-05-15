@@ -27,6 +27,8 @@ import Header from './layout/Header'
 function App() {
   const [user, setUser] = useState([])
 
+  
+
   // Check if user has a session
   Axios.defaults.withCredentials = true;
   
