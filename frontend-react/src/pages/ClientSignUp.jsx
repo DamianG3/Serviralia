@@ -1,11 +1,13 @@
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 import Footer from "../layout/Footer"
 import Header from "../layout/Header"
-import axios from "axios";
-
 import '../css/sign-in.css'
 import '../css/AvatarUpload.css'
-// import AvatarUpload from "../components/AvatarUpload"
 
 function ClientSignUp() {
     const [newClient, setNewClient] = useState({
@@ -17,7 +19,8 @@ function ClientSignUp() {
         "birthDate": ""
     })
     const [errorMessage, seterrorMessage] = useState('')
-    
+    const navigate = useNavigate();
+
     const size = 80;
     const [image, setImage] = useState(null);
     const [previewImage, setPreviewImage] = useState('img/icon.jpg');
@@ -66,17 +69,25 @@ function ClientSignUp() {
                 }
             });
             console.log('Submission successful', response.data);
-            // seterrorMessage(response.data.message)
+            submissionSuccessful(response.data.message)
         } catch (error) {
             console.error('Error submitting form', error.response.data);
             seterrorMessage(error.response.data.error)
         }
     }
+
+    const submissionSuccessful = (message) => {
+        withReactContent(Swal).fire({
+            title: message,
+            icon: "success"
+        }).then(() => {
+            console.log("redirecting...");
+            navigate('/SignIn');
+
+        })
+    }
+
     console.log(newClient);
-
-
-
-
 
     return (
         <>
@@ -199,20 +210,27 @@ function ClientSignUp() {
                                     </label>
                                 </div>
                                 <div className="avatar-preview">
-                                    <div
-                                        className="image-preview"
+                                    <label
+                                        className="image-preview" htmlFor="imageUpload"
                                         style={{
                                             backgroundImage: `url(${previewImage})`,
                                             width: `${size}px`,
-                                            height: `${size}px`
+                                            height: `${size}px`,
+                                            cursor: 'pointer'
                                         }}
-                                    ></div>
+                                    ></label>
                                 </div>
                             </div>
                         </div>
+
+
                         {/* Submit */}
                         <div className="centro">
-                            <button onClick={saveNewUser} type='submit' className="btn botonregistro" >
+                            <button
+                                onClick={saveNewUser}
+                                type='submit'
+                                className="btn botonregistro"
+                            >
                                 Registrar
                             </button>
                         </div>
