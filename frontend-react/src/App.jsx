@@ -23,12 +23,16 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element = {<Home/>} />
+
           <Route path='/SignIn' element = {<SignIn />} />
+
           <Route path='/WorkerSignUp' element = {<WorkerSignUp />} />
           <Route path='/ClientSignUp' element = {<ClientSignUp />} />
           <Route path='/WorkerEditProfile' element = {<WorkerEditProfile />} />
           <Route path='/ClientEditProfile' element = {<ClientEditProfile />} />
-          <Route path='/SkillSearch' element = {<SkillSearch />} />
+
+          <Route path='/SkillSearch/:id' element = {<SkillSearch />} />
+
           <Route path='/WorkerProfile' element = {<WorkerProfile />} />
           <Route path='/Leads' element = {<Leads />} />
         </Routes>

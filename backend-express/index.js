@@ -13,8 +13,30 @@ const swaggerJsDocs = require('swagger-jsdoc')
 const swaggerUI = require('swagger-ui-express')
 
 // Multer: Image upload
-const multer = require('multer') // Para imagenes
-const carpeta_archivos = multer({dest:'fotos'})
+const multer = require('multer')
+const path = require('path')
+const fs = require('fs').promises;
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'images')
+    },
+    filename: (req, file, cb) => {
+        console.log("Added image:", file);
+        cb(null, Date.now() + path.extname(file.originalname))
+        
+    }
+})
+const upload = multer({storage: storage})
+
+// In case an error occurs, the image will be deleted 
+const deleteCreatedImage = (imagePath) => {
+    if (imagePath) {
+        const fullPath = path.join(__dirname, '..', 'backend-express', 'images', path.basename(imagePath));
+        fs.unlink(fullPath)
+        .then(() => console.log(`Deleted uploaded file: ${imagePath}`))
+        .catch(unlinkError => console.error('Error deleting file:', unlinkError));
+    }
+}
 
 // MySQL2: Database server connection
 const mysql = require('mysql2')
@@ -79,6 +101,12 @@ const swaggerOption = {
 }
 const swaggerDocs = swaggerJsDocs(swaggerOption)
 app.use('/apis-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
+
+
+app.use('/images', express.static('images'));
+
+
+
 
 /**
  * Search Page
@@ -206,6 +234,107 @@ app.post('/client', (req, res)=>{
         })
     })
     .catch((err) => {
+        if (err.message === "Email duplicated") {
+            res.status(400).json({ error: "El email ya existe" });
+        } else if (err.message === "Phone duplicated") {
+            res.status(400).json({ error: "El telefono ya existe" });
+        } else {
+            res.status(400).json({ error: "Error al registrar usuario" });
+            console.log(err.stack);
+        }
+    });
+})
+
+
+// Register sending images with multer
+/**
+ * @swagger
+ * /newclient:
+ *  post:
+ *      summary: Registers a brand new user
+ *      tags: [Sign up]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              multipart/form-data:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          firstName:
+ *                              type: string
+ *                          lastName:
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                          password:
+ *                              type: string
+ *                          phone:
+ *                              type: string
+ *                          birthDate:
+ *                              type: string
+ *                          pfp:
+ *                              type: string
+ *                              format: binary
+ *                      example:
+ *                          firstName: Juan
+ *                          lastName: Perez
+ *                          email: jperez@gmail.com
+ *                          password: contraseña123
+ *                          phone: 9981234567
+ *                          birthDate: 2000-10-10
+ *      responses:
+ *          201: 
+ *              description: Client registered correctly
+ *          400:
+ *              description: Incomplete data
+ */
+
+app.post('/newclient',  upload.single('pfp'), (req, res)=>{
+    const {firstName, lastName, email, password, phone, birthDate} = req.body // desconstruccion
+    const imagePath = req.file ? req.file.filename : null;
+    console.log("image path:", imagePath);
+    
+    // Validate data, pfpFileName can be null
+    if(!firstName || !lastName || !email || !password || !phone || !birthDate){
+        deleteCreatedImage(imagePath);
+
+        return res.status(400).json({
+            error:"Datos incompletos"
+        })
+    }
+    
+    // Check if email already exist
+    db.promise().query("SELECT 1 FROM users WHERE email = ?;", [email])
+    .then(([isEmailDuplicate]) => {
+        if (isEmailDuplicate[0]) {
+            throw new Error("Email duplicated");
+        }
+        
+        // Check if phone already exist
+        return db.promise().query("SELECT 1 FROM users WHERE phone = ?;", [phone])
+    }) 
+    .then(([isPhoneDuplicate]) => {
+        if (isPhoneDuplicate[0]) {
+            throw new Error("Phone duplicated");
+        }
+
+        // Hashes the password
+        return bcrypt.hash(password, saltRounds)
+    })
+    .then((hash) => {
+        
+        // Creates the new user
+        return db.promise().query('CALL AddNewUser(?,?,?,?,?,?,?)', 
+            [firstName, lastName, email, hash, imagePath, phone, birthDate])
+    })
+    .then(() => {
+        res.status(201).json({
+            message:"Usuario registrado exitosamente"
+        })
+    })
+    .catch((err) => {
+        deleteCreatedImage(imagePath);
+
         if (err.message === "Email duplicated") {
             res.status(400).json({ error: "El email ya existe" });
         } else if (err.message === "Phone duplicated") {

@@ -1,18 +1,44 @@
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
 import Footer from "../layout/Footer";
 import HeaderClient from "../layout/HeaderClient";import Header from "../layout/Header";
 
 import '../css/electricidad.css'
+import axios from 'axios';
 
 
 function SkillSearch() {
+    const { id: idSkill } = useParams();
+    const [workerList, setworkerList] = useState(null);
+
+
+
+
+
+    useEffect(()=>{
+        axios.get('http://localhost:3000/SearchSkill/' + idSkill)
+        .then(res=>{
+            setworkerList(res.data)
+        })
+        .catch(error=>{
+            console.error("Ha ocurrido un error");
+            
+        })
+    },[])
+
+    console.log(workerList);
+    
+
+
     return (
         <>
             <HeaderClient />
             <main>
                 <div className="container-fluid1 px-0">
                     <div className="image-container">
-                        <img src="img/plomeria-DD.jpeg" alt="Plomeria" />
-                        <div className="text-overlay">Plomería</div>
+                        <img src="../img/plomeria-DD.jpeg" alt="Plomeria" />
+                        <div className="text-overlay">{idSkill} Plomería</div>
                     </div>
                 </div>
                 {/*TRAB 1*/}
@@ -25,7 +51,7 @@ function SkillSearch() {
                                         <div className="col-md-5">
                                             <div className="d-flex align-items-start mb-3">
                                                 <img
-                                                    src="img/pers7.jpg"
+                                                    src="http://localhost:3000/images/1747282427734.jpg"
                                                     className="rounded-circle foto-trab me-3"
                                                     alt="Foto del trabajador"
                                                     style={{ width: 80, height: 80 }}
@@ -63,14 +89,14 @@ function SkillSearch() {
                                 <div className="row g-2">
                                     <div className="col-6">
                                         <img
-                                            src="img/plom1.jpg"
+                                            src="../img/plom1.jpg"
                                             className="img-fluid rounded reparacion-img"
                                             alt="Reparación 1"
                                         />
                                     </div>
                                     <div className="col-6">
                                         <img
-                                            src="img/plom2.jpg"
+                                            src="../img/plom2.jpg"
                                             className="img-fluid rounded reparacion-img"
                                             alt="Reparación 2"
                                         />
@@ -90,7 +116,7 @@ function SkillSearch() {
                                         <div className="col-md-5">
                                             <div className="d-flex align-items-start mb-3">
                                                 <img
-                                                    src="img/pers8.jpg"
+                                                    src="../img/pers8.jpg"
                                                     className="rounded-circle foto-trab me-3"
                                                     alt="Foto del trabajador"
                                                     style={{ width: 80, height: 80 }}
@@ -129,14 +155,14 @@ function SkillSearch() {
                                 <div className="row g-2">
                                     <div className="col-6">
                                         <img
-                                            src="img/plom3.webp"
+                                            src="../img/plom3.webp"
                                             className="img-fluid rounded reparacion-img"
                                             alt="Reparación 1"
                                         />
                                     </div>
                                     <div className="col-6">
                                         <img
-                                            src="img/plom4.jpg"
+                                            src="../img/plom4.jpg"
                                             className="img-fluid rounded reparacion-img"
                                             alt="Reparación 2"
                                         />
@@ -156,7 +182,7 @@ function SkillSearch() {
                                         <div className="col-md-5">
                                             <div className="d-flex align-items-start mb-3">
                                                 <img
-                                                    src="img/pers9.jpg"
+                                                    src="../img/pers9.jpg"
                                                     className="rounded-circle foto-trab me-3"
                                                     alt="Foto del trabajador"
                                                     style={{ width: 80, height: 80 }}
@@ -194,14 +220,14 @@ function SkillSearch() {
                                 <div className="row g-2">
                                     <div className="col-6">
                                         <img
-                                            src="img/plom5.png"
+                                            src="../img/plom5.png"
                                             className="img-fluid rounded reparacion-img"
                                             alt="Reparación 1"
                                         />
                                     </div>
                                     <div className="col-6">
                                         <img
-                                            src="img/plom6.jpg"
+                                            src="../img/plom6.jpg"
                                             className="img-fluid rounded reparacion-img"
                                             alt="Reparación 2"
                                         />
