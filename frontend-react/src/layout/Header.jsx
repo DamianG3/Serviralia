@@ -1,6 +1,11 @@
 
 
-function Header() {
+function Header({ user }) {
+    if (user) {
+        
+    }
+
+
     return (
         <>
         

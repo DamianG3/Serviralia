@@ -8,7 +8,7 @@ import Axios from "axios"
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-function SignIn() {
+function SignIn({ setUser }) {
     const [userLogin, setUserLogin] = useState({
         "email": "",
         "password": ""
@@ -29,6 +29,10 @@ function SignIn() {
         Axios.post("http://localhost:3000/login", userLogin)
             .then((response) => {
                 console.log("response", response.data);
+                setUser({
+                    "loggedIn": true,
+                    "user": response.data
+                })
                 submissionSuccessful("Inicio de sesión correcto!")
 
 
@@ -39,15 +43,15 @@ function SignIn() {
     }
 
     const submissionSuccessful = (message) => {
-            withReactContent(Swal).fire({
-                title: message,
-                icon: "success"
-            }).then(() => {
-                console.log("redirecting...");
-                navigate('/');
-    
-            })
-        }
+        withReactContent(Swal).fire({
+            title: message,
+            icon: "success"
+        }).then(() => {
+            console.log("redirecting...");
+            navigate('/');
+
+        })
+    }
 
     console.log(userLogin);
 
