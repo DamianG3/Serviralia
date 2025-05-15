@@ -3,9 +3,10 @@ import Header from "../layout/HeaderGuest";
 
 import '../css/style.css'
 
-function Home() {
+function Home({ user }) {
     return (
         <>
+        {/* <Header user={user} /> */}
             <>
                 <main className="container">
                     <div className="row align-items-center g-1">

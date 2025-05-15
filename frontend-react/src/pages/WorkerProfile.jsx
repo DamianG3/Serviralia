@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import '../css/perfiltrab.css';
 import ReviewModal from "../components/ReviewModal";
-import HeaderLogIn from "../layout/HeaderWorker";
+// import HeaderLogIn from "../layout/HeaderWorker";
 import PrettySkills from "../components/PrettySkills";
 import PrettyStars from "../components/PrettyStars";
 
@@ -14,13 +14,14 @@ function WorkerProfile() {
 
     let bio = "Como técnico en plomería ecológica, ayudo a familias a reducir su consumo de agua. Me certifiqué en Plomería Verde México y uso técnicas como:\n- Instalación de regaderas y WC ahorradores\n- Sistemas de captación de agua pluvial\n- Reparaciones sin químicos contaminantes\nMis precios incluyen asesoría gratuita: \n400 por hora de trabajo, kits de ahorro desde 1,200 MXN, y descuentos en proyectos completos. ¡Juntos cuidamos el planeta y tu bolsillo!"
     // CAMBIO DE LAS IMAGENES
-    const serviceImages = [
-        'img/plom1.jpg',
-        'img/plom2.jpg',
-        'img/elec1.jpg'
-    ];
-
+    const [serviceImages, setServiceImages] = useState([])
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    // const serviceImages = [
+    //     'img/plom1.jpg',
+    //     'img/plom2.jpg',
+    //     'img/elec1.jpg'
+    // ];
+
 
     function changeImage(direction) {
         setCurrentImageIndex(prevIndex => {
@@ -39,12 +40,43 @@ function WorkerProfile() {
     // ID DEL TRABAJADOR
     const { id: idWorker } = useParams();
     // LISTA DE TRABAJADORES
-    const [workerInfo, setWorkerInfo] = useState(null);
+    const [workerInfo, setWorkerInfo] = useState({
+        "info": {
+            "id": null,
+            "fullName": null,
+            "pfpFileName": null,
+            "biography": null,
+            "skills": [],
+            "reviewAverage": null,
+            "totalReviews": null,
+            "gallery": []
+        },
+        "ratings": [
+            {
+                "id": null,
+                "rating": null,
+                "skill": "General"
+            }
+        ],
+        "reviews": [
+            {
+                "id": null,
+                "username": null,
+                "pfpFileName": null,
+                "date": null,
+                "skill": null,
+                "rating": null,
+                "review": null,
+                "gallery": null
+            }
+        ]
+    });
 
     useEffect(() => {
         axios.get('http://localhost:3000/profileinfo/' + idWorker)
             .then(res => {
                 setWorkerInfo(res.data)
+                setServiceImages(res.data.info.gallery)
             })
             .catch(error => {
                 console.error("Ha ocurrido un error");
@@ -52,7 +84,20 @@ function WorkerProfile() {
             })
     }, [])
 
+    const dateReview = (dateString) => {
+        const month = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+        let d = new Date(dateString);
+
+        return month[d.getMonth()] + " " + d.getFullYear();
+
+    }
+
     console.log(workerInfo);
+
+    console.log("serviceImages", serviceImages);
+
 
     return (
         <>
@@ -66,48 +111,56 @@ function WorkerProfile() {
                         {/* PERFIL DE BD */}
 
                         {
-                            workerInfo?.map((worker) => (
-                                <div className="col-md-6 mb-4 p-4" key={worker.id}>
-                                    <div className="trabajador-fondo p-3">
-                                        <div className="row align-items-center mb-4">
-                                            <div className="col-auto">
-                                                <a href="perfiltrab.html">
-                                                    <img
-                                                        src={`http://localhost:3000/images/${worker.pfpFileName}`}
-                                                        onError={(e) => {
-                                                            e.currentTarget.src = 'http://localhost:3000/images/icon.jpg';
-                                                        }}
-                                                        className="rounded-circle foto-trab me-3"
-                                                        alt="Foto del trabajador"
-                                                    />
-                                                </a>
-                                            </div>
-                                            <div className="col">
-                                                <h5 className="mb-1">{worker.fullName}</h5>
-                                                <div className="d-flex align-items-center">
-                                                    <PrettyStars rating={worker.rating} />
-                                                    <span className="ms-2 text-muted">{worker.reviewAverage}</span>
-                                                </div>
-                                                <span className="ms-2 text-muted">({worker.totalReviews} reseñas)</span>
-                                            </div>
-                                            <PrettySkills skills={worker.habilidades} />
+
+                            <div className="col-md-6 mb-4 p-4"
+                            // key={worker.id}
+                            >
+                                <div className="trabajador-fondo p-3">
+                                    <div className="row align-items-center mb-4">
+                                        <div className="col-auto">
+                                            {workerInfo?.info.pfpFileName ? (
+                                                <img
+                                                    src={`http://localhost:3000/images/${workerInfo.info.pfpFileName}`}
+                                                    onError={(e) => {
+                                                        e.currentTarget.src = 'http://localhost:3000/images/icon.jpg';
+                                                    }}
+                                                    className="rounded-circle foto-trab me-3"
+                                                    alt="Foto del trabajador"
+                                                />
+                                            ) : (
+                                                <img
+                                                    src="http://localhost:3000/images/icon.jpg"
+                                                    className="rounded-circle foto-trab me-3"
+                                                    alt="Foto del trabajador"
+                                                />
+                                            )}
                                         </div>
-                                        <p style={{ whiteSpace: 'pre-line' }} >
-                                            {worker.biography}
-                                        </p>
+                                        <div className="col">
+                                            <h5 className="mb-1">{workerInfo.info.fullName}</h5>
+                                            <div className="d-flex align-items-center">
+                                                <PrettyStars rating={workerInfo.info.reviewAverage} />
+                                                <span className="ms-2 text-muted">{workerInfo.info.reviewAverage}</span>
+                                            </div>
+                                            <span className="ms-2 text-muted">({workerInfo.info.totalReviews} reseñas)</span>
+                                        </div>
+                                        <PrettySkills skills={workerInfo.info.skills} />
                                     </div>
+
+                                    <p style={{ whiteSpace: 'pre-line' }} >
+                                        {workerInfo.info.biography}
+                                    </p>
                                 </div>
-                            ))
+                            </div>
                         }
 
                         {/*imagen*/}
                         <div className="image-section">
                             <div className="image-wrapper">
                                 <img
-                                    src={serviceImages[currentImageIndex]}
+                                    src={'http://localhost:3000/images/' + serviceImages[currentImageIndex]}
                                     className="service-image"
                                     id="serviceImage"
-                                    alt="Trabajo de Alejandro Mendoza"
+                                    alt={serviceImages[currentImageIndex]}
                                 />
                                 <div className="nav-buttons">
                                     <button className="nav-btn" onClick={() => changeImage(-1)}>
@@ -120,37 +173,12 @@ function WorkerProfile() {
                             </div>
                         </div>
                         {/*el contenido*/}
-                        <div className="col-md-6 mb-4 p-4">
-                            <div className="trabajador-fondo p-3">
-                                <div className="row align-items-center mb-4">
-                                    <div className="col-auto">
-                                        <a href="perfiltrab.html">
-                                            <img
-                                                src="img/pers1.jpg"
-                                                className="rounded-circle foto-trab"
-                                                alt="Foto del trabajador"
-                                            />
-                                        </a>
-                                    </div>
-                                    <div className="col">
-                                        <h5 className="mb-1">Alejandro Mendoza</h5>
-                                        <div className="d-flex align-items-center">
-                                            <PrettyStars rating={3.8} />
-                                            <span className="ms-2 text-muted">3.8</span>
-                                        </div>
-                                        <span className="ms-2 text-muted">(85 reseñas)</span>
-                                    </div>
-                                    <PrettySkills skills={["Plomería", "Electricidad"]} />
-                                </div>
-                                <p style={{ whiteSpace: 'pre-line' }} >
-                                    {bio}
-                                </p>
-                            </div>
-                        </div>
+
                     </div>
                 </main>
                 {/*CONTACTO*/}
                 <div className="contacto">
+                    {/* Inicia contacto objeto */}
                     <div className="seccion-contacto col-md-4">
                         <form>
                             <div className="form-group">
@@ -180,136 +208,95 @@ function WorkerProfile() {
                             </div>
                         </form>
                     </div>
-                    {/*RESEÑAS*/}
-                    <div className="container2 reseñas-section py-4 mt-4">
-                        <div className="container">
-                            <h2 className="mb-4">Reseñas.</h2>
-                            <div className="row">
-                                {/* Calificaciones por separado */}
-                                <div className="col-md-4 mb-4">
-                                    <div className="trabajador-fondo p-3 h-100">
-                                        <div className="rating-summary text-center">
-                                            <h3 className="mb-3">Calificación General</h3>
-                                            <div className="rating-stars mb-2">
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">☆</span>
-                                            </div>
-                                            <h4 className="mb-4">4.5</h4>
-                                            <div className="category-rating mb-3">
-                                                <span>Plomería</span>
-                                                <div className="d-inline-block ms-2">
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="ms-1">4.8</span>
-                                                </div>
-                                            </div>
-                                            <div className="category-rating">
-                                                <span>Electricidad</span>
-                                                <div className="d-inline-block ms-2">
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">☆</span>
-                                                    <span className="ms-1">4.2</span>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            {/*MODAL PARA RESEÑAS*/}
-                                            < ReviewModal />
+                </div>
+                {/*RESEÑAS*/}
+                <div className="container2 reseñas-section py-4 mt-4">
+                    <div className="container">
+                        <h2 className="mb-4">Reseñas</h2>
+                        <div className="row">
+                            {/* Calificaciones por separado */}
+                            <div className="col-md-4 mb-4">
+                                <div className="trabajador-fondo p-3 h-100">
+                                    <div className="rating-summary text-center">
+                                        <h3 className="mb-3">Calificación General</h3>
+                                        <div className="rating-stars mb-2">
+                                            <PrettyStars rating={workerInfo.ratings[0].rating} />
                                         </div>
+                                        <h4 className="mb-4">{workerInfo.ratings[0].rating}</h4>
+
+                                        {workerInfo.ratings?.filter((_, index) => index !== 0).map((rating) => (
+                                            <div className="category-rating mb-3">
+                                                <span>{rating.skill}</span>
+                                                <div className="d-inline-block ms-2">
+                                                    <PrettyStars rating={rating.rating} />
+                                                    <span className="ms-1">{rating.rating}</span>
+                                                </div>
+                                            </div>
+
+                                        ))}
+
+                                        <br />
+                                        {/*MODAL PARA RESEÑAS*/}
+                                        < ReviewModal />
                                     </div>
                                 </div>
-                                <div className="col-md-8">
-                                    {/* Reseña 1 */}
+                            </div>
+                            <div className="col-md-8">
+                                {workerInfo.reviews?.map((review) => (
                                     <div className="review-card mb-4">
                                         <div className="review-header mb-3">
                                             <div className="row align-items-center">
                                                 <div className="col-auto">
-                                                    <img
-                                                        src="img/pers4.jpg"
-                                                        className="rounded-circle"
-                                                        width={50}
-                                                        alt="Foto cliente"
-                                                    />
+                                                    {
+                                                        review.pfpFileName ? (
+                                                            <img
+                                                                src={"http://localhost:3000/images/" + review.pfpFileName}
+                                                                onError={(e) => {
+                                                                    e.currentTarget.src = 'http://localhost:3000/images/icon.jpg';
+                                                                }}
+                                                                className="rounded-circle"
+                                                                width={50}
+                                                                alt={review.pfpFileName}
+                                                            />
+
+                                                        ) : (
+                                                            <img
+                                                                src="http://localhost:3000/images/icon.jpg"
+
+                                                                className="rounded-circle"
+                                                                width={50}
+                                                                alt={review.pfpFileName}
+                                                            />
+                                                        )
+
+                                                    }
                                                 </div>
                                                 <div className="col">
-                                                    <h5 className="mb-0">David</h5>
-                                                    <small className="text-muted">Febrero 2025</small>
+                                                    <h5 className="mb-0">{review.username}</h5>
+                                                    <small className="text-muted">{dateReview(review.date)}</small>
                                                 </div>
                                             </div>
                                             <div className="rating-stars mt-2">
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
+                                                <PrettyStars rating={review.rating} />
                                             </div>
                                             <div className="col-12 mt-2 d-flex align-items-center gap-2">
                                                 <p className="mb-0">Categoria:</p>
-                                                <button className="btn botonplom">Plomería</button>
+                                                <PrettySkills skills={[review.skill]} />
                                             </div>
                                         </div>
                                         <div className="review-content">
                                             <p className="card-text">
-                                                Contraté a Alejandro para reparar una fuga grave en mi baño y
-                                                quedé impresionado con su profesionalismo. Llegó puntual, con
-                                                todas las herramientas necesarias, y solucionó el problema en
-                                                menos de una hora. Además me explicó claramente que problema
-                                                había causado la fuga y me dió consejos para evitarla en el
-                                                futuro.
+                                                {review.review}
                                             </p>
                                         </div>
                                     </div>
-                                    {/* Reseña 2 */}
-                                    <div className="review-card">
-                                        <div className="review-header mb-3">
-                                            <div className="row align-items-center">
-                                                <div className="col-auto">
-                                                    <img
-                                                        src="img/pers5.jpg"
-                                                        className="rounded-circle"
-                                                        width={50}
-                                                        alt="Foto cliente"
-                                                    />
-                                                </div>
-                                                <div className="col">
-                                                    <h5 className="mb-0">Andrés</h5>
-                                                    <small className="text-muted">Enero 2025</small>
-                                                </div>
-                                            </div>
-                                            <div className="rating-stars mt-2">
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">★</span>
-                                                <span className="text-warning">☆</span>
-                                            </div>
-                                            <div className="col-12 mt-2 d-flex align-items-center gap-2">
-                                                <p className="mb-0">Categoria:</p>
-                                                <button className="btn botonplom">Electricidad</button>
-                                            </div>
-                                        </div>
-                                        <div className="review-content">
-                                            <p className="card-text">
-                                                ¡Servicio impecable! El electricista llegó puntual, solucionó
-                                                mi problema de cortocircuito rápido y con profesionalismo.
-                                                Explicó todo claramente, dejó todo limpio y el precio fue
-                                                justo. 100% recomendado, lo contrataré nuevamente sin dudar.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+
+                                ))}
                             </div>
                         </div>
                     </div>
                 </div>
+
             </>
             <Footer />
         </>

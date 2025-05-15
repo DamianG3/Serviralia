@@ -1,6 +1,8 @@
 import '../css/headerLogIn.css'
 2
-function HeaderClient() {
+function HeaderClient({ user }) {
+
+
     return (
         <header>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -32,11 +34,31 @@ function HeaderClient() {
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                 >
-                                    <img
-                                        src="img/pers11.jpg"
-                                        className="icon-image"
-                                    />
-                                    <span>Maria.</span>
+
+                                    {
+                                        user.user.pfp ? (
+                                            <img
+                                                src={"http://localhost:3000/images/" + user.user.pfp}
+                                                onError={(e) => {
+                                                    e.currentTarget.src = 'http://localhost:3000/images/icon.jpg';
+                                                }}
+                                                className="icon-image"
+                                                width={50}
+                                                alt={user.user.pfp}
+                                            />
+
+                                        ) : (
+                                            <img
+                                                src="http://localhost:3000/images/icon.jpg"
+
+                                                className="icon-image"
+                                                width={50}
+                                                alt={user.user.pfp}
+                                            />
+                                        )
+
+                                    }
+                                    <span>{user.user.firstName}</span>
                                 </a>
                                 <ul
                                     className="dropdown-menu dropdown-menu-end"

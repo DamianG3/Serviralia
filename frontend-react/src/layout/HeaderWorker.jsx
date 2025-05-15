@@ -1,6 +1,6 @@
 import '../css/headerLogIn.css'
 
-function HeaderWorker() {
+function HeaderWorker({ user }) {
 
     return (
         <header>
@@ -51,11 +51,30 @@ function HeaderWorker() {
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                 >
-                                    <img
-                                        src="img/pers1.jpg"
-                                        className="icon-image"
-                                    />
-                                    <span>Alejandro M.</span>
+                                    {
+                                        user.user.pfp ? (
+                                            <img
+                                                src={"http://localhost:3000/images/" + user.user.pfp}
+                                                onError={(e) => {
+                                                    e.currentTarget.src = 'http://localhost:3000/images/icon.jpg';
+                                                }}
+                                                className="icon-image"
+                                                width={50}
+                                                alt={user.user.pfp}
+                                            />
+
+                                        ) : (
+                                            <img
+                                                src="http://localhost:3000/images/icon.jpg"
+
+                                                className="icon-image"
+                                                width={50}
+                                                alt={user.user.pfp}
+                                            />
+                                        )
+
+                                    }
+                                    <span>{user.user.firstName}</span>
                                 </a>
                                 <ul
                                     className="dropdown-menu dropdown-menu-end"

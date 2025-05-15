@@ -19,7 +19,7 @@ import Leads from './pages/Leads'
 import { useEffect, useState } from 'react'
 import Axios from 'axios';
 
-import HeaderGuest from './layout/HeaderGuest'
+// import HeaderGuest from './layout/HeaderGuest'
 import Header from './layout/Header'
 
 
@@ -35,10 +35,10 @@ function App() {
   useEffect(() => {
     Axios.get("http://localhost:3000/login")
     .then((response) => {
-      // console.log("response", response.data)
+      console.log("response", response.data)
       setUser(response.data)
     }).catch((error) => {
-      // console.log("error", error.response.data);
+      console.log("error", error.response.data);
       setUser(error.response.data)
       
     })
@@ -50,15 +50,15 @@ function App() {
 
 
 
+    // <HeaderGuest />
 
   return (
     <>
-      {/* <Header user={user} /> */}
-      <HeaderGuest />
+      <Header user={user} />
 
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home user={user} />} />
 
           <Route path='/SignIn' element={<SignIn setUser={setUser} />} />
 

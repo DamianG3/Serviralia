@@ -6,9 +6,12 @@ import HeaderClient from "../layout/HeaderClient"; import Header from "../layout
 
 import '../css/electricidad.css'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function SkillSearch() {
+    const navigate = useNavigate();
 
     // ID DE LA HABILIDAD
     const { id: idSkill } = useParams();
@@ -42,7 +45,7 @@ function SkillSearch() {
                 <div className="container mt-4 mb-5">
                     {
                         workerList?.map((worker) => (
-                            <a href=''>
+                            <a href={'/WorkerProfile/1'}>
                                 <div key={worker.id} className="card m-4 p-4 shadow-sm">
                                     <div className="row g-4">
                                         <div className="col-md-8">
