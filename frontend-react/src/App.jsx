@@ -16,27 +16,61 @@ import ClientEditProfile from './pages/ClientEditProfile'
 import SkillSearch from './pages/SkillSearch'
 import WorkerProfile from './pages/WorkerProfile'
 import Leads from './pages/Leads'
+import { useEffect, useState } from 'react'
+import Axios from 'axios';
+
+import HeaderGuest from './layout/HeaderGuest'
+
+
 
 function App() {
+  const [user, setUser] = useState([])
+
+  // Check if user has a session
+  Axios.defaults.withCredentials = true;
+  
+  useEffect(() => {
+    Axios.get("http://localhost:3000/login")
+    .then((response) => {
+      // console.log("response", response.data)
+      setUser(response.data)
+    }).catch((error) => {
+      // console.log("error", error.response.data);
+      setUser(error.response.data)
+      
+    })
+
+  }, [])
+
+    console.log(user);
+    
+
+
+
+
   return (
     <>
+      
+      <HeaderGuest />
+
       <BrowserRouter>
         <Routes>
-          <Route path='/' element = {<Home/>} />
+          <Route path='/' element={<Home />} />
 
-          <Route path='/SignIn' element = {<SignIn />} />
+          <Route path='/SignIn' element={<SignIn />} />
 
-          <Route path='/WorkerSignUp' element = {<WorkerSignUp />} />
-          <Route path='/ClientSignUp' element = {<ClientSignUp />} />
-          <Route path='/WorkerEditProfile' element = {<WorkerEditProfile />} />
-          <Route path='/ClientEditProfile' element = {<ClientEditProfile />} />
+          <Route path='/WorkerSignUp' element={<WorkerSignUp />} />
+          <Route path='/ClientSignUp' element={<ClientSignUp />} />
+          <Route path='/WorkerEditProfile' element={<WorkerEditProfile />} />
+          <Route path='/ClientEditProfile' element={<ClientEditProfile />} />
 
-          <Route path='/SkillSearch/:id' element = {<SkillSearch />} />
+          <Route path='/SkillSearch/:id' element={<SkillSearch />} />
 
-          <Route path='/WorkerProfile' element = {<WorkerProfile />} />
-          <Route path='/Leads' element = {<Leads />} />
+          <Route path='/WorkerProfile' element={<WorkerProfile />} />
+          <Route path='/Leads' element={<Leads />} />
         </Routes>
       </BrowserRouter>
+
     </>
   )
 }

@@ -1,12 +1,11 @@
-import '../css/headerLogIn.css'
+import '../css/style.css'
 
-function HeaderLogIn() {
-
+function HeaderGuest() {
     return (
         <header>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                    <img src="img/logo.png" width={50} />
+                    <img src="http://localhost:3000/images/logo.png" width={50} />
                     <a className="navbar-brand" href="/">
                         Serviralia Cancún
                     </a>
@@ -22,71 +21,12 @@ function HeaderLogIn() {
                         <span className="navbar-toggler-icon" />
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                            {/* Solicitudes */}
-                            <li className="nav-item mx-2">
-                                <a className="nav-link position-relative" href="#">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width={20}
-                                        height={20}
-                                        fill="currentColor"
-                                        className="bi bi-bell"
-                                        viewBox="0 0 16 16"
-                                    >
-                                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
-                                    </svg>
-                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                        1<span className="visually-hidden">solicitudes pendientes</span>
-                                    </span>
+                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <a className="nav-link" href="/SignIn">
+                                    Iniciar Sesión
                                 </a>
                             </li>
-                            {/* Dropdown de perfil */}
-                            <li className="nav-item dropdown mx-2">
-                                <a
-                                    className="nav-link dropdown-toggle d-flex align-items-center"
-                                    href="#"
-                                    id="profileDropdown"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
-                                    <img
-                                        src="img/pers1.jpg"
-                                        className="icon-image"
-                                    />
-                                    <span>Alejandro M.</span>
-                                </a>
-                                <ul
-                                    className="dropdown-menu dropdown-menu-end"
-                                    aria-labelledby="profileDropdown"
-                                >
-                                    <li>
-                                        <a className="dropdown-item" href="/WorkerProfile">
-                                            Mi perfil
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="dropdown-item" href="/WorkerEditProfile">
-                                            Editar perfil
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="dropdown-item" href="/Leads">
-                                            Solicitudes (1)
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr className="dropdown-divider" />
-                                    </li>
-                                    <li>
-                                        <a className="dropdown-item text-danger" href="/">
-                                            Cerrar sesión
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            {/* Dropdown de categorias */}
                             <li className="nav-item dropdown">
                                 <a
                                     className="nav-link dropdown-toggle"
@@ -185,8 +125,7 @@ function HeaderLogIn() {
                 </div>
             </nav>
         </header>
-
     )
 }
 
-export default HeaderLogIn;
+export default HeaderGuest

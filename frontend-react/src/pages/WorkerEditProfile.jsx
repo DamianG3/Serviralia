@@ -1,12 +1,11 @@
 import Footer from "../layout/Footer";
-import Header from "../layout/Header";
+import Header from "../layout/HeaderGuest";
 
 import '../css/sign-in.css'
 
 function WorkerEditProfile() {
     return (
         <>
-            <Header />
             <section className="d-flex justify-content-center align-items-center py-5">
                 <main className="form-signup w-100 m-auto">
                     <form id="login">
