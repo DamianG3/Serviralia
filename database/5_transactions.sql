@@ -132,6 +132,7 @@ BEGIN
     
     DECLARE length INT;
     DECLARE i INT;
+    DECLARE error_msg VARCHAR(255);
     
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
 		BEGIN
@@ -191,8 +192,11 @@ BEGIN
 			WHERE
 				id_skill = JSON_EXTRACT(skill_ids, CONCAT('$[', i, ']')))
 		THEN
-			SIGNAL SQLSTATE '45000'
-			SET MESSAGE_TEXT = 'Skill ID does not exist';
+			SET error_msg = CONCAT('Skill ID ''', JSON_EXTRACT(skill_ids, CONCAT('$[', i, ']')), ''' does not exist');
+
+-- Signal the error with the prepared message
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = error_msg;
 		END IF;
         
         -- Insert ID number `i` into WorkerSkills table
@@ -242,18 +246,18 @@ DELIMITER ;
 
 
 -- Example
-CALL AddNewWorker(
-	   'nameTest',
-    'lastnameTest',
-    'new1@mail.com',
-    'password',
-    null,
-    '100001',
-    '2000-10-10',
-    
-    'new bio',
-    "[1,2,3,4,5,6]",
-		'["1testPhoto1.jpg", "2testPhoto1.jpg", "3testPhoto1.jpg"]');
+-- CALL AddNewWorker(
+-- 	   'nameTest',
+--     'lastnameTest',
+--     'new1@mail.com',
+--     'password',
+--     null,
+--     '100001',
+--     '2000-10-10',
+--     
+--     'new bio',
+--     "[1,2,3,4,5,6]",
+-- 		'["1testPhoto1.jpg", "2testPhoto1.jpg", "3testPhoto1.jpg"]');
 
 -- ------------------------------------- EDIT EXISTING USER ------------------------------------------
 # Transaction that updates all the columns in the User table, except the id_user column

@@ -136,6 +136,7 @@ CREATE VIEW AllLeads AS
 DROP VIEW IF EXISTS userData;
 CREATE VIEW userData AS
 	SELECT 
+		id_user AS id,
 		first_name AS firstName,
 		last_name AS lastName,
 		email,
@@ -151,6 +152,7 @@ CREATE VIEW userData AS
 DROP VIEW IF EXISTS workerData;
 CREATE VIEW workerData AS
 	SELECT 
+		id_worker AS id,
 		first_name AS firstName,
 		last_name AS lastName,
 		email,

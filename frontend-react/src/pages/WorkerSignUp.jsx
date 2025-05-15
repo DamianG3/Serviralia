@@ -94,45 +94,44 @@ function WorkerSignUp() {
         formDataToSend.append('firstName', newWorker.firstName);
         formDataToSend.append('lastName', newWorker.lastName);
         formDataToSend.append('email', newWorker.email);
+        formDataToSend.append('birthDate', newWorker.birthDate);
         formDataToSend.append('password', newWorker.password);
         formDataToSend.append('phone', newWorker.phone);
         formDataToSend.append('biography', newWorker.biography);
 
         if (selectedSkills) {
             // console.log("skills:", selectedSkills.map(obj => obj.value));
-            formDataToSend.append('skill', selectedSkills.map(obj => obj.value));
+            formDataToSend.append('skill', JSON.stringify(selectedSkills.map(obj => obj.value)));
             
         }
 
         console.log("Form to send", formDataToSend);
         
         
-        // try {
-        //     const response = await axios.post('http://localhost:3000/newWorker', formDataToSend, {
-        //         headers: {
-        //             'Content-Type': 'multipart/form-data'
-        //         }
-        //     });
-        //     console.log('Submission successful', response.data);
-        //     submissionSuccessful(response.data.message)
-        // } catch (error) {
-        //     console.error('Error submitting form', error.response.data);
-        //     seterrorMessage(error.response.data.error)
-        // }
+        try {
+            const response = await axios.post('http://localhost:3000/newWorker', formDataToSend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('Submission successful', response.data);
+            submissionSuccessful(response.data.message)
+        } catch (error) {
+            console.error('Error submitting form', error.response.data);
+            seterrorMessage(error.response.data.error)
+        }
     }
+    
+    const submissionSuccessful = (message) => {
+        withReactContent(Swal).fire({
+            title: message,
+            icon: "success"
+        }).then(() => {
+            console.log("redirecting...");
+            navigate('/SignIn');
 
-
-
-    // const submissionSuccessful = (message) => {
-    //     withReactContent(Swal).fire({
-    //         title: message,
-    //         icon: "success"
-    //     }).then(() => {
-    //         console.log("redirecting...");
-    //         navigate('/SignIn');
-
-    //     })
-    // }
+        })
+    }
 
     useEffect(() => {
         axios.get('http://localhost:3000/skills')
