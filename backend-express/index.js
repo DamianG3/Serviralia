@@ -580,7 +580,7 @@ app.post('/newworker', uploadMiddleware, (req, res)=>{
 
     if(!firstName || !lastName || !email || !password || !phone || !birthDate || !biography || !skill){
         deleteCreatedImage(pfpPath);
-        galleryPath.forEach(deleteCreatedImage)
+        galleryPath?.forEach(deleteCreatedImage)
 
         
         return res.status(400).json({
@@ -632,7 +632,7 @@ app.post('/newworker', uploadMiddleware, (req, res)=>{
     })
     .catch((err) => {
         deleteCreatedImage(pfpPath);
-        galleryPath.forEach(deleteCreatedImage)
+        galleryPath?.forEach(deleteCreatedImage)
         
         if (err.message === "Email duplicated") {
             res.status(400).json({ error: "El email ya existe" });

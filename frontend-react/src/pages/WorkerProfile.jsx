@@ -11,17 +11,10 @@ import PrettySkills from "../components/PrettySkills";
 import PrettyStars from "../components/PrettyStars";
 
 function WorkerProfile() {
-
-    let bio = "Como técnico en plomería ecológica, ayudo a familias a reducir su consumo de agua. Me certifiqué en Plomería Verde México y uso técnicas como:\n- Instalación de regaderas y WC ahorradores\n- Sistemas de captación de agua pluvial\n- Reparaciones sin químicos contaminantes\nMis precios incluyen asesoría gratuita: \n400 por hora de trabajo, kits de ahorro desde 1,200 MXN, y descuentos en proyectos completos. ¡Juntos cuidamos el planeta y tu bolsillo!"
     // CAMBIO DE LAS IMAGENES
     const [serviceImages, setServiceImages] = useState([])
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    // const serviceImages = [
-    //     'img/plom1.jpg',
-    //     'img/plom2.jpg',
-    //     'img/elec1.jpg'
-    // ];
-
+  
 
     function changeImage(direction) {
         setCurrentImageIndex(prevIndex => {
@@ -39,6 +32,7 @@ function WorkerProfile() {
 
     // ID DEL TRABAJADOR
     const { id: idWorker } = useParams();
+
     // LISTA DE TRABAJADORES
     const [workerInfo, setWorkerInfo] = useState({
         "info": {
@@ -112,9 +106,7 @@ function WorkerProfile() {
 
                         {
 
-                            <div className="col-md-6 mb-4 p-4"
-                            // key={worker.id}
-                            >
+                            <div className="col-md-6 mb-4 p-4">
                                 <div className="trabajador-fondo p-3">
                                     <div className="row align-items-center mb-4">
                                         <div className="col-auto">
