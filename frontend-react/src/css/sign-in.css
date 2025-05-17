@@ -167,12 +167,11 @@ img {
 }
 
 .botoncuentas {
-  font-size: small;
   background-color: #FFC107;
   color: black;
-  width: 120px;
+  width: 129px;
   height: 40px;
-  margin: 12px;
+  /* margin: 12px; */
 }
 
 .botonsubirfoto {

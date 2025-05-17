@@ -55,7 +55,7 @@ const ImageUploader = ({imageContainers, setImageContainers}) => {
               }}
             ></div>
             <label className="btn btn-primary">
-              Upload
+              Subir imagen
               <input
                 type="file"
                 name='gallery'

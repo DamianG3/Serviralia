@@ -13,7 +13,7 @@ function SignIn({ setUser }) {
         "email": "",
         "password": ""
     })
-    const [errorMessage, seterrorMessage] = useState(' ')
+    const [errorMessage, seterrorMessage] = useState('')
     const navigate = useNavigate();
 
 
@@ -99,22 +99,38 @@ function SignIn({ setUser }) {
                                 Recuérdame
                             </label>
                         </div> */}
-                        <button onClick={submitLogin} className="btn w-100 py-2">
+                        <button onClick={submitLogin} className="btn w-100 py-2 my-2">
                             Acceder
                         </button>
 
                     </form>
                     <div className="float-end" id="error">{errorMessage}</div>
-                    <p className="mt-5 mb-3 text-body-secondary">
-                        {" "}
-                        ---------------------- Crear Cuenta ----------------------{" "}
-                    </p>
-                    <a href="/ClientSignUp">
+
+                    <div className="my-4"
+                        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                        <div style={{ flex: 1, height: '1px', backgroundColor: 'black' }} />
+                        <p style={{ margin: '0px', width: '130px', textAlign: 'center' }}>Crear Cuenta</p>
+                        <div style={{ flex: 1, height: '1px', backgroundColor: 'black' }} />
+                    </div>
+
+                    <div class="container overflow-hidden text-center">
+                        <div class="row gx-3">
+                            <div class="col">
+                                <a href="/ClientSignUp">
+                                    <button className="btn botoncuentas ">Cliente</button>
+                                </a>    </div>
+                            <div class="col">
+                                <a href="/WorkerSignUp">
+                                    <button className="btn botoncuentas ">Trabajador</button>
+                                </a>    </div>
+                        </div>
+                    </div>
+                    {/* <a href="/ClientSignUp">
                         <button className="btn botoncuentas mt-2">Cliente</button>
                     </a>
                     <a href="/WorkerSignUp">
                         <button className="btn botoncuentas mt-2">Trabajador</button>
-                    </a>
+                    </a> */}
                     <p className="mt-5 mb-3 text-body-secondary">© Serviralia 2025</p>
                 </main>
             </section>
