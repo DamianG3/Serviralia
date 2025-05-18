@@ -139,6 +139,17 @@
   color: white;
 }
 
+.btn-warning {
+  background-color: #FFC107;
+  color: black;
+  /* width: 129px;
+  height: 40px; */
+  /* margin: 12px; */
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
 
 
 /* SECCIÓN DE RESEÑAS */
@@ -239,10 +250,22 @@
 .btn-primary {
   background-color: #2A5C8C;
   border: none;
+  border-radius: 5px;
+  /* margin-top: 1px;  */
 }
 
 .btn-primary:hover {
   background-color: #1e4a7b;
+}
+
+.btn-secondary {
+  background-color: #6c757d;;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn-secondary:hover {
+  background-color: #50565c;;
 }
 
 

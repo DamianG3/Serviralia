@@ -2,8 +2,6 @@ import { useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import '../css/perfiltrab.css'
-
 function ReviewModal() {
 
 	const [show, setShow] = useState(false);
@@ -118,9 +116,11 @@ function ReviewModal() {
 						<Button variant="btn btn-secondary" onClick={handleClose}>
 							Cancelar
 						</Button>
-						<Button variant="btn btn-primary" type="submit">
-							Enviar reseña
-						</Button>
+						<span>
+							<Button variant="btn btn-primary" type="submit">
+								Enviar reseña
+							</Button>
+						</span>
 					</Modal.Footer>
 				</Form>
 			</Modal>

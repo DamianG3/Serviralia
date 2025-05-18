@@ -2,3 +2,7 @@
     width: 100%;
     margin: auto;
 }
+
+a:-webkit-any-link {
+  text-decoration: none;
+}
