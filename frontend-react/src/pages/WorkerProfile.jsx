@@ -9,12 +9,13 @@ import ReviewModal from "../components/ReviewModal";
 // import HeaderLogIn from "../layout/HeaderWorker";
 import PrettySkills from "../components/PrettySkills";
 import PrettyStars from "../components/PrettyStars";
+import LeadForm from "../components/LeadForm";
 
 function WorkerProfile() {
     // CAMBIO DE LAS IMAGENES
     const [serviceImages, setServiceImages] = useState([])
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
+
 
     function changeImage(direction) {
         setCurrentImageIndex(prevIndex => {
@@ -88,9 +89,9 @@ function WorkerProfile() {
 
     }
 
-    console.log(workerInfo);
+    // console.log(workerInfo);
 
-    console.log("serviceImages", serviceImages);
+    // console.log("serviceImages", serviceImages);
 
 
     return (
@@ -171,7 +172,9 @@ function WorkerProfile() {
                 {/*CONTACTO*/}
                 <div className="contacto">
                     {/* Inicia contacto objeto */}
-                    <div className="seccion-contacto col-md-4">
+                        <LeadForm idWorker={workerInfo.info.id}/>
+
+                    {/* <div className="seccion-contacto col-md-4">
                         <form>
                             <div className="form-group">
                                 <h2 className="Contactar">Contactar</h2>
@@ -199,7 +202,7 @@ function WorkerProfile() {
                                 </button>
                             </div>
                         </form>
-                    </div>
+                    </div> */}
                 </div>
                 {/*RESEÑAS*/}
                 <div className="container2 reseñas-section py-4 mt-4">
