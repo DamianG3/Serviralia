@@ -1,15 +1,14 @@
 import Footer from "../layout/Footer";
-// import Header from "../layout/Header";
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import '../css/perfiltrab.css';
 import ReviewModal from "../components/ReviewModal";
-// import HeaderLogIn from "../layout/HeaderWorker";
 import PrettySkills from "../components/PrettySkills";
 import PrettyStars from "../components/PrettyStars";
 import LeadForm from "../components/LeadForm";
+
 
 function WorkerProfile() {
     // CAMBIO DE LAS IMAGENES
@@ -89,7 +88,7 @@ function WorkerProfile() {
 
     }
 
-    // console.log(workerInfo);
+    console.log("workerInfo", workerInfo);
 
     // console.log("serviceImages", serviceImages);
 
@@ -108,7 +107,7 @@ function WorkerProfile() {
                         {
 
                             <div className="col-md-6 mb-4 p-4">
-                                <div className="trabajador-fondo p-3">
+                                <div className="p-3">
                                     <div className="row align-items-center mb-4">
                                         <div className="col-auto">
                                             {workerInfo?.info.pfpFileName ? (
@@ -232,7 +231,7 @@ function WorkerProfile() {
 
                                         <br />
                                         {/*MODAL PARA RESEÑAS*/}
-                                        < ReviewModal />
+                                        < ReviewModal idWorker={workerInfo.info.id} skillList={workerInfo.info.skills}/>
                                     </div>
                                 </div>
                             </div>
@@ -253,7 +252,6 @@ function WorkerProfile() {
                                                                 width={50}
                                                                 alt={review.pfpFileName}
                                                             />
-
                                                         ) : (
                                                             <img
                                                                 src="http://localhost:3000/images/icon.jpg"
@@ -263,7 +261,6 @@ function WorkerProfile() {
                                                                 alt={review.pfpFileName}
                                                             />
                                                         )
-
                                                     }
                                                 </div>
                                                 <div className="col">
@@ -283,6 +280,26 @@ function WorkerProfile() {
                                             <p className="card-text">
                                                 {review.review}
                                             </p>
+
+                                            {/* {review.gallery?.map((val) => val)} */}
+
+                                            <div className="col-md-4">
+                                            <div className="row g-2">
+                                                {review.gallery?.map((image, index) => (
+                                                    <div key={index} className="col-6">
+                                                        <img
+                                                            src={`http://localhost:3000/images/${image}`}
+                                                            onError={(e) => {
+                                                                e.currentTarget.src = 'http://localhost:3000/images/image.png';
+                                                            }}
+                                                            className="img-fluid rounded reparacion-img"
+                                                            alt={`${index + 1}` + ` ${image}`}
+                                                        />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
                                         </div>
                                     </div>
 

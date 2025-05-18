@@ -550,9 +550,10 @@ BEGIN
     
     -- Inserts images into the ReviewGallery table
 	
-    
+    select CONCAT("Recieved gallery: ", review_images);
     IF (review_images IS NOT NULL) THEN -- Checks if there are any images to be added		
 		SET length = JSON_LENGTH(review_images);
+        
 		SET i = 0;
 			
 		add_images: LOOP

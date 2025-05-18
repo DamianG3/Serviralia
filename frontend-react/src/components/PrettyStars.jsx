@@ -1,6 +1,7 @@
 // Extract SVG components to avoid repetition
 const StarFull = () => (
   <svg
+    style={{ marginLeft: '4px' }}
     xmlns="http://www.w3.org/2000/svg"
     width="16"
     height="16"
@@ -14,6 +15,7 @@ const StarFull = () => (
 
 const StarHalf = () => (
   <svg
+    style={{ marginLeft: '4px' }}
     xmlns="http://www.w3.org/2000/svg"
     width="16"
     height="16"
@@ -27,6 +29,7 @@ const StarHalf = () => (
 
 const StarEmpty = () => (
   <svg
+    style={{ marginLeft: '4px' }}
     xmlns="http://www.w3.org/2000/svg"
     width="16"
     height="16"
@@ -44,7 +47,7 @@ const PrettyStars = ({ rating }) => {
   const emptyStars = 5 - ratingNum - (hasHalfStar ? 1 : 0);
 
   return (
-    <div className="rating-stars">
+    <div style={{ color: '#FFC107', margin: '8px 0' }}>
       {/* Full stars */}
       {Array(ratingNum).fill().map((_, i) => (
         <StarFull key={`full-${i}`} />

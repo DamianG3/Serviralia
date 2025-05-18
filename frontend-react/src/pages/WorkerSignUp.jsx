@@ -105,7 +105,7 @@ function WorkerSignUp() {
             
         }
 
-        console.log("Form to send", formDataToSend);
+        // console.log("Form to send", formDataToSend);
         
         
         try {

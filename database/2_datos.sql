@@ -165,7 +165,7 @@ INSERT INTO WorkerGallery(id_worker, file_name) VALUES
 	(13, "13WorkerGallery2.jpg"),
 	(14, "14WorkerGallery.jpg"),
 	(14, "14WorkerGallery2.jpg"),
-	(15, "15WorkerGallery.jpg"),
+	(15, "15WorkerGallery.png"),
 	(15, "15WorkerGallery2.jpg"),
 	(16, "16WorkerGallery.jpg"),
 	(16, "16WorkerGallery2.jpg"),
@@ -179,16 +179,16 @@ INSERT INTO Reviews(id_worker, id_user, rating, review_txt, id_skill) VALUES
     (13, 19, 1, "Terrible trabajo, arruinó mi casa.", 5),
     (5, 20, 4, "Solucionó todos los problemas.", 2),
     (12, 19, 2, "Trabajo mediocre.", 4),
-    (2, 20, 5, "Excelente trabajo, arregló todo.", 1),
+    (2, 20, 5, "Excelente trabajo, arregló todo.", 1), -- 5
     (9, 19, 3, "La casa quedó limpia pero se le olvidó lavar el patio", 3),
     (2, 19, 3, "La limpieza fue buena pero dejó las cosas en desorden.", 3),
     (13, 20, 4, "Buen trabajo, puntual y excelente atención al cliente.", 6),
-    (9, 19, 4, "Arregló todo lo que pedí a buen precio.", 6), -- 9
+    (9, 23, 4, "Arregló todo lo que pedí a buen precio.", 6),
 
     -- NEW REVIEWS
     (1, 21, 5, "Excelente trabajo y muy rápido.", 1), -- 10
     (3, 22, 1, "Mal servicio, falta de puntualidad y el precio es caro.", 1),
-    (4, 23, 3, "El trabajo fue bueno pero tardó más de lo esperado.", 2),
+    (4, 23, 3, "El trabajo fue bueno pero tardó más de lo esperado.", 2), -- 12
     (6, 24, 5, "Muy profesional y cumplió con todo lo prometido.", 2),
     (7, 25, 2, "No cumplió con el tiempo acordado.", 3),
     (8, 26, 5, "Excelente limpieza y muy detallista.", 3), -- 15
@@ -216,7 +216,7 @@ INSERT INTO Leads(id_worker, id_user, title, details, is_archived) VALUES
     (8, 20, "Contacto", "Quiero volver a contratarlo", 1),
     (10, 20, "Pregunta de horarios", "¿Qué horarios tiene libre esta semana?", 1);
 
-
+-- Test leads, execute after adding a worker
 INSERT INTO Leads(id_worker, id_user, title, details, is_archived) VALUES
 	(19, 8, "Reparación urgente en cocina",
 "El problema empezó ayer por la noche. Necesito atención lo antes posible, preferiblemente hoy en la tarde después de las 4 PM o mañana en la mañana. ¿Podría darme un estimado de costo y disponibilidad?", 0),

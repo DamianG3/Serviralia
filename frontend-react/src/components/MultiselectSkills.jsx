@@ -12,6 +12,7 @@ const MultiselectSkills = ({options, selectedSkills, onOptionChange}) => {
             options={options}
             onChange={onOptionChange}
             value={selectedSkills}
+            placeholder="Habilidades"
         />
     );
 };

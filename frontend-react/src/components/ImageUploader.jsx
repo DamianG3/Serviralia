@@ -40,7 +40,7 @@ const ImageUploader = ({imageContainers, setImageContainers}) => {
     }
   };
 
-  console.log(imageContainers);
+  // console.log(imageContainers);
   
 
   return (

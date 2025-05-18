@@ -45,7 +45,7 @@ function SkillSearch() {
                 <div className="container mt-4 mb-5">
                     {
                         workerList?.map((worker) => (
-                            <a href={'/WorkerProfile/1'}>
+                            <a href={'/WorkerProfile/' + worker.id_worker}>
                                 <div key={worker.id} className="card m-4 p-4 shadow-sm">
                                     <div className="row g-4">
                                         <div className="col-md-8">
