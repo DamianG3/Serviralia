@@ -67,7 +67,7 @@ function LeadForm({ idWorker }) {
 
     }, [user])
 
-    // console.log(leadInfo);
+    console.log(leadInfo); // NO ELIMINAR - por alguna razón no funciona si no imprime leadInfo
 
 
     return (

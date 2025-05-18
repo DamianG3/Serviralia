@@ -10,7 +10,7 @@ function Header({ user }) {
 
     useEffect(() => {
         if (user.loggedIn) {
-            if (user.user.worker) {
+            if (user.user.idWorker) {
                 console.log("Header Worker");
                 setShowWorker(true);
                 setShowClient(false);
@@ -29,6 +29,7 @@ function Header({ user }) {
         }
     }, [user]); // Only re-run the effect if user changes
 
+    
     return (
         <>
             {showGuest && <HeaderGuest />}

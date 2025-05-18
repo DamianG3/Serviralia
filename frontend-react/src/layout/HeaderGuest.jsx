@@ -5,8 +5,8 @@ function HeaderGuest() {
         <header>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                    <img src="http://localhost:3000/images/logo.png" width={50} />
                     <a className="navbar-brand" href="/">
+                    <img src="http://localhost:3000/images/logo.png" width={50} />
                         Serviralia Cancún
                     </a>
                     <button

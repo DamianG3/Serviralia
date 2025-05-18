@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from "../App";
+import axios from 'axios';
 
 import Footer from "../layout/Footer"
 import HeaderLogIn from "../layout/HeaderWorker"
@@ -6,54 +9,70 @@ import HeaderLogIn from "../layout/HeaderWorker"
 import '../css/solicitudes.css';
 
 function Leads() {
+    const navigate = useNavigate();
+    const user = useContext(UserContext);
+    const [solicitudes, setSolicitudes] = useState([{
+        idLead: 1,
+        isArchived: false,
+        username: "",
+        email: "",
+        phone: "",
+        pfpFileName: "",
+        date: "",
+        title: "",
+        details: ""
+    }]);
 
-    const [solicitudes, setSolicitudes] = useState([
-        {
-            id: 1,
-            is_archived: false,
-            nombre: "Maria",
-            email: "maria.gonzales@gmail.com",
-            telefono: "9981234567",
-            date_created: "6 de Mayo",
-            pfp: "img/pers11.jpg",
-            title: "Reparación de fuga de tubería bajo lavabo",
-            details: "Hola, tengo una fuga de agua en la tubería del lavabo de mi baño principal. El agua gotea constantemente y ya intenté ajustar las conexiones, pero persiste. Necesito que un plomero revise y repare la tubería. Preferiría que el servicio fuera este viernes por la mañana (10 am a 2 pm). El lavabo es de porcelana y las tuberías son de PVC. ¡Gracias!"
-        },
-        {
-            id: 2,
-            is_archived: false,
-            nombre: "Sergio",
-            email: "sergio@gmail.com",
-            telefono: "9987654321",
-            date_created: "10 de Abril",
-            pfp: "img/pers12.jpg",
-            title: "Destapar drenaje de la cocina con obstrucción grave",
-            details: "Buen día, el drenaje de mi cocina está completamente tapado desde ayer. Ya intenté usar desatascador y soda cáustica, pero no funcionó. El agua ya no baja y hay mal olor. Necesito un plomero con herramienta profesional (como hidrojet o serpentina) para destaparlo. La tubería es de PVC y tiene aproximadamente 3 años de instalación. Preferiría el servicio hoy o mañana en la tarde (después de 4 pm). ¡Agradezco su ayuda!"
-        },
-        {
-            id: 3,
-            is_archived: true,
-            nombre: "Ana",
-            email: "ana.banana@gmail.com",
-            telefono: "9988765432",
-            date_created: "15 de Enero",
-            pfp: "img/pers10.jpg",
-            title: "Cambio de válvula del paso de agua general (está goteando)",
-            details: "Hola, tengo una fuga de agua en la tubería del lavabo de mi baño principal. El agua gotea constantemente y ya intenté ajustar las conexiones, pero persiste. Necesito que un plomero revise y repare la tubería. Preferiría que el servicio fuera este viernes por la mañana (10 am a 2 pm). El lavabo es de porcelana y las tuberías son de PVC. ¡Gracias!"
-        }
-    ]);
+    // CONTADOR DE SOLICITUDES NUEVAS
+    const nuevasCount = solicitudes.filter(s => !s.isArchived).length;
+
 
     // PARA ARCHIVAR/DESARCHIVAR SOLICITUDES
-    const toggleArchivada = (id) => {
+    const toggleArchivada = (id, isArchived) => {
+
+        axios.patch('http://localhost:3000/lead/' + id,
+            { "archivedFlag": !isArchived })
+            .catch(() => console.log("Ocrurrio un error al patch"))
+
         setSolicitudes(solicitudes.map(solicitud =>
-            solicitud.id === id
-                ? { ...solicitud, is_archived: !solicitud.is_archived }
+            solicitud.idLead === id
+                ? { ...solicitud, isArchived: !solicitud.isArchived }
                 : solicitud
         ));
     };
 
-    // CONTADOR DE SOLICITUDES NUEVAS
-    const nuevasCount = solicitudes.filter(s => !s.is_archived).length;
+    const dateReview = (dateString) => {
+        const month = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+        let d = new Date(dateString);
+
+        return d.getDate() + " " + month[d.getMonth()] + " " + d.getFullYear();
+
+    }
+
+	useEffect(() => {
+		if (user.loggedIn && user.user.idWorker) {
+			console.log("IS A WORKER");
+
+            axios.get('http://localhost:3000/leads/' + user.user.idWorker)
+            .then(res => {
+                setSolicitudes(res.data)
+            })
+            .catch(() => {
+                console.error("Ha ocurrido un error");
+
+            })
+
+		} else {
+            navigate('/');
+			console.log("USER NOT LOGGED IN OR NOT A WORKER");
+		}
+
+	}, [user])
+
+    console.log("solicitudes: ", solicitudes);
+
 
     return (
         <>
@@ -74,29 +93,43 @@ function Leads() {
                     )}
                     <h3 className="section-title">Solicitudes Nuevas</h3>
                     <div id="solicitudes-nuevas">
+
                         {solicitudes
-                            .filter(solicitud => !solicitud.is_archived)
+                            .filter(solicitud => !solicitud.isArchived)
                             .map(solicitud => (
-                                <div key={solicitud.id} className="solicitud-card card shadow-sm">
+                                <div key={solicitud.idLead} className="solicitud-card card shadow-sm">
                                     <div className="trabajador-fondo">
                                         <div className="row">
                                             <div className="col-md-5">
                                                 <div className="d-flex align-items-start mb-3">
-                                                    <img
-                                                        src={solicitud.pfp}
-                                                        className="rounded-circle foto-trab me-3"
-                                                        alt="Foto del trabajador"
-                                                        style={{ width: 80, height: 80 }}
-                                                    />
+                                                    {solicitud.pfpFileName ? (
+                                                        <img
+                                                            src={"http://localhost:3000/images/" + solicitud.pfpFileName}
+                                                            className="rounded-circle foto-trab me-3"
+                                                            onError={(e) => {
+                                                                e.currentTarget.src = 'http://localhost:3000/images/icon.jpg';
+                                                            }}
+                                                            style={{ width: 80, height: 80 }}
+                                                            alt={solicitud.pfpFileName}
+                                                        />
+                                                    ) : (
+                                                        <img
+                                                            src="http://localhost:3000/images/icon.jpg"
+                                                            className="rounded-circle foto-trab me-3"
+                                                            alt={solicitud.pfpFileName}
+                                                            style={{ width: 80, height: 80 }}
+                                                        />
+                                                    )}
+
                                                     <div>
-                                                        <h5 className="mb-1">{solicitud.nombre}</h5>
+                                                        <h5 className="mb-1">{solicitud.username}</h5>
                                                         <span className="d-block text-muted">{solicitud.email}</span>
-                                                        <span className="d-block text-muted">{solicitud.telefono}</span>
+                                                        <span className="d-block text-muted">{solicitud.phone}</span>
+                                                        <span className="d-block text-muted">{dateReview(solicitud.date)}</span>
                                                         <br />
-                                                        <span className="d-block text-muted">{solicitud.date_created}</span>
                                                         <button
                                                             className="btn btn-archivar mt-2"
-                                                            onClick={() => toggleArchivada(solicitud.id)}
+                                                            onClick={() => toggleArchivada(solicitud.idLead)}
                                                         >
                                                             Archivar
                                                         </button>
@@ -119,28 +152,42 @@ function Leads() {
                     <h3 className="section-title">Solicitudes Archivadas</h3>
                     <div id="solicitudes-archivadas">
                         {solicitudes
-                            .filter(solicitud => solicitud.is_archived)
+                            .filter(solicitud => solicitud.isArchived)
                             .map(solicitud => (
-                                <div key={solicitud.id} className="solicitud-card card shadow-sm">
+                                <div key={solicitud.idLead} className="solicitud-card card shadow-sm">
                                     <div className="trabajador-fondo">
                                         <div className="row">
                                             <div className="col-md-5">
                                                 <div className="d-flex align-items-start mb-3">
-                                                    <img
-                                                        src={solicitud.pfp}
-                                                        className="rounded-circle foto-trab me-3"
-                                                        alt="Foto del trabajador"
-                                                        style={{ width: 80, height: 80 }}
-                                                    />
+                                                    {solicitud.pfpFileName ? (
+                                                        <img
+                                                            src={"http://localhost:3000/images/" + solicitud.pfpFileName}
+                                                            className="rounded-circle foto-trab me-3"
+                                                            onError={(e) => {
+                                                                e.currentTarget.src = 'http://localhost:3000/images/icon.jpg';
+                                                            }}
+                                                            style={{ width: 80, height: 80 }}
+                                                            alt={solicitud.pfpFileName}
+                                                        />
+                                                    ) : (
+                                                        <img
+                                                            src="http://localhost:3000/images/icon.jpg"
+                                                            className="rounded-circle foto-trab me-3"
+                                                            alt={solicitud.pfpFileName}
+                                                            style={{ width: 80, height: 80 }}
+                                                        />
+                                                    )}
+
+
                                                     <div>
-                                                        <h5 className="mb-1">{solicitud.nombre}</h5>
+                                                        <h5 className="mb-1">{solicitud.username}</h5>
                                                         <span className="d-block text-muted">{solicitud.email}</span>
-                                                        <span className="d-block text-muted">{solicitud.telefono}</span>
+                                                        <span className="d-block text-muted">{solicitud.phone}</span>
+                                                        <span className="d-block text-muted">{dateReview(solicitud.date)}</span>
                                                         <br />
-                                                        <span className="d-block text-muted">{solicitud.date_created}</span>
                                                         <button
                                                             className="btn btn-desarchivar mt-2"
-                                                            onClick={() => toggleArchivada(solicitud.id)}
+                                                            onClick={() => toggleArchivada(solicitud.idLead, solicitud.isArchived)}
                                                         >
                                                             Desarchivar
                                                         </button>

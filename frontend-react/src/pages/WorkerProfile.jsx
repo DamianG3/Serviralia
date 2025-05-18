@@ -12,7 +12,7 @@ import LeadForm from "../components/LeadForm";
 
 function WorkerProfile() {
     // CAMBIO DE LAS IMAGENES
-    const [serviceImages, setServiceImages] = useState([])
+    const [serviceImages, setServiceImages] = useState(["image.png"])
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
 
@@ -70,7 +70,8 @@ function WorkerProfile() {
         axios.get('http://localhost:3000/profileinfo/' + idWorker)
             .then(res => {
                 setWorkerInfo(res.data)
-                setServiceImages(res.data.info.gallery)
+                console.log("gall", res.data.info.gallery);
+                res.data.info.gallery ? setServiceImages(res.data.info.gallery): null;
             })
             .catch(error => {
                 console.error("Ha ocurrido un error");

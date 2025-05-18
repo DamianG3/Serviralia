@@ -6,12 +6,10 @@ import HeaderClient from "../layout/HeaderClient"; import Header from "../layout
 
 import '../css/electricidad.css'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 
 
 function SkillSearch() {
-    const navigate = useNavigate();
 
     // ID DE LA HABILIDAD
     const { id: idSkill } = useParams();

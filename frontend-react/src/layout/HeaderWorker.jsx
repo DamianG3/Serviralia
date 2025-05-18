@@ -6,8 +6,8 @@ function HeaderWorker({ user }) {
         <header>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                    <img src="img/logo.png" width={50} />
                     <a className="navbar-brand" href="/">
+                        <img src="http://localhost:3000/images/logo.png" width={50} />
                         Serviralia Cancún
                     </a>
                     <button
@@ -25,7 +25,7 @@ function HeaderWorker({ user }) {
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                             {/* Solicitudes */}
                             <li className="nav-item mx-2">
-                                <a className="nav-link position-relative" href="#">
+                                <a className="nav-link position-relative" href="/Leads">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width={20}
@@ -81,7 +81,7 @@ function HeaderWorker({ user }) {
                                     aria-labelledby="profileDropdown"
                                 >
                                     <li>
-                                        <a className="dropdown-item" href="/WorkerProfile">
+                                        <a className="dropdown-item" href={"/WorkerProfile/" + user.user.idWorker}>
                                             Mi perfil
                                         </a>
                                     </li>

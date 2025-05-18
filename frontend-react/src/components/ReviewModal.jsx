@@ -110,14 +110,6 @@ function ReviewModal({ idWorker, skillList }) {
 			console.error('Error submitting form', error.response.data);
 			seterrorMessage(error.response.data.error)
 		})
-		// finish
-		// alert('¡Reseña enviada con éxito! Gracias por tu feedback.');
-		// handleClose();
-		// setRating(0);
-		// setFormData({
-		// 	review: '',
-		// 	skill: ''
-		// })
 	}
 
 
@@ -132,7 +124,7 @@ function ReviewModal({ idWorker, skillList }) {
 
 	// Testing
 	// console.log("skillListOpt", skillListOpt);
-	console.log("formData", formData);
+	// console.log("formData", formData);
 	// console.log("imageContainers", imageContainers);
 
 
