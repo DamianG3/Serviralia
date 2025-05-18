@@ -65,8 +65,10 @@ function Leads() {
             })
 
 		} else {
-            navigate('/');
-			console.log("USER NOT LOGGED IN OR NOT A WORKER");
+            console.log("USER NOT LOGGED IN OR NOT A WORKER");
+            // navigate('/');
+            // console.log("redirecting...");
+            
 		}
 
 	}, [user])

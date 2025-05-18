@@ -712,8 +712,10 @@ app.post('/login', (req, res) => {
         })
     }
 
+    const qr = "SELECT id_user, id_worker, first_name, password_hash, pfp_file_name as pfp, UnreadLeads(id_worker) AS unread FROM Users LEFT JOIN Workers USING(id_user) WHERE email = ?;";
+
     db.promise()
-        .query("SELECT id_user, id_worker, first_name, password_hash, pfp_file_name as pfp FROM Users LEFT JOIN Workers USING(id_user) WHERE email = ?;", [email])
+        .query(qr, [email])
         .then(([resQuery]) => {
             if (!resQuery[0]) {
                 // If no user match the email
@@ -724,6 +726,7 @@ app.post('/login', (req, res) => {
             responseJSON.idWorker = resQuery[0]["id_worker"]
             responseJSON.firstName = resQuery[0]["first_name"]
             responseJSON.pfp = resQuery[0]["pfp"]
+            responseJSON.unread = resQuery[0]["unread"]
 
             // Compares the passwords
             return bcrypt.compare(password, resQuery[0]["password_hash"])
@@ -755,13 +758,13 @@ app.post('/logout', (req, res) => {
     // Destroy the session
     req.session.destroy(err => {
         if (err) {
-            return res.status(500).json({ success: false, message: 'Logout failed' });
+            return res.status(400).json({ error: "Hubo un error al cerrar sesión" });
         }
         
         // Clear the session cookie
         res.clearCookie('connect.sid'); // 'connect.sid' is the default name
         
-        res.json({ success: true, message: 'Logged out successfully' });
+        res.status(200).json({message: "Cerrando sesión..."})
     });
 });
 

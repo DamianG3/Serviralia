@@ -40,7 +40,6 @@ function App() {
       }).catch((error) => {
         console.log("error", error.response.data);
         setUser(error.response.data)
-
       })
 
   }, [])
@@ -53,7 +52,7 @@ function App() {
     <>
       <UserContext.Provider value={user}>
 
-        <Header user={user} />
+        <Header setUser={setUser} />
 
         <BrowserRouter>
           <Routes>

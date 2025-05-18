@@ -1,17 +1,22 @@
 import HeaderGuest from "./HeaderGuest";
 import HeaderClient from "./HeaderClient";
 import HeaderWorker from "./HeaderWorker";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from "../App"; // Import UserContext from App.jsx
+
 
 import '../css/style.css'
 import '../css/headerLogIn.css'
 
 
 
-function Header({ user }) {
+function Header({ setUser }) {
+    const user = useContext(UserContext);
+
     const [showGuest, setShowGuest] = useState(false);
     const [showClient, setShowClient] = useState(false);
     const [showWorker, setShowWorker] = useState(false);
+
 
     useEffect(() => {
         if (user.loggedIn) {
@@ -60,8 +65,8 @@ function Header({ user }) {
 
 
                                 {showGuest && <HeaderGuest />}
-                                {showClient && <HeaderClient user={user} />}
-                                {showWorker && <HeaderWorker user={user} />}
+                                {showClient && <HeaderClient setUser={setUser} />}
+                                {showWorker && <HeaderWorker setUser={setUser} />}
 
 
                                 {/* Dropdown de categorias */}

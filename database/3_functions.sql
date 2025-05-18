@@ -211,3 +211,31 @@ DELIMITER ;
 
 
 
+-- ------------------------------------- UnreadLeads ------------------------------------------
+
+DROP FUNCTION IF EXISTS UnreadLeads;
+
+DELIMITER $$
+
+CREATE FUNCTION UnreadLeads(
+	worker_in BIGINT
+	)
+    
+RETURNS INT
+DETERMINISTIC
+    
+BEGIN
+	DECLARE unread INT;
+
+	SELECT 
+		SUM(!is_archived) INTO unread
+	FROM 
+		Leads 
+	WHERE
+		id_worker = worker_in;
+
+        
+	-- If the return value is null, the function will return 0 
+	RETURN IFNULL(unread, 0);
+END $$
+DELIMITER ;
