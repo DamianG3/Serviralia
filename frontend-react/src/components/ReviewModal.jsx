@@ -131,7 +131,7 @@ function ReviewModal({ idWorker, skillList }) {
 
 	return (
 		<>
-			<Button variant="btn btn-primary" onClick={handleShow}>
+			<Button variant="btn btn-warning" onClick={handleShow}>
 				Escribir Reseña
 			</Button>
 
@@ -222,7 +222,7 @@ function ReviewModal({ idWorker, skillList }) {
 							Cancelar
 						</Button>
 						<span>
-							<Button variant="btn btn-primary" type="submit">
+							<Button variant="btn btn-primaryWP" type="submit">
 								Enviar reseña
 							</Button>
 						</span>

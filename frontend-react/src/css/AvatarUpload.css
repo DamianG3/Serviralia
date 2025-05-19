@@ -77,6 +77,11 @@
   margin-top: -5px;
 }
 
+.btn-primary:hover {
+  background-color: #1e4a7b;
+  color: white;
+}
+
 .imgUp {
   margin-bottom: 15px;
   position: relative;

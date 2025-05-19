@@ -71,7 +71,7 @@ function WorkerProfile() {
             .then(res => {
                 setWorkerInfo(res.data)
                 console.log("gall", res.data.info.gallery);
-                res.data.info.gallery ? setServiceImages(res.data.info.gallery): null;
+                res.data.info.gallery ? setServiceImages(res.data.info.gallery) : null;
             })
             .catch(error => {
                 console.error("Ha ocurrido un error");
@@ -172,7 +172,7 @@ function WorkerProfile() {
                 {/*CONTACTO*/}
                 <div className="contacto">
                     {/* Inicia contacto objeto */}
-                        <LeadForm idWorker={workerInfo.info.id}/>
+                    <LeadForm idWorker={workerInfo.info.id} />
 
                     {/* <div className="seccion-contacto col-md-4">
                         <form>
@@ -219,12 +219,15 @@ function WorkerProfile() {
                                         </div>
                                         <h4 className="mb-4">{workerInfo.ratings[0].rating}</h4>
 
+
                                         {workerInfo.ratings?.filter((_, index) => index !== 0).map((rating) => (
                                             <div className="category-rating mb-3">
                                                 <span>{rating.skill}</span>
                                                 <div className="d-inline-block ms-2">
-                                                    <PrettyStars rating={rating.rating} />
-                                                    <span className="ms-1">{rating.rating}</span>
+                                                    <div className="d-flex align-items-center gap-2">
+                                                        <PrettyStars rating={rating.rating} />
+                                                        <span className="ms-1">{rating.rating}</span>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -232,7 +235,7 @@ function WorkerProfile() {
 
                                         <br />
                                         {/*MODAL PARA RESEÑAS*/}
-                                        < ReviewModal idWorker={workerInfo.info.id} skillList={workerInfo.info.skills}/>
+                                        < ReviewModal idWorker={workerInfo.info.id} skillList={workerInfo.info.skills} />
                                     </div>
                                 </div>
                             </div>
@@ -285,21 +288,21 @@ function WorkerProfile() {
                                             {/* {review.gallery?.map((val) => val)} */}
 
                                             <div className="col-md-4">
-                                            <div className="row g-2">
-                                                {review.gallery?.map((image, index) => (
-                                                    <div key={index} className="col-6">
-                                                        <img
-                                                            src={`http://localhost:3000/images/${image}`}
-                                                            onError={(e) => {
-                                                                e.currentTarget.src = 'http://localhost:3000/images/image.png';
-                                                            }}
-                                                            className="img-fluid rounded reparacion-img"
-                                                            alt={`${index + 1}` + ` ${image}`}
-                                                        />
-                                                    </div>
-                                                ))}
+                                                <div className="row g-2">
+                                                    {review.gallery?.map((image, index) => (
+                                                        <div key={index} className="col-6">
+                                                            <img
+                                                                src={`http://localhost:3000/images/${image}`}
+                                                                onError={(e) => {
+                                                                    e.currentTarget.src = 'http://localhost:3000/images/image.png';
+                                                                }}
+                                                                className="img-fluid rounded reparacion-img"
+                                                                alt={`${index + 1}` + ` ${image}`}
+                                                            />
+                                                        </div>
+                                                    ))}
+                                                </div>
                                             </div>
-                                        </div>
 
                                         </div>
                                     </div>
