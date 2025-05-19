@@ -66,3 +66,12 @@
   justify-content: center;
   text-align: center;
 }
+
+.nav-item .d-flex {
+  background-color: #2A5C8C;
+}
+
+.nav-item .d-flex:hover {
+  background-color: #FFC107;
+  color: black;
+}
