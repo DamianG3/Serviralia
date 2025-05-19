@@ -28,7 +28,11 @@ INSERT INTO Users(email, phone, password_hash, first_name, last_name, pfp_file_n
     ("JuanH@gmail.com", "9988776636", "kYDG2V3@t^Wo$8ZY4d#t", "Juan", "Hernandez", "JuanHernandez.jpg", "1988-06-27"),
     ("DanielM@gmail.com", "9988776637", "A%gQv5*!!NGEH^5##u4v", "Daniel", "Mediavilla", "Daniel.jpg", "1988-06-27"),
     ("DavidO@gmail.com", "9988776638", "4%j^NX%@#3&i3Me#&#Y9", "David", "Ordóñez", "David.jpg", "1988-06-27"),
-    ("ElizabethR@gmail.com", "9988776639", "gKAyfbHZTr*!G2Gy$6H2", "Elizabeth", "Ramos", "Elizabeth.jpg", "1988-06-27");
+    ("ElizabethR@gmail.com", "9988776639", "gKAyfbHZTr*!G2Gy$6H2", "Elizabeth", "Ramos", "Elizabeth.jpg", "1988-06-27"),
+    
+    ("Mendoza@gmail.com", "988776631", "gKAyfbHZTr*!G2Gy$6H2", "Alejandro", "Mendoza", "pers1.jpg", "1988-06-27"),
+    ("Perez@gmail.com", "988776632", "gKAyfbHZTr*!G2Gy$6H2", "Juan", "Pérez", "pers2.jpg", "1988-06-27"),
+    ("Gomez@gmail.com", "988776633", "gKAyfbHZTr*!G2Gy$6H2", "David", "Gomez", "pers3.jpg", "1988-06-27");
     
     
 INSERT INTO Workers(id_user, bio) VALUES
@@ -106,8 +110,11 @@ Especialidades:
 - Preparación de superficies (lijado, sellado, reparación de grietas)
 - Aplicación de esmaltes, vinílicos y efectos decorativos
 - Pintura de muebles y detalles arquitectónicos"),
-    (18, "¡Hola! Soy cerrajero certificado con más de 8 años resolviendo emergencias en Cancún. Mi trabajo va más allá de abrir puertas: ofrezco soluciones de seguridad rápidas, discretas y sin daños para hogares, autos y negocios.");
-
+    (18, "¡Hola! Soy cerrajero certificado con más de 8 años resolviendo emergencias en Cancún. Mi trabajo va más allá de abrir puertas: ofrezco soluciones de seguridad rápidas, discretas y sin daños para hogares, autos y negocios."),
+	(28, "¡Ni goteras ni fugas! Soluciones en plomería, utilizando materiales duraderos y de alta calidad."),
+    (29, "Te ayudo a construir tus sueños con materiales de alta calidad que garantiza resultados."),
+    (30, "Reparo tu vehículo con precisión y calidad, asegurando un rendimiento óptimo en cada viaje.");
+	
 INSERT INTO Skills(skill_name) VALUES
     ("Plomería"), -- 1
     ("Electricidad"), -- 2
@@ -138,7 +145,11 @@ INSERT INTO WorkerSkills(id_worker, id_skill) VALUES
     (15, 5),
     (16, 6),
     (17, 6),
-    (18, 6);
+    (18, 6),
+    (19, 1),
+    (20, 5),
+	(21, 4);
+    
     
     
 INSERT INTO WorkerGallery(id_worker, file_name) VALUES
@@ -171,7 +182,10 @@ INSERT INTO WorkerGallery(id_worker, file_name) VALUES
 	(16, "16WorkerGallery2.jpg"),
 	(17, "17WorkerGallery.jpg"),
 	(18, "18WorkerGallery.jpg"),
-	(18, "18WorkerGallery2.jpg");
+	(18, "18WorkerGallery2.jpg"),
+    (19, "reparacion1.jpg"),
+    (20, "reparacion2.jpg"),
+    (21, "reparacion3.jpg");
 
 
 INSERT INTO Reviews(id_worker, id_user, rating, review_txt, id_skill) VALUES
@@ -217,16 +231,16 @@ INSERT INTO Leads(id_worker, id_user, title, details, is_archived) VALUES
     (10, 20, "Pregunta de horarios", "¿Qué horarios tiene libre esta semana?", 1);
 
 -- Test leads, execute after adding a worker
-INSERT INTO Leads(id_worker, id_user, title, details, is_archived) VALUES
-	(19, 8, "Reparación urgente en cocina",
-"El problema empezó ayer por la noche. Necesito atención lo antes posible, preferiblemente hoy en la tarde después de las 4 PM o mañana en la mañana. ¿Podría darme un estimado de costo y disponibilidad?", 0),
-	(19, 12, "Instalación de equipo comprado",
-"Ya adquirí un producto y necesito ayuda para instalarlo correctamente. Incluye manual y todas las piezas. ¿Cuánto cobraría por la instalación? Estoy disponible los fines de semana.", 0),
-	(19, 4, "Varios arreglos en casa",
-"Tengo 3 trabajos pequeños que necesito resolver", 0),
-	(19, 3, "Asesoría para problema recurrente",
-"Hace semanas que empezó un problema en mi casa. Ya intenté muchas cosas, pero sigue pasando. Necesito que un profesional lo revise y me diga si es algo grave o tiene solución sencilla. ¿Ofrece diagnóstico previo?", 0),
-	(19, 14, "Mantenimiento general preventivo",
-"Quiero evitar futuros problemas. Busco a alguien que haga una revisión completa y sugiera ajustes necesarios. ¿Tiene experiencia en este tipo de servicios? Mi disponibilidad es flexible.", 1);
+-- INSERT INTO Leads(id_worker, id_user, title, details, is_archived) VALUES
+-- 	(22, 8, "Reparación urgente en cocina",
+-- "El problema empezó ayer por la noche. Necesito atención lo antes posible, preferiblemente hoy en la tarde después de las 4 PM o mañana en la mañana. ¿Podría darme un estimado de costo y disponibilidad?", 0),
+-- 	(22, 12, "Instalación de equipo comprado",
+-- "Ya adquirí un producto y necesito ayuda para instalarlo correctamente. Incluye manual y todas las piezas. ¿Cuánto cobraría por la instalación? Estoy disponible los fines de semana.", 0),
+-- 	(22, 4, "Varios arreglos en casa",
+-- "Tengo 3 trabajos pequeños que necesito resolver", 0),
+-- 	(22, 3, "Asesoría para problema recurrente",
+-- "Hace semanas que empezó un problema en mi casa. Ya intenté muchas cosas, pero sigue pasando. Necesito que un profesional lo revise y me diga si es algo grave o tiene solución sencilla. ¿Ofrece diagnóstico previo?", 0),
+-- 	(22, 14, "Mantenimiento general preventivo",
+-- "Quiero evitar futuros problemas. Busco a alguien que haga una revisión completa y sugiera ajustes necesarios. ¿Tiene experiencia en este tipo de servicios? Mi disponibilidad es flexible.", 1);
 
 

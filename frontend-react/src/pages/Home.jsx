@@ -116,136 +116,145 @@ function Home({ user }) {
                         <h2 className="mb-4">Recomendados por la comunidad:</h2>
                         <div className="row trabajadores-container">
                             {/*TRAB 1*/}
+
+
                             <div className="col-md-4 mb-4">
-                                <div className="trabajador-fondo p-3">
-                                    <div className="row align-items-center mb-4">
-                                        <div className="col-auto">
-                                            <img
-                                                src="img/pers1.jpg"
-                                                className="rounded-circle foto-trab"
-                                                alt="Foto del trabajador"
-                                            />
-                                        </div>
-                                        <div className="col">
-                                            <h5 className="mb-1">Alejandro Mendoza</h5>
-                                            <div className="d-flex align-items-center">
-                                                <div className="d-flex align-items-center">
-                                                    <PrettyStars rating={4.7} />
-                                                    <span className="ms-2 text-muted">4.7</span>
-                                                </div>
-                                            </div>
-                                            <span className="ms-2 text-muted">(85 reseñas)</span>
-                                        </div>
-                                        <div className="col-12 mt-2">
-                                            <button className="btn botonplom">Plomería</button>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <div className="card service-card h-100">
+                                <a href={'/WorkerProfile/19'}>
+                                    <div className="trabajador-fondo p-3">
+                                        <div className="row align-items-center mb-4">
+                                            <div className="col-auto">
                                                 <img
-                                                    src="img/Reparacion1.png"
-                                                    className="card-img-top"
-                                                    alt="Trabajo de plomería"
+                                                    src="img/pers1.jpg"
+                                                    className="rounded-circle foto-trab"
+                                                    alt="Foto del trabajador"
                                                 />
-                                                <div className="card-body">
-                                                    <p className="card-text">
-                                                        ¡Ni goteras ni fugas! Soluciones en plomería, utilizando
-                                                        materiales duraderos y de alta calidad.
-                                                    </p>
+                                            </div>
+                                            <div className="col">
+                                                <h5 className="mb-1" style={{color:'black'}}>Alejandro Mendoza</h5>
+                                                <div className="d-flex align-items-center">
+                                                    <div className="d-flex align-items-center">
+                                                        <PrettyStars rating={4.7} />
+                                                        <span className="ms-2 text-muted">4.7</span>
+                                                    </div>
+                                                </div>
+                                                <span className="ms-2 text-muted">(85 reseñas)</span>
+                                            </div>
+                                            <div className="col-12 mt-2">
+                                                <button className="btn botonplom">Plomería</button>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <div className="card service-card h-100">
+                                                    <img
+                                                        src="img/Reparacion1.png"
+                                                        className="card-img-top"
+                                                        alt="Trabajo de plomería"
+                                                    />
+                                                    <div className="card-body">
+                                                        <p className="card-text">
+                                                            ¡Ni goteras ni fugas! Soluciones en plomería, utilizando
+                                                            materiales duraderos y de alta calidad.
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
+
                             {/*TRAB 2*/}
                             <div className="col-md-4 mb-4">
-                                <div className="trabajador-fondo p-3">
-                                    <div className="row align-items-center mb-4">
-                                        <div className="col-auto">
-                                            <img
-                                                src="img/pers2.jpg"
-                                                className="rounded-circle foto-trab"
-                                                alt="Foto del trabajador"
-                                            />
-                                        </div>
-                                        <div className="col">
-                                            <h5 className="mb-1">Juan Pérez</h5>
-                                            <div className="d-flex align-items-center">
-                                                <div className="d-flex align-items-center">
-                                                    <PrettyStars rating={4.6} />
-                                                    <span className="ms-2 text-muted">4.6</span>
-                                                </div>
-                                            </div>
-                                            <span className="ms-2 text-muted">(63 reseñas)</span>
-                                        </div>
-                                        <div className="col-12 mt-2">
-                                            <button className="btn botonplom">Construcción</button>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <div className="card service-card h-100">
+                                <a href={'/WorkerProfile/20'}>
+                                    <div className="trabajador-fondo p-3">
+                                        <div className="row align-items-center mb-4">
+                                            <div className="col-auto">
                                                 <img
-                                                    src="img/reparacion3.jpg"
-                                                    className="card-img-top"
-                                                    alt="Trabajo de plomería"
+                                                    src="img/pers2.jpg"
+                                                    className="rounded-circle foto-trab"
+                                                    alt="Foto del trabajador"
                                                 />
-                                                <div className="card-body">
-                                                    <p className="card-text">
-                                                        Te ayudo a construir tus sueños con materiales de alta
-                                                        calidad que garantiza resultados.
-                                                    </p>
+                                            </div>
+                                            <div className="col">
+                                                <h5 className="mb-1" style={{color:'black'}}>Juan Pérez</h5>
+                                                <div className="d-flex align-items-center">
+                                                    <div className="d-flex align-items-center">
+                                                        <PrettyStars rating={4.6} />
+                                                        <span className="ms-2 text-muted">4.6</span>
+                                                    </div>
+                                                </div>
+                                                <span className="ms-2 text-muted">(63 reseñas)</span>
+                                            </div>
+                                            <div className="col-12 mt-2">
+                                                <button className="btn botonplom">Construcción</button>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <div className="card service-card h-100">
+                                                    <img
+                                                        src="img/reparacion3.jpg"
+                                                        className="card-img-top"
+                                                        alt="Trabajo de plomería"
+                                                    />
+                                                    <div className="card-body">
+                                                        <p className="card-text">
+                                                            Te ayudo a construir tus sueños con materiales de alta
+                                                            calidad que garantiza resultados.
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             {/*TRAB 3*/}
                             <div className="col-md-4 mb-4">
-                                <div className="trabajador-fondo p-3">
-                                    <div className="row align-items-center mb-4">
-                                        <div className="col-auto">
-                                            <img
-                                                src="img/pers3.jpg"
-                                                className="rounded-circle foto-trab"
-                                                alt="Foto del trabajador"
-                                            />
-                                        </div>
-                                        <div className="col">
-                                            <h5 className="mb-1">David Gomez</h5>
-                                            <div className="d-flex align-items-center">
-                                                <div className="d-flex align-items-center">
-                                                    <PrettyStars rating={4.5} />
-                                                    <span className="ms-2 text-muted">4.5</span>
-                                                </div>
-                                            </div>
-                                            <span className="ms-2 text-muted">(29 reseñas)</span>
-                                        </div>
-                                        <div className="col-12 mt-2">
-                                            <button className="btn botonplom">Mecánica</button>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <div className="card service-card h-100">
+                                <a href={'/WorkerProfile/21'}>
+                                    <div className="trabajador-fondo p-3">
+                                        <div className="row align-items-center mb-4">
+                                            <div className="col-auto">
                                                 <img
-                                                    src="img/reparacion2.jpg"
-                                                    className="card-img-top"
-                                                    alt="Trabajo de mecánica"
+                                                    src="img/pers3.jpg"
+                                                    className="rounded-circle foto-trab"
+                                                    alt="Foto del trabajador"
                                                 />
-                                                <div className="card-body">
-                                                    <p className="card-text">
-                                                        Reparo tu vehículo con precisión y calidad, asegurando un
-                                                        rendimiento óptimo en cada viaje.
-                                                    </p>
+                                            </div>
+                                            <div className="col">
+                                                <h5 className="mb-1" style={{color:'black'}}>David Gomez</h5>
+                                                <div className="d-flex align-items-center">
+                                                    <div className="d-flex align-items-center">
+                                                        <PrettyStars rating={4.5} />
+                                                        <span className="ms-2 text-muted">4.5</span>
+                                                    </div>
+                                                </div>
+                                                <span className="ms-2 text-muted">(29 reseñas)</span>
+                                            </div>
+                                            <div className="col-12 mt-2">
+                                                <button className="btn botonplom">Mecánica</button>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <div className="card service-card h-100">
+                                                    <img
+                                                        src="img/reparacion2.jpg"
+                                                        className="card-img-top"
+                                                        alt="Trabajo de mecánica"
+                                                    />
+                                                    <div className="card-body">
+                                                        <p className="card-text">
+                                                            Reparo tu vehículo con precisión y calidad, asegurando un
+                                                            rendimiento óptimo en cada viaje.
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>

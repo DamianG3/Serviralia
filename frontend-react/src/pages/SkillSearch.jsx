@@ -2,10 +2,11 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import Footer from "../layout/Footer";
-import HeaderClient from "../layout/HeaderClient"; import Header from "../layout/HeaderGuest";
 
 import '../css/electricidad.css'
 import axios from 'axios';
+import PrettyStars from '../components/PrettyStars';
+import PrettySkills from '../components/PrettySkills';
 
 
 
@@ -63,14 +64,15 @@ function SkillSearch() {
                                                             <div>
                                                                 <h5 className="mb-1">{worker.fullName}</h5>
                                                                 <div className="d-flex align-items-center">
-                                                                    <div className="rating-stars">
-                                                                        {Array.from({ length: worker.rating }, (_, index) => (
-                                                                            <span key={index} className="text-warning">★</span>
-                                                                        ))}
-                                                                    </div>
+                                                                    <PrettyStars rating={worker.rating} />
                                                                     <span className="ms-2 text-muted">{worker.rating}</span>
                                                                 </div>
-                                                                <span className="d-block text-muted">({worker.totalReviews} reseñas)</span>
+                                                                {worker.totalReviews === 1 ? (
+                                                                    <span className="d-block text-muted">({worker.totalReviews} reseña)</span>
+                                                                ) : (
+                                                                    <span className="d-block text-muted">({worker.totalReviews} reseñas)</span>
+                                                                )}
+                                                                <PrettySkills skills={worker.skills} />
                                                                 {/* <button className="btn botonplom mt-2">{idSkill}</button> */}
                                                             </div>
                                                         </div>
@@ -85,7 +87,7 @@ function SkillSearch() {
                                             </div>
                                         </div>
                                         <div className="col-md-4">
-                                            <div className="row g-2">
+                                            <div className="row g-2 flex-row-reverse">
                                                 {worker.gallery?.map((image, index) => (
                                                     <div key={index} className="col-6">
                                                         <img
