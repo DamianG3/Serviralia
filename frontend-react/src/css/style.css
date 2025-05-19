@@ -150,7 +150,7 @@
 }
 
 .trabajador-fondo {
-  background-color: rgb(255, 255, 255);
+  background-color: white !important;
   border-radius: 30px;
   height: 100%;
 }
