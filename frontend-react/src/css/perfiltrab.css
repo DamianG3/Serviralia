@@ -211,16 +211,15 @@
   align-items: center;
   margin-bottom: 0.5rem;
   padding: 0.5rem;
+  /* background-color: #f8f9fa;
+  color: black; */
   background-color: #2A5C8C;
   color: white;
   border-radius: 5px;
 }
 
-/* .d-inline-block {
-  background-color: #2A5C8C;
-} */
-
 .category-rating .d-flex{
+  /* background-color: #f8f9fa; */
   background-color: #2A5C8C;
 }
 
