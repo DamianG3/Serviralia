@@ -90,7 +90,6 @@ function Leads() {
                     {/* Sección de Solicitudes Nuevas */}
                     <div className="d-flex align-items-center gap-3">
                         {nuevasCount > 0 && (
-
                             <div className="badge bg-primary notification-badge">
                                 {nuevasCount}
                             </div>
@@ -131,7 +130,7 @@ function Leads() {
                                                         <span className="d-block text-muted">{solicitud.email}</span>
                                                         <span className="d-block text-muted">{solicitud.phone}</span>
                                                         <span className="d-block text-muted">{dateReview(solicitud.date)}</span>
-                                                        <br />
+                                                        {/* <br /> */}
                                                         <button
                                                             className="btn btn-archivar mt-2"
                                                             onClick={() => toggleArchivada(solicitud.idLead)}
@@ -189,7 +188,7 @@ function Leads() {
                                                         <span className="d-block text-muted">{solicitud.email}</span>
                                                         <span className="d-block text-muted">{solicitud.phone}</span>
                                                         <span className="d-block text-muted">{dateReview(solicitud.date)}</span>
-                                                        <br />
+                                                        {/* <br /> */}
                                                         <button
                                                             className="btn btn-desarchivar mt-2"
                                                             onClick={() => toggleArchivada(solicitud.idLead, solicitud.isArchived)}
