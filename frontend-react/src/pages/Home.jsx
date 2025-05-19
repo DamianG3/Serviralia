@@ -1,12 +1,12 @@
 import Footer from "../layout/Footer";
 import Header from "../layout/HeaderGuest";
-
+import PrettyStars from "../components/PrettyStars";
 import '../css/style.css'
 
 function Home({ user }) {
     return (
         <>
-        {/* <Header user={user} /> */}
+            {/* <Header user={user} /> */}
             <>
                 <main className="container">
                     <div className="row align-items-center g-1">
@@ -129,14 +129,10 @@ function Home({ user }) {
                                         <div className="col">
                                             <h5 className="mb-1">Alejandro Mendoza</h5>
                                             <div className="d-flex align-items-center">
-                                                <div className="rating-stars">
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
+                                                <div className="d-flex align-items-center">
+                                                    <PrettyStars rating={4.7} />
+                                                    <span className="ms-2 text-muted">4.7</span>
                                                 </div>
-                                                <span className="ms-2 text-muted">4.7</span>
                                             </div>
                                             <span className="ms-2 text-muted">(85 reseñas)</span>
                                         </div>
@@ -177,14 +173,10 @@ function Home({ user }) {
                                         <div className="col">
                                             <h5 className="mb-1">Juan Pérez</h5>
                                             <div className="d-flex align-items-center">
-                                                <div className="rating-stars">
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
+                                                <div className="d-flex align-items-center">
+                                                    <PrettyStars rating={4.6} />
+                                                    <span className="ms-2 text-muted">4.6</span>
                                                 </div>
-                                                <span className="ms-2 text-muted">4.6</span>
                                             </div>
                                             <span className="ms-2 text-muted">(63 reseñas)</span>
                                         </div>
@@ -225,14 +217,10 @@ function Home({ user }) {
                                         <div className="col">
                                             <h5 className="mb-1">David Gomez</h5>
                                             <div className="d-flex align-items-center">
-                                                <div className="rating-stars">
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
-                                                    <span className="text-warning">★</span>
+                                                <div className="d-flex align-items-center">
+                                                    <PrettyStars rating={4.5} />
+                                                    <span className="ms-2 text-muted">4.5</span>
                                                 </div>
-                                                <span className="ms-2 text-muted">4.5</span>
                                             </div>
                                             <span className="ms-2 text-muted">(29 reseñas)</span>
                                         </div>
