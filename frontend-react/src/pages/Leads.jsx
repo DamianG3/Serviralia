@@ -51,27 +51,27 @@ function Leads() {
 
     }
 
-	useEffect(() => {
-		if (user.loggedIn && user.user.idWorker) {
-			console.log("IS A WORKER");
+    useEffect(() => {
+        if (user.loggedIn && user.user.idWorker) {
+            console.log("IS A WORKER");
 
             axios.get('http://localhost:3000/leads/' + user.user.idWorker)
-            .then(res => {
-                setSolicitudes(res.data)
-            })
-            .catch(() => {
-                console.error("Ha ocurrido un error");
+                .then(res => {
+                    setSolicitudes(res.data)
+                })
+                .catch(() => {
+                    console.error("Ha ocurrido un error");
 
-            })
+                })
 
-		} else {
+        } else {
             console.log("USER NOT LOGGED IN OR NOT A WORKER");
             // navigate('/');
             // console.log("redirecting...");
-            
-		}
 
-	}, [user])
+        }
+
+    }, [user])
 
     console.log("solicitudes: ", solicitudes);
 
@@ -88,12 +88,15 @@ function Leads() {
 
                 <div className="container mt-4">
                     {/* Sección de Solicitudes Nuevas */}
-                    {nuevasCount > 0 && (
-                        <span className="badge bg-primary notification-badge">
-                            {nuevasCount}
-                        </span>
-                    )}
-                    <h3 className="section-title">Solicitudes Nuevas</h3>
+                    <div className="d-flex align-items-center gap-3">
+                        {nuevasCount > 0 && (
+
+                            <div className="badge bg-primary notification-badge">
+                                {nuevasCount}
+                            </div>
+                        )}
+                        <h3 className="section-title">Solicitudes Nuevas</h3>
+                    </div>
                     <div id="solicitudes-nuevas">
 
                         {solicitudes

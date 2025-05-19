@@ -35,6 +35,7 @@
 
 .dropdown-menu.horizontal-dropdown.show {
   display: flex;
+  overflow: scroll;
 }
 
 .dropdown-menu.horizontal-dropdown .dropdown-item {
