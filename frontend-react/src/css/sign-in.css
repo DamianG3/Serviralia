@@ -171,7 +171,14 @@ img {
   color: black;
   width: 129px;
   height: 40px;
-  /* margin: 12px; */
+  /* margin: 2px; */
+}
+
+.botoncuentas:hover {
+  background-color: #e0a800;
+  color: black;
+  width: 129px;
+  height: 40px;
 }
 
 .botonsubirfoto {
@@ -191,6 +198,11 @@ img {
     text-align: center;
     color: white;
     background-color:#2A5C8C;
+}
+
+.botonregistro:hover{
+    background-color: #214e78;
+    color: white;
 }
 
 .form-signup {

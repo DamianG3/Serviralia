@@ -118,11 +118,13 @@ function SignIn({ setUser }) {
                             <div class="col">
                                 <a href="/ClientSignUp">
                                     <button className="btn botoncuentas ">Cliente</button>
-                                </a>    </div>
+                                </a>
+                            </div>
                             <div class="col">
                                 <a href="/WorkerSignUp">
                                     <button className="btn botoncuentas ">Trabajador</button>
-                                </a>    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     {/* <a href="/ClientSignUp">
