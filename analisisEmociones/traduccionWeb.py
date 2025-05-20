@@ -24,10 +24,13 @@ def traducirPaginaWeb(url, dest_language='es'):
     except Exception as e:
         return f"Error: {str(e)}"
 
-# Obtiene los argumentos desde el script de Node.js
+# Ejecución desde el script de Node.js
 if __name__ == "__main__":
+    # Obtiene la URL desde los argumentos de la línea de comandos
     url = sys.argv[1]
+    # Obtiene el idioma al que se va a traducir desde los argumentos de la línea de comandos
     target_lang = sys.argv[2] if len(sys.argv) > 2 else 'en'
+    # Llama a la función de traducción y lo guarda
     result = traducirPaginaWeb(url, target_lang)
     # Imprime el resultado en formato JSON
     print(json.dumps({"translation": result}))
