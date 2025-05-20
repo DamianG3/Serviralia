@@ -1,0 +1,7 @@
+{
+  "type": "commonjs",
+  "dependencies": {
+    "ibm-watson": "^9.1.0",
+    "translate": "^3.0.1"
+  }
+}
