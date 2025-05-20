@@ -1,3 +1,4 @@
+// IMPORTS
 const { spawn } = require('child_process');
 const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
 const { IamAuthenticator } = require('ibm-watson/auth');
@@ -13,18 +14,22 @@ async function traducirPaginaWeb(url, targetLang = 'en') {
             targetLang
         ]);
 
+        // Recibe la salida del script de Python
         let result = '';
         pythonProcess.stdout.on('data', (data) => {
             result += data.toString();
         });
 
+        // En caso de error rechaza Promise y manda el error desde Pyhton a Node
         pythonProcess.stderr.on('data', (data) => {
             reject(data.toString());
         });
 
         pythonProcess.on('close', (code) => {
             try {
+                // Parsea el resultado en JSON de la traducción
                 const parsed = JSON.parse(result.trim());
+                // Devuelve el texto traducido
                 resolve(parsed.translation);
             } catch (err) {
                 reject("No se pudo parsear el texto de la url");
@@ -66,9 +71,9 @@ async function analizarResenas() {
             });
 
         // console.log(translatedText);
-        
+
     } catch (err) {
-        console.error("Error al hacer la traducción:", err);
+        console.error("Error al hacer el analisis:", err);
     }
 }
 
