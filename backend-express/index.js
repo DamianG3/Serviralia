@@ -84,9 +84,10 @@ const saltRounds = 10
 app.listen(PORT, (error) => {
     console.log();
 
-    if (!error)
+    if (!error){
         console.log("Server is Successfully Running, and App is listening on port " + PORT)
-    else
+        console.log("Swagger Documentation UI:http://localhost:"+PORT+"/apis-docs/")
+    } else
         console.log("Error occurred, server can't start", error);
 }
 );
@@ -166,7 +167,6 @@ app.get('/searchskill/:id', (req, res) => {
                 })
                 return;
             }
-
             res.json(resQuery[0])
         })
 })
@@ -187,7 +187,6 @@ app.get('/searchskill/:id', (req, res) => {
  *              description: OK
  *          400:
  *              description: Database error
- *              
  */
 app.get('/skills', (req, res) => {
     db.query("SELECT * FROM serviralia.skills order by id_skill;",
