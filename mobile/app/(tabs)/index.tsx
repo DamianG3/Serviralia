@@ -1,11 +1,12 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+// En el archivo: mobile/app/(tabs)/index.tsx
+
+import { Image, StyleSheet, Platform, View, Text } from 'react-native';
+import { Link } from 'expo-router'; // <--- 1. AÑADE ESTA LÍNEA
 
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
 
 export default function HomeScreen() {
   return (
@@ -27,53 +28,20 @@ export default function HomeScreen() {
           Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
           Press{' '}
           <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
+            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
           </ThemedText>{' '}
           to open developer tools.
         </ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
+      
+      {/* --- 2. AÑADE ESTE BLOQUE DE CÓDIGO --- */}
+      <View style={styles.linkContainer}>
+        <Link href="/login" style={styles.link}>
+          <Text style={styles.linkText}>Ir a Iniciar Sesión</Text>
         </Link>
+      </View>
+      {/* --- FIN DEL BLOQUE AÑADIDO --- */}
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
     </ParallaxScrollView>
   );
 }
@@ -95,4 +63,20 @@ const styles = StyleSheet.create({
     left: 0,
     position: 'absolute',
   },
+  // --- 3. AÑADE ESTOS ESTILOS AL FINAL ---
+  linkContainer: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  link: {
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    backgroundColor: '#2A5C8C',
+    borderRadius: 10,
+  },
+  linkText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  }
 });
