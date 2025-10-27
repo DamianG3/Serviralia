@@ -70,24 +70,6 @@ const archiveLead = async (req, res) => {
 }
 
 
-const methodResourse = async (req, res) => {
-    try {
-
-
-        res.json({
-            success: true,
-            message: "",
-            data: _
-        })
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "",
-            error: error.message
-        })
-    }
-}
-
 module.exports = {
     createLead,
     getLeadByID,

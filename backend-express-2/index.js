@@ -36,8 +36,8 @@ app.use(express.static('public'));
  * API
  */
 
-// const userRoutes = require('./routes/routes') // CAMBIAR A user.routes
-// app.use('/user', userRoutes)
+const userRoutes = require('./routes/user.routes')
+app.use('/user', userRoutes)
 
 const leadRoutes = require('./routes/lead.routes')
 app.use('/lead', leadRoutes)
