@@ -1,17 +1,4 @@
 
-/**
- * Dependencies
- */
-
-// Express: Server
-const express = require('express');
-const app = express();
-const PORT = 3000;
-
-// Swagger: Documentation and testing
-const swaggerJsDocs = require('swagger-jsdoc')
-const swaggerUI = require('swagger-ui-express')
-
 // Multer: Image upload
 const multer = require('multer')
 const path = require('path')
@@ -38,14 +25,12 @@ const deleteCreatedImage = (imagePath) => {
     }
 }
 
+
+/** IGNORE - Boring session managment for web
 // Session managment
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
-
-
-// MySQL2: Database server connection
-const mysql = require('mysql2')
 
 // CORS: HTTP headers and API middleware 
 const cors = require('cors')
@@ -68,66 +53,12 @@ app.use(session({
         expires: 1000 * 60 * 60 * 24
     }
 }))
+ */
 
 
 // bcrypt: Password hashing
 const bcrypt = require('bcrypt')
 const saltRounds = 10
-
-
-
-/**
- * SETUP
- */
-
-// Make server available
-app.listen(PORT, (error) => {
-    console.log();
-
-    if (!error){
-        console.log("Server is Successfully Running, and App is listening on port " + PORT)
-        console.log("Swagger Documentation UI:http://localhost:"+PORT+"/apis-docs/")
-    } else
-        console.log("Error occurred, server can't start", error);
-}
-);
-
-// Connect to MySQL Server
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'serviralia_api',
-    // port:'3306',
-    password: 's#u&q$4g$b9%Yx9G8V4y@',
-    database: 'serviralia'
-})
-
-db.connect((errorDB) => {
-    if (errorDB) {
-        console.log("Error ocurred while connecting to MySQL Server: ");
-        console.log(errorDB.stack);
-
-        return;
-    }
-    console.log('Connected to MySQL Server');
-})
-
-// Swagger Configuration
-const swaggerOption = {
-    swaggerDefinition: {
-        openapi: '3.1.0',
-        info: {
-            title: 'API de Serviralia',
-            version: '1.0.0',
-            description: 'API de Serviralia'
-        }
-    },
-    apis: ['*.js']
-}
-const swaggerDocs = swaggerJsDocs(swaggerOption)
-app.use('/apis-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
-
-
-app.use('/images', express.static('images'));
 
 
 
@@ -1111,7 +1042,7 @@ app.post('/newreview', upload.array('gallery'), (req, res) => {
  */
 
 app.post('/lead', (req, res) => {
-    const { id_worker, id_client, title, details } = req.body // desconstruccion
+    
 
     // Validate data, pfpFileName can be null
     if (!id_worker || !id_client || !title || !details) {
@@ -1121,8 +1052,9 @@ app.post('/lead', (req, res) => {
     }
 
     db.query('CALL AddLead(?,?,?,?);',
-        [id_worker, id_client, title, details],
-        (err) => {
+        [id_worker, id_client, title, details]
+
+        ,(err) => {
             if (err) {
                 res.status(400).json({
                     error: "Error al enviar información"
@@ -1231,7 +1163,7 @@ app.patch('/lead/:id', (req, res) => {
                 })
             }
 
-            res.json(resQuery[0])
+            res.json(resQuery[0])   
         })
 })
 
