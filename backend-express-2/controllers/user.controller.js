@@ -12,7 +12,6 @@ const createReview = async (req, res) => {
 
 
     try {
-
         const { id_worker, id_client, rating, review, skill } = req.body
 
         // Validate data
@@ -20,7 +19,8 @@ const createReview = async (req, res) => {
             galleryPath?.forEach(deleteImage) // test
 
             return res.status(400).json({
-                error: "Datos incompletos"
+                success: false,
+                message: "Datos incompletos"
             })
         }
 
@@ -55,7 +55,7 @@ const createReview = async (req, res) => {
 
 const getAllSkills = async (req, res) => {
     try {
-        const [skills] = await bd.query('SELECT * FROM Skills order by id_skill');
+        const [skills] = await db.query('SELECT * FROM Skills order by id_skill');
         res.json({
             success: true,
             data: skills
@@ -76,7 +76,7 @@ const searchSkill = async (req, res) => {
 
         res.json({
             success: true,
-            data: result
+            data: result[0]
         })
 
     } catch (error) {
@@ -91,7 +91,7 @@ const searchSkill = async (req, res) => {
 const getWorkerInfo = async (req, res) => {
     try {
         const { id } = req.params;
-        const [worker] = await bd.query('SELECT * FROM workerData WHERE id = ?', [id]);
+        const [worker] = await db.query('SELECT * FROM workerData WHERE id = ?', [id]);
 
         if (worker.length === 0) {
             return res.status(404).json({
@@ -160,5 +160,4 @@ module.exports = {
     getAllSkills,
     searchSkill,
     getProfileInfo
-    // otros metodos
 }

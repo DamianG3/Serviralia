@@ -51,10 +51,10 @@ router.post('/review', upload.array('gallery'), controller.createReview)
 
 /**
  * @swagger
- * /skills:
+ * /user/skills:
  *  get:
  *      summary: Searches for all skills
- *      tags: [Search Page]
+ *      tags: [User]
  *      responses:
  *          200:
  *              description: OK
@@ -65,10 +65,10 @@ router.get('/skills', controller.getAllSkills)
 
 /**
  * @swagger
- * /SearchSkill/{id}:
+ * /user/SearchSkill/{id}:
  *  get:
  *      summary: Searches for all workers who have a specific skill
- *      tags: [Search Page]
+ *      tags: [User]
  *      parameters:
  *          - in: path
  *            name: id
@@ -84,10 +84,10 @@ router.get('/SearchSkill/:id', controller.searchSkill)
 
 /**
  * @swagger
- * /profileinfo/{id}:
+ * /user/profileinfo/{id}:
  *  get:
  *      summary: Returns all of the worker profile information
- *      tags: [Worker Profile Page]
+ *      tags: [User]
  *      parameters:
  *          - in: path
  *            name: id
@@ -101,6 +101,6 @@ router.get('/SearchSkill/:id', controller.searchSkill)
  *              description: Not Found
  *              
  */
-router.get('/profileinfo/:id', controller.getWorkerInfo)
+router.get('/profileinfo/:id', controller.getProfileInfo)
 
 module.exports = router;
