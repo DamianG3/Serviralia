@@ -137,5 +137,25 @@ const uploadMiddleware = upload.fields([{ name: 'pfp' }, { name: 'gallery' }])
 router.put('/worker', uploadMiddleware, controller.editWorkerAccount)
 
 
+/**
+ * @swagger
+ * /edit/{id}:
+ *  delete:
+ *      summary: Delete the account of a client or worker
+ *      tags: [Edit]
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            description: User ID
+ *      responses:
+ *          200:
+ *              description: OK
+ *          400:
+ *              description: Database error
+ *          404:
+ *              description: Not Found
+ */
+router.delete('/:id', controller.deleteAccount)
+
 
 module.exports = router;

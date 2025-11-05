@@ -709,3 +709,46 @@ DELIMITER ;
 --     1, -- lead_id
 --     0 -- archive_flag
 -- );
+
+-- ------------------------------------- DELETE THE ACCOUNT OF A CLIENT OR WORKER ------------------------------------------
+# This procedure deletes all the information related to the account of the user
+# Makes use of all the CONSTRAINTS ON DELETE CASCADE
+
+DROP PROCEDURE IF EXISTS DeleteUser;
+
+DELIMITER $$
+
+CREATE PROCEDURE DeleteUser(
+    IN in_user_id INT
+)
+BEGIN
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			ROLLBACK;
+			RESIGNAL;
+		END;
+    START TRANSACTION;
+    
+    -- Rollback if the user ID does not exist
+    IF NOT EXISTS (
+        SELECT
+            1
+        FROM
+            Users
+        WHERE
+            id_user = in_user_id)
+        THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'User ID does not exist';
+    END IF;
+    
+	DELETE FROM Users 
+		WHERE
+    id_user = in_user_id;
+    
+	COMMIT;
+END $$
+DELIMITER ;
+
+-- CALL DeleteUser(1);

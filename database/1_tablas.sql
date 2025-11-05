@@ -94,7 +94,7 @@ CREATE TABLE Reviews(
   CONSTRAINT reviews_id_user_FK
     FOREIGN KEY(id_user)
     REFERENCES Users(id_user)
-      ON DELETE SET NULL
+      ON DELETE CASCADE
       ON UPDATE CASCADE,
   CONSTRAINT reviews_id_skill_FK
     FOREIGN KEY(id_skill)
@@ -154,6 +154,6 @@ CREATE TABLE Leads(
   CONSTRAINT leads_id_user_FK
     FOREIGN KEY(id_user)
     REFERENCES Users(id_user)
-      ON DELETE SET NULL
+      ON DELETE CASCADE
       ON UPDATE CASCADE
 );

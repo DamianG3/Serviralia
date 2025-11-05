@@ -77,9 +77,10 @@ const editClientAccount = async (req, res) => {
                 message: "El telefono ya existe"
             })
         }
-
-        // Pendiente: Agregar funcion para eliminar la pfp antetior del directorio
-        // se tiene que hacer la consulta antes de llamar al procedimiento
+        
+        // Delete previous pfp
+        const [pfp] = await db.query("SELECT pfp_file_name FROM users where id_user = ?", [userID])
+        deleteCreatedImage(pfp[0]["pfp_file_name"]);
 
         await db.query('CALL EditUser(?,?,?,?,?,?,?)', [
             userID, firstName, lastName, email, imagePath, phone, birthDate
@@ -152,8 +153,15 @@ const editWorkerAccount = async (req, res) => {
             })
         }
 
-        // Pendiente: Agregar funcion para eliminar la pfp y galeria antetior del directorio
-        // se tiene que hacer la consulta antes de llamar al procedimiento
+        // Delete previous pfp
+        const [pfp] = await db.query("SELECT pfp_file_name FROM users where id_user = ?", [userID])
+        deleteCreatedImage(pfp[0]["pfp_file_name"]);
+        
+        // Delete previous worker gallery
+        const [gallery] = await db.query("SELECT file_name FROM WorkerGallery JOIN Workers USING (id_worker) WHERE id_user = ?", [userID])
+        gallery.forEach((i) => {
+            deleteCreatedImage(i["file_name"]);
+        })
 
         await db.query('CALL EditWorker(?,?,?,?,?,?,?,?,?,?)', [
             userID, firstName, lastName, email, pfpPath, phone, birthDate, biography, skill, JSON.stringify(galleryCheck)
@@ -176,9 +184,38 @@ const editWorkerAccount = async (req, res) => {
     }
 }
 
+
+const deleteAccount = async (req, res) => {
+    try {
+        const id = parseInt(req.params.id)
+
+
+        const [images] = await db.query("SELECT * FROM UserImages where id_user = ?", [id])
+
+        // console.log(images);
+        images.forEach((i) => {
+            deleteCreatedImage(i["file_name"]);
+        })
+
+        const [result] = await db.query("CALL DeleteUser(?)", [id])
+
+        res.json({
+            success: true
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Hubo un error al buscar al cliente",
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
     clientAccount,
     workerAccount,
     editClientAccount,
-    editWorkerAccount
+    editWorkerAccount,
+    deleteAccount
 }
