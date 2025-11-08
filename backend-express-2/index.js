@@ -42,14 +42,14 @@ app.use('/user', userRoutes)
 const leadRoutes = require('./routes/lead.routes')
 app.use('/lead', leadRoutes)
 
-// const signupRoutes = require('./routes/signup.routes')
-// app.use('/signup', signupRoutes)
+const signupRoutes = require('./routes/signup.routes')
+app.use('/signup', signupRoutes)
+
+const editRoutes = require('./routes/edit.routes')
+app.use('/edit', editRoutes)
 
 // const loginRoutes = require('./routes/login.routes')
 // app.use('/login', loginRoutes)
-
-// const editRoutes = require('./routes/edit.routes')
-// app.use('/edit', editRoutes)
 
 // Home
 app.get('/', (req, res) => {
