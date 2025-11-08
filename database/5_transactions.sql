@@ -272,7 +272,6 @@ CREATE PROCEDURE EditUser(
     IN user_first_name VARCHAR(100), 
     IN user_last_name VARCHAR(100), 
     IN user_email VARCHAR(254), 
-    IN user_password VARCHAR(72), 
     IN user_pfp_file_name VARCHAR(100),
     IN user_phone BIGINT,
     IN user_date_of_birth DATE
@@ -291,7 +290,6 @@ BEGIN
         first_name = user_first_name,
         last_name = user_last_name,
         email = user_email,
-        password_hash = user_password,
         pfp_file_name = user_pfp_file_name,
         phone = user_phone,
         date_of_birth = user_date_of_birth
@@ -308,7 +306,6 @@ DELIMITER ;
 -- 	'nameTest',
 --     'lastnameTest',
 --     'new9@mail.com',
---     'password',
 --     null,
 --     '100009',
 --     '2000-10-10');
@@ -329,7 +326,6 @@ CREATE PROCEDURE EditWorker(
     IN user_first_name VARCHAR(100), 
     IN user_last_name VARCHAR(100), 
     IN user_email VARCHAR(254), 
-    IN user_password VARCHAR(72), 
     IN user_pfp_file_name VARCHAR(100),
     IN user_phone BIGINT,
     IN user_date_of_birth DATE,
@@ -356,7 +352,6 @@ BEGIN
         first_name = user_first_name,
         last_name = user_last_name,
         email = user_email,
-        password_hash = user_password,
         pfp_file_name = user_pfp_file_name,
         phone = user_phone,
         date_of_birth = user_date_of_birth
@@ -714,3 +709,46 @@ DELIMITER ;
 --     1, -- lead_id
 --     0 -- archive_flag
 -- );
+
+-- ------------------------------------- DELETE THE ACCOUNT OF A CLIENT OR WORKER ------------------------------------------
+# This procedure deletes all the information related to the account of the user
+# Makes use of all the CONSTRAINTS ON DELETE CASCADE
+
+DROP PROCEDURE IF EXISTS DeleteUser;
+
+DELIMITER $$
+
+CREATE PROCEDURE DeleteUser(
+    IN in_user_id INT
+)
+BEGIN
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			ROLLBACK;
+			RESIGNAL;
+		END;
+    START TRANSACTION;
+    
+    -- Rollback if the user ID does not exist
+    IF NOT EXISTS (
+        SELECT
+            1
+        FROM
+            Users
+        WHERE
+            id_user = in_user_id)
+        THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'User ID does not exist';
+    END IF;
+    
+	DELETE FROM Users 
+		WHERE
+    id_user = in_user_id;
+    
+	COMMIT;
+END $$
+DELIMITER ;
+
+-- CALL DeleteUser(1);

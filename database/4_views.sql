@@ -169,3 +169,36 @@ CREATE VIEW workerData AS
 		Workers USING(id_user);
 
 
+-- ------------------------------------- VIEW OF USER IMAGES  ------------------------------------------
+# Use: Get the images related to a user
+
+DROP VIEW IF EXISTS UserImages;
+CREATE VIEW UserImages AS
+SELECT 
+    id_user, pfp_file_name file_name
+FROM
+    users 
+UNION ALL SELECT 
+    id_user, file_name
+FROM
+    Workers
+        JOIN
+    Users USING (id_user)
+        JOIN
+    WorkerGallery USING (id_worker) 
+UNION ALL SELECT 
+    id_user, file_name
+FROM
+    Reviews
+        JOIN
+    ReviewGallery USING (id_review)
+        JOIN
+    Users USING (id_user) 
+UNION ALL SELECT 
+    Workers.id_user, file_name
+FROM
+    Reviews
+        JOIN
+    ReviewGallery USING (id_review)
+        JOIN
+    Workers USING (id_worker)
