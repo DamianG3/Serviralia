@@ -159,6 +159,7 @@ module.exports = {
     createReview,
     getAllSkills,
     searchSkill,
+    getWorkerInfo,
     getProfileInfo
     // otros metodos
 }
