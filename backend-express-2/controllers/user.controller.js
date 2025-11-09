@@ -71,8 +71,20 @@ const getAllSkills = async (req, res) => {
 
 const searchSkill = async (req, res) => {
     try {
-        const idSkill = parseInt(req.params.id);
+        // If an ID is not send, the database returns all the workers ranked
+        const id = parseInt(req.params.id)
+        const idSkill = isNaN(id) ? null : id;
+
         const [result] = await db.query("CALL SearchSkill(?)", [idSkill]);
+
+        // console.log(result[0].length);
+
+        if (result[0].length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'El skill ID no existe'
+            })
+        }
 
         res.json({
             success: true,

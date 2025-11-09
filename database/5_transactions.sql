@@ -31,8 +31,8 @@ BEGIN
 			Workers USING(id_worker)
 		JOIN
 			Users USING(id_user) 
-            WHERE 
-		id_skill = in_skill_id) as workerList
+            WHERE in_skill_id IS NULL OR id_skill = in_skill_id
+            ) as workerList
     GROUP BY 
 		id_worker , fullName, pfpFileName, gallery, rating, totalReviews , skills
     ORDER BY 
