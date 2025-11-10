@@ -1,33 +1,58 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+// En el archivo: mobile/app/(tabs)/_layout.tsx
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import React from 'react';
+import { Tabs } from 'expo-router';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
+        headerShown: false, 
+        tabBarActiveTintColor: '#FFC107',  
+        tabBarInactiveTintColor: '#FFFFFF', 
+        tabBarShowLabel: false, // Oculta el texto
+        tabBarStyle: {
+          backgroundColor: '#2A5C8C', 
+          borderTopWidth: 0, 
+          height: 60, 
+        },
+      }}
+    >
+      {/* 1. Home (Orden: 1º) */}
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" size={28} color={color} />
+          ),
         }}
       />
+      {/* 2. Solicitudes/Contacto (Orden: 2º) */}
       <Tabs.Screen
-        name="explore"
+        name="contact"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="email" size={28} color={color} />
+          ),
+        }}
+      />
+      {/* 3. Perfil (Orden: 3º) */}
+      <Tabs.Screen
+        name="profile"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account" size={28} color={color} />
+          ),
+        }}
+      />
+      {/* 4. Preguntas/FAQ (Orden: 4º) */}
+      <Tabs.Screen
+        name="faq"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="help-circle" size={28} color={color} />
+          ),
         }}
       />
     </Tabs>
